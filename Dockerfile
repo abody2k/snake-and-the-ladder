@@ -3,13 +3,15 @@
 
 FROM node:slim as build
 WORKDIR /backend-build
-COPY backend/* .
-RUN npm i -g typescript && npm i && tsc
+COPY backend .
+RUN pwd && ls && npm i && npm i -g typescript && tsc
 
 
 
 FROM node:slim as production
 WORKDIR /backend
-COPY --from=build /backend-build/dist/* /backend/
-RUN npm i
+COPY backend/package.json .
+COPY --from=build /backend-build/dist .
+
+RUN pwd && ls && npm i
 CMD [ "node", "index.js" ]
