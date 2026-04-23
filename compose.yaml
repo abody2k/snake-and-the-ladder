@@ -7,21 +7,31 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
+
+
 services:
   app:
     build:
-      dockerfile: Dockerfile
+      dockerfile: dev.dockerfile
     ports:
       - 3000:3000
+    volumes:
+      - ./backend:/backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_INTERVAL=100
+    
     # If your application exposes a port, uncomment the following lines and change
     # the port numbers as needed. The first number is the host port and the second
     # is the port inside the container.
     # ports:
     #   - 8080:8080
-  redis:
-    image: redis
-    ports:
-      - 4000:3000
+  # redis:
+  #   image: redis
+  #   ports:
+  #     - 3001:6379
+
+
 
     # The commented out section below is an example of how to define a PostgreSQL
     # database that your application can use. `depends_on` tells Docker Compose to
