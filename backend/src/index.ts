@@ -52,6 +52,22 @@ app.post("/createRoom", async (req, res) => {
 })
 
 
+app.get("/getRoom?:roomID", async (req, res) => {
+
+
+
+    if (req.params.roomID) {
+
+        try {
+            res.sendStatus(200);
+
+        } catch (error) {
+            res.sendStatus(400);
+
+        }
+    }
+})
+
 app.listen(3000, async () => {
 
     console.log('LISTENING ');
