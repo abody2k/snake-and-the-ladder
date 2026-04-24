@@ -4,6 +4,8 @@
     // File Layout
     "rootDir": "src",
     "outDir": "dist",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module

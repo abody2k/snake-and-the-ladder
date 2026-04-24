@@ -1,4 +1,9 @@
 import express from 'express';
+import { CreateRedisClient, createRoom, getRoom, init } from './rooms.ts';
+
+
+let client = await CreateRedisClient();
+await init()
 
 
 let app = express()
@@ -6,9 +11,13 @@ app.use(express.json())
 // app.use
 
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
 
     res.send("englizzeee")
+
+    console.log(await (client).get("keyy"));
+    client.set("keyy", Date())
+
 })
 
 app.post("/login", (req, res) => {
@@ -22,9 +31,44 @@ app.post("/login", (req, res) => {
     }
 })
 
-app.listen(3000, () => {
 
+
+app.get("/createRoom", async (req, res) => {
+
+
+
+        try {
+            
+            res.send(await createRoom());
+
+        } catch (error) {
+            res.sendStatus(400);
+
+        }
+
+})
+
+
+app.get("/getRoom/:roomID", async (req, res) => {
+
+
+
+    if (req.params.roomID) {
+
+        try {
+            let roomData = await getRoom(req.params.roomID);
+            res.json(roomData);
+
+        } catch (error) {
+            res.sendStatus(400);
+
+        }
+    }
+})
+
+app.listen(3000, async () => {
 
     console.log('LISTENING ');
+
 
 })
