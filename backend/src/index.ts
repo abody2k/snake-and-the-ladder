@@ -1,10 +1,9 @@
 import express from 'express';
-import { CreateRedisClient, createRoom } from './rooms.ts';
-import type { RedisClientType } from 'redis';
+import { CreateRedisClient, createRoom, getRoom, init } from './rooms.ts';
 
 
 let client = await CreateRedisClient();
-
+await init()
 
 
 let app = express()
@@ -34,32 +33,31 @@ app.post("/login", (req, res) => {
 
 
 
-app.post("/createRoom", async (req, res) => {
+app.get("/createRoom", async (req, res) => {
 
 
-
-    if (req.body.playerID) {
 
         try {
-            await createRoom(req.body.playerID);
-            res.sendStatus(200);
+            
+            res.send(await createRoom());
 
         } catch (error) {
             res.sendStatus(400);
 
         }
-    }
+
 })
 
 
-app.get("/getRoom?:roomID", async (req, res) => {
+app.get("/getRoom/:roomID", async (req, res) => {
 
 
 
     if (req.params.roomID) {
 
         try {
-            res.sendStatus(200);
+            let roomData = await getRoom(req.params.roomID);
+            res.json(roomData);
 
         } catch (error) {
             res.sendStatus(400);
