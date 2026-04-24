@@ -17,13 +17,15 @@ export async function CreateRedisClient() {
 export async function createRoom(playerID: string) {
 
     let client = await CreateRedisClient();
-    client.set(`room${playerID}`, JSON.stringify({
+    await client.set(`room${playerID}`, JSON.stringify({
 
         wins: 0,
         loses: 0,
-        playerTurn:true,
-        playerPos:1,
-        pcPos:1
+        playerTurn: true,
+        playerPos: 1,
+        pcPos: 1
     }))
+
+    client.destroy()
 
 }
