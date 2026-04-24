@@ -31,7 +31,7 @@ export async function createRoom() {
         playerPos: 1,
         pcPos: 1
     }))
-    await client.set("players", Number(playerID) + 1)
+    await client.set("players", Number(playerID))
     client.destroy()
 
     return playerID
