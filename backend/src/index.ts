@@ -1,5 +1,5 @@
 import express from 'express';
-import { CreateRedisClient } from './rooms.ts';
+import { CreateRedisClient, createRoom } from './rooms.ts';
 import type { RedisClientType } from 'redis';
 
 
@@ -17,8 +17,8 @@ app.get("/", async (req, res) => {
     res.send("englizzeee")
 
     console.log(await (client).get("keyy"));
-    client.set("keyy",Date())
-    
+    client.set("keyy", Date())
+
 })
 
 app.post("/login", (req, res) => {
@@ -31,6 +31,26 @@ app.post("/login", (req, res) => {
 
     }
 })
+
+
+
+app.post("/createRoom", async (req, res) => {
+
+
+
+    if (req.body.playerID) {
+
+        try {
+            await createRoom(req.body.playerID);
+            res.sendStatus(200);
+
+        } catch (error) {
+            res.sendStatus(400);
+
+        }
+    }
+})
+
 
 app.listen(3000, async () => {
 
