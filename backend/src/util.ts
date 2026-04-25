@@ -9,3 +9,16 @@ export async function CreateRedisClient() {
     return client;
 
 }
+
+/**
+ * Gets next player ID and sets it as the number of players
+ */
+export async function increasePlayers() {
+
+    let client = await CreateRedisClient();
+    let playerID = (Number(await client.get("players")) + 1).toString()
+    await client.set("players", Number(playerID))
+    client.destroy();
+    return playerID;
+
+}
