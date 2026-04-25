@@ -1,5 +1,6 @@
 import { CreateRedisClient, increasePlayers } from "./util.ts";
 import { hash, verify } from "argon2"
+let jwt = require("jsonwebtoken")
 
 /**
  * creates an account using given username and password
@@ -21,8 +22,9 @@ export async function register({ username, password }: { username: string, passw
         await client.set(username, await hash(password)); // set the username and password
         let playerID = await increasePlayers();
 
-        
         client.destroy();
+
+        return jwt.sign({ userID: playerID }, process.env.SECRET);
     }
 
 
