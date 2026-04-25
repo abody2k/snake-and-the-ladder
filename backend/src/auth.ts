@@ -19,8 +19,9 @@ export async function register({ username, password }: { username: string, passw
     } else {
 
         await client.set(username, await hash(password)); // set the username and password
-        let playerID = await increasePlayers();
 
+        let playerID = await increasePlayers();
+        await client.set(`${username}ID`, playerID)
         client.destroy();
 
         return jwt.sign({ userID: playerID }, process.env.SECRET);
@@ -36,6 +37,23 @@ export async function register({ username, password }: { username: string, passw
 export async function login({ username, password }: { username: string, password: string }) {
 
 
+    let client = await CreateRedisClient();
 
+    let hashh = (await client.get(username))
 
+    if (hashh) {
+        console.log([hash,password,process.env.SECRET]);
+        
+        if (await verify(hashh, password)) {
+            let playerID = (await client.get(`${username}ID`)) as string
+            return jwt.sign({ userID: playerID }, process.env.SECRET)
+        } else {
+
+            return false;
+        }
+    } else {
+
+        return false;
+
+    }
 }

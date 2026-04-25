@@ -1,7 +1,7 @@
 import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
 import { CreateRedisClient, initDotEnv } from './util.ts';
-import { register } from './auth.ts';
+import { login, register } from './auth.ts';
 
 
 initDotEnv();
@@ -90,11 +90,30 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
 
 
+    try {
+        if (req.body.username && req.body.password) {
 
+            let token = await login({ username: req.body.username, password: req.body.password })
 
-    console.log(req.headers);
+            if (token) {
+                console.log("USER DOES EXIST");
+                res.json({ token: token })
+            } else {
+                console.log("USER DOES NOT EXIST");
 
-    res.sendStatus(200);
+                res.sendStatus(400);
+            }
+        } else {
+            console.log("MISSING DATA");
+            res.sendStatus(400);
+        }
+    } catch (error) {
+        console.log(error);
+        
+        res.sendStatus(400);
+
+    }
+
 
 
 })
