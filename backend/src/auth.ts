@@ -23,6 +23,13 @@ export async function register({ username, password }: { username: string, passw
     }
 
 
+}
+
+/**
+ * logs in and return userID
+ * @param param0 username and password
+ */
+export async function login({ username, password }: { username: string, password: string }) {
 
 
 
