@@ -1,9 +1,10 @@
 import express from 'express';
-import { CreateRedisClient, createRoom, getRoom, init } from './rooms.ts';
+import { createRoom, getRoom, initRoom } from './rooms.ts';
+import { CreateRedisClient } from './util.ts';
 
 
 let client = await CreateRedisClient();
-await init()
+await initRoom()
 
 
 let app = express()

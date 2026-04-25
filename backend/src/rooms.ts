@@ -1,18 +1,11 @@
 import { createClient } from "redis";
+import { CreateRedisClient } from "./util.ts";
 
 
 
-export async function CreateRedisClient() {
 
-    let client = await createClient({
-        url: "redis://redis"
-    }).connect();
 
-    return client;
-
-}
-
-export async function init() {
+export async function initRoom() {
 
     let client = await CreateRedisClient();
     await client.set("players", 0)
