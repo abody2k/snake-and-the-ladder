@@ -24,16 +24,6 @@ app.get("/", async (req, res) => {
 
 })
 
-app.post("/login", (req, res) => {
-
-
-
-    if (req.body.username && req.body.password) {
-
-
-
-    }
-})
 
 
 
@@ -90,12 +80,25 @@ app.post("/register", async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        
+
         res.sendStatus(400);
 
     }
 
 })
+
+app.post("/login", async (req, res) => {
+
+
+
+
+    console.log(req.headers);
+
+    res.sendStatus(200);
+
+
+})
+
 
 app.listen(3000, async () => {
 
