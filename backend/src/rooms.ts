@@ -1,18 +1,11 @@
 import { createClient } from "redis";
+import { CreateRedisClient, increasePlayers } from "./util.ts";
 
 
 
-export async function CreateRedisClient() {
 
-    let client = await createClient({
-        url: "redis://redis"
-    }).connect();
 
-    return client;
-
-}
-
-export async function init() {
+export async function initRoom() {
 
     let client = await CreateRedisClient();
     await client.set("players", 0)
@@ -22,7 +15,7 @@ export async function init() {
 export async function createRoom() {
 
     let client = await CreateRedisClient();
-    let playerID = (Number(await client.get("players")) + 1).toString()
+    let playerID = await increasePlayers();
     await client.set(`room${playerID}`, JSON.stringify({
 
         wins: 0,
@@ -31,7 +24,6 @@ export async function createRoom() {
         playerPos: 1,
         pcPos: 1
     }))
-    await client.set("players", Number(playerID))
     client.destroy()
 
     return playerID
