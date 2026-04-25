@@ -1,7 +1,10 @@
 import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
-import { CreateRedisClient } from './util.ts';
+import { CreateRedisClient, initDotEnv } from './util.ts';
+import { register } from './auth.ts';
 
+
+initDotEnv();
 
 let client = await CreateRedisClient();
 await initRoom()
@@ -38,14 +41,14 @@ app.get("/createRoom", async (req, res) => {
 
 
 
-        try {
-            
-            res.send(await createRoom());
+    try {
 
-        } catch (error) {
-            res.sendStatus(400);
+        res.send(await createRoom());
 
-        }
+    } catch (error) {
+        res.sendStatus(400);
+
+    }
 
 })
 
@@ -65,6 +68,33 @@ app.get("/getRoom/:roomID", async (req, res) => {
 
         }
     }
+})
+
+
+
+app.post("/register", async (req, res) => {
+
+
+
+    try {
+        if (req.body.username && req.body.password) {
+            let token = await register({ username: req.body.username, password: req.body.password });
+            res.send({
+                "token": token
+            })
+
+        } else {
+
+
+            res.sendStatus(400);
+        }
+    } catch (error) {
+        console.log(error);
+        
+        res.sendStatus(400);
+
+    }
+
 })
 
 app.listen(3000, async () => {

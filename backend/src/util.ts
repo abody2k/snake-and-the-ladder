@@ -1,5 +1,17 @@
 import { createClient } from "redis";
+import dotenv from "dotenv"
+import path from "path"
 
+
+
+export function initDotEnv(){
+
+
+    dotenv.config({
+    path: path.resolve(import.meta.dirname,"../.env")
+});
+
+}
 export async function CreateRedisClient() {
 
     let client = await createClient({

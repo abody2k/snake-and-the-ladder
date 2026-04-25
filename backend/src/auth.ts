@@ -1,14 +1,13 @@
 import { CreateRedisClient, increasePlayers } from "./util.ts";
 import { hash, verify } from "argon2"
-let jwt = require("jsonwebtoken")
-
+import jwt from "jsonwebtoken"
 /**
  * creates an account using given username and password
  * on success the function will return a json web token containing playerID
  * on failure it will throw an error
  * @param param0 username and password as strings
  */
-export async function register({ username, password }: { username: string, password: string }) {
+export async function register({ username, password }: { username: string, password: string }): Promise<string> {
 
 
     let client = await CreateRedisClient();
