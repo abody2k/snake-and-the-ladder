@@ -49,7 +49,7 @@ export async function getRoom(playerID: string) {
     let client = await CreateRedisClient();
     let roomData = await client.get(`room${playerID}`);
     client.destroy();
-    return roomData ? JSON.parse(roomData) : null;
+    return roomData ? JSON.parse(roomData) as Data : null;
 
 
 
