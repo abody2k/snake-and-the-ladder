@@ -42,16 +42,20 @@ export async function play(playerID: string) {
     //get room data
 
     let roomData = await getRoom(playerID)
+    console.log(roomData);
 
     if (roomData) {
 
         if (roomData.playerTurn) {
 
             let dice = randomInt(1, 8); // throw dice
+
             let playerArr = [roomData.playerPos + dice] // add the new value to destination
             if (Object.hasOwn(TRAPS, playerArr[0] as number)) { // is it a trap?
                 playerArr.push(TRAPS[playerArr[0] as number] as number) // if so take the player to a new destination
-
+                roomData.playerPos = TRAPS[playerArr[0] as number] as number
+            } else {
+                roomData.playerPos += dice
             }
             roomData.playerTurn = false; // change the turn to pc
             await updateRoom(playerID, roomData) // update the room data
@@ -83,12 +87,15 @@ export async function leaveGame(playerID: string) {
 
 export async function pcPlay(playerID: string) {
 
-    let roomData = await getRoom(playerID)  
+    let roomData = await getRoom(playerID)
     if (roomData) {
         let dice = randomInt(1, 8); // throw dice
         let pcArr = [roomData.pcPos + dice] // add the new value to destination
         if (Object.hasOwn(TRAPS, pcArr[0] as number)) { // is it a trap?
             pcArr.push(TRAPS[pcArr[0] as number] as number) // if so take the player to a new destination   
+            roomData.pcPos = TRAPS[pcArr[0] as number] as number
+        } else {
+            roomData.pcPos += dice
         }
         roomData.playerTurn = true;
         await updateRoom(playerID, roomData) // update the room data

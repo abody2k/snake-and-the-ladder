@@ -2,7 +2,7 @@ import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
 import { CreateRedisClient, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
-import { startGame } from './gameLogic.ts';
+import { pcPlay, play, startGame } from './gameLogic.ts';
 
 
 initDotEnv();
@@ -135,6 +135,39 @@ app.post("/startGame", async (req, res) => {
         res.sendStatus(400);
     }
 })
+
+
+
+
+app.post("/play", async (req, res) => {
+
+
+    let token = isUserAuthorized(req.headers);
+
+    if (token) {
+        const userID = token.userID;
+        let arr = await play(userID); // play as a player
+
+        if (arr) {
+
+            let pcArr = await pcPlay(userID);
+            res.json({
+                plyrPos: arr,
+                pcPos: pcArr
+            })
+        } else {
+
+            res.sendStatus(403);
+        }
+    } else {
+
+        res.sendStatus(400);
+    }
+})
+
+
+
+
 app.listen(3000, async () => {
 
     console.log('LISTENING ');
