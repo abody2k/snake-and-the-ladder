@@ -1,6 +1,6 @@
 //start a new game
 import { randomInt } from "crypto"
-import { createRoom, getRoom } from "./rooms.ts";
+import { createRoom, deleteRoom, getRoom } from "./rooms.ts";
 
 /**
  * it takes you from a high number to a lower number
@@ -70,4 +70,11 @@ export async function play(playerID: string) {
         return false;
     }
 
+}
+
+
+
+export async function leaveGame(playerID : string) {
+    
+    await deleteRoom(playerID);
 }

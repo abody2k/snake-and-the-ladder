@@ -69,3 +69,14 @@ export async function updateRoom(playerID: string, data: Data) {
     client.destroy();
 
 }
+
+
+
+export async function deleteRoom(playerID: string) {
+
+    let client = await CreateRedisClient();
+    let roomData = await client.del(`room${playerID}`);
+    client.destroy();
+
+
+}
