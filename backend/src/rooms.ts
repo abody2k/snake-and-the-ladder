@@ -12,10 +12,9 @@ export async function initRoom() {
     client.destroy();
 }
 
-export async function createRoom() {
+export async function createRoom(playerID : number) {
 
     let client = await CreateRedisClient();
-    let playerID = await increasePlayers();
     await client.set(`room${playerID}`, JSON.stringify({
 
         wins: 0,
