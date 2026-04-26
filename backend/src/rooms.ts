@@ -18,7 +18,12 @@ export async function initRoom() {
     client.destroy();
 }
 
-export async function createRoom(playerID: number) {
+
+/**
+ * creates a room with init data in it
+ * @param playerID playerID that you get from the bearer auth token
+ */
+export async function createRoom(playerID: string) {
 
     let client = await CreateRedisClient();
     await client.set(`room${playerID}`, JSON.stringify({
@@ -35,8 +40,6 @@ export async function createRoom(playerID: number) {
         }
     })
     client.destroy()
-
-    return playerID
 
 }
 
