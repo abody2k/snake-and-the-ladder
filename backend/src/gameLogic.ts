@@ -57,6 +57,8 @@ export async function play(playerID: string) {
 
             } else {
                 if (roomData.playerPos + dice > 100) {
+                    let remaining = roomData.playerPos + dice - 100
+                    roomData.playerPos = 100 - remaining
 
                 } else if (roomData.playerPos + dice === 100) {
 
@@ -111,7 +113,8 @@ export async function pcPlay(playerID: string) {
         } else {
 
             if (roomData.pcPos + dice > 100) {
-
+                let remaining = roomData.pcPos + dice - 100
+                roomData.pcPos = 100 - remaining
             } else if (roomData.pcPos + dice === 100) {
 
                 roomData.pcPos = 1
