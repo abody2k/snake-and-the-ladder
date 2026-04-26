@@ -71,6 +71,8 @@ export async function play(playerID: string) {
                     roomData.playerPos += dice
                 }
 
+                playerArr[0] = roomData.playerPos
+
 
             }
             roomData.playerTurn = false; // change the turn to pc
@@ -125,6 +127,8 @@ export async function pcPlay(playerID: string) {
             else {
                 roomData.pcPos += dice
             }
+
+            pcArr[0] = roomData.pcPos
 
         }
         roomData.playerTurn = true;
