@@ -1,7 +1,8 @@
 import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
-import { CreateRedisClient, initDotEnv } from './util.ts';
+import { CreateRedisClient, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
+import { pcPlay, play, startGame } from './gameLogic.ts';
 
 
 initDotEnv();
@@ -109,7 +110,7 @@ app.post("/login", async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        
+
         res.sendStatus(400);
 
     }
@@ -117,6 +118,54 @@ app.post("/login", async (req, res) => {
 
 
 })
+
+
+
+app.post("/startGame", async (req, res) => {
+
+
+    let token = isUserAuthorized(req.headers);
+
+    if (token) {
+        const userID = token.userID;
+        await startGame(userID);
+        res.sendStatus(201);
+    } else {
+
+        res.sendStatus(400);
+    }
+})
+
+
+
+
+app.post("/play", async (req, res) => {
+
+
+    let token = isUserAuthorized(req.headers);
+
+    if (token) {
+        const userID = token.userID;
+        let arr = await play(userID); // play as a player
+
+        if (arr) {
+
+            let pcArr = await pcPlay(userID);
+            res.json({
+                plyrPos: arr,
+                pcPos: pcArr
+            })
+        } else {
+
+            res.sendStatus(403);
+        }
+    } else {
+
+        res.sendStatus(400);
+    }
+})
+
+
 
 
 app.listen(3000, async () => {
