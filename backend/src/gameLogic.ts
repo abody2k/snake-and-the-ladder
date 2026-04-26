@@ -54,8 +54,22 @@ export async function play(playerID: string) {
             if (Object.hasOwn(TRAPS, playerArr[0] as number)) { // is it a trap?
                 playerArr.push(TRAPS[playerArr[0] as number] as number) // if so take the player to a new destination
                 roomData.playerPos = TRAPS[playerArr[0] as number] as number
+
             } else {
-                roomData.playerPos += dice
+                if (roomData.playerPos + dice > 100) {
+
+                } else if (roomData.playerPos + dice === 100) {
+
+                    roomData.pcPos = 1
+                    roomData.playerPos = 1
+                    roomData.playerTurn = true
+                    roomData.wins += 1
+                }
+                else {
+                    roomData.playerPos += dice
+                }
+
+
             }
             roomData.playerTurn = false; // change the turn to pc
             await updateRoom(playerID, roomData) // update the room data
@@ -95,7 +109,20 @@ export async function pcPlay(playerID: string) {
             pcArr.push(TRAPS[pcArr[0] as number] as number) // if so take the player to a new destination   
             roomData.pcPos = TRAPS[pcArr[0] as number] as number
         } else {
-            roomData.pcPos += dice
+
+            if (roomData.pcPos + dice > 100) {
+
+            } else if (roomData.pcPos + dice === 100) {
+
+                roomData.pcPos = 1
+                roomData.playerPos = 1
+                roomData.playerTurn = true
+                roomData.loses += 1
+            }
+            else {
+                roomData.pcPos += dice
+            }
+
         }
         roomData.playerTurn = true;
         await updateRoom(playerID, roomData) // update the room data
