@@ -1,4 +1,3 @@
-//start a new game
 import { randomInt } from "crypto"
 import { createRoom, deleteRoom, getRoom, updateRoom } from "./rooms.ts";
 
@@ -19,13 +18,10 @@ const TRAPS: { [key: number]: number } = {
     67: 44
 }
 
-//play
-
-
-//leave the game
 
 
 
+//start a new game
 export async function startGame(playerID: string) {
 
     //make a new room #it will purge the previous one if a previous one exists
@@ -75,6 +71,10 @@ export async function play(playerID: string) {
 
 
 
+/**
+ * 
+ * it will delete the room
+ */
 export async function leaveGame(playerID: string) {
 
     await deleteRoom(playerID);
