@@ -1,6 +1,6 @@
 //start a new game
 import { randomInt } from "crypto"
-import { createRoom, deleteRoom, getRoom } from "./rooms.ts";
+import { createRoom, deleteRoom, getRoom, updateRoom } from "./rooms.ts";
 
 /**
  * it takes you from a high number to a lower number
@@ -57,7 +57,8 @@ export async function play(playerID: string) {
                 playerArr.push(TRAPS[playerArr[0] as number] as number) // if so take the player to a new destination
 
             }
-
+            roomData.playerTurn = false; // change the turn to pc
+            await updateRoom(playerID, roomData) // update the room data
             return playerArr;
 
 
@@ -74,7 +75,7 @@ export async function play(playerID: string) {
 
 
 
-export async function leaveGame(playerID : string) {
-    
+export async function leaveGame(playerID: string) {
+
     await deleteRoom(playerID);
 }
