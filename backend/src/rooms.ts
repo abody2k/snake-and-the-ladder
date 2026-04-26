@@ -23,7 +23,12 @@ export async function createRoom() {
         playerTurn: true,
         playerPos: 1,
         pcPos: 1
-    }))
+    }), {
+        expiration: {
+            type: "EX",
+            value: 60 * 60
+        }
+    })
     client.destroy()
 
     return playerID
