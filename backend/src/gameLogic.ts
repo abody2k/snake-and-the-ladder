@@ -1,6 +1,7 @@
 import { randomInt } from "crypto"
 import { createRoom, deleteRoom, getRoom, updateRoom } from "./rooms.ts";
 import { updateLeaderboard } from "./leaderboard.ts";
+import * as io from "socket.io"
 
 /**
  * it takes you from a high number to a lower number
@@ -38,8 +39,9 @@ export async function startGame(playerID: string) {
  * player, otherwise it will return false
  * @param playerID 
  * @param username 
+ * @param io 
  */
-export async function play(playerID: string, username: string) {
+export async function play(playerID: string, username: string, io: io.Server) {
 
     //get room data
 
@@ -74,6 +76,7 @@ export async function play(playerID: string, username: string) {
 
                     if (leaderboardUpdated) {
                         //broadcast to leaderboard the changes
+                        io.to("leaderboard").emit("lbu", leaderboardUpdated); //leaderboard updated
                     }
                 }
                 else {
