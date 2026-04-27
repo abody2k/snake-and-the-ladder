@@ -3,17 +3,31 @@ import { createRoom, getRoom, initRoom } from './rooms.ts';
 import { CreateRedisClient, flushingDB, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
+import * as io from "socket.io"
+import {createServer} from "http"
+
+
 
 
 initDotEnv();
 
 let client = await CreateRedisClient();
+    
+await flushingDB()
 await initRoom()
 
 
 let app = express()
+let server = createServer(app)
+let socketIOServer = new io.Server(server)
 app.use(express.json())
-// app.use
+
+socketIOServer.on('connection',(socket)=>{
+
+
+
+
+})
 
 
 app.get("/", async (req, res) => {
@@ -168,10 +182,9 @@ app.post("/play", async (req, res) => {
 
 
 
-app.listen(3000, async () => {
+server.listen(3000, async () => {
 
 
-    await flushingDB()
     console.log('LISTENING ');
 
 
