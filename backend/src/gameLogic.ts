@@ -1,5 +1,6 @@
 import { randomInt } from "crypto"
 import { createRoom, deleteRoom, getRoom, updateRoom } from "./rooms.ts";
+import { updateLeaderboard } from "./leaderboard.ts";
 
 /**
  * it takes you from a high number to a lower number
@@ -36,13 +37,13 @@ export async function startGame(playerID: string) {
  * change of numbers that shows the final position of the
  * player, otherwise it will return false
  * @param playerID 
+ * @param username 
  */
-export async function play(playerID: string) {
+export async function play(playerID: string, username: string) {
 
     //get room data
 
     let roomData = await getRoom(playerID)
-    console.log(roomData);
 
     if (roomData) {
 
@@ -66,6 +67,14 @@ export async function play(playerID: string) {
                     roomData.playerPos = 1
                     roomData.playerTurn = true
                     roomData.wins += 1
+
+                    //if user wins check leaderboard 
+
+                    let leaderboardUpdated = await updateLeaderboard(roomData.wins, username)
+
+                    if (leaderboardUpdated) {
+                        //broadcast to leaderboard the changes
+                    }
                 }
                 else {
                     roomData.playerPos += dice

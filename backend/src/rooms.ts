@@ -10,11 +10,19 @@ type Data = {
     pcPos: number
 }
 
+export type LeaderBoard = {
+
+    playerName: string,
+    wins: number
+}
 
 export async function initRoom() {
 
     let client = await CreateRedisClient();
     await client.set("players", 0)
+    await client.set("minimum_win", 0)
+    let leaderboard : LeaderBoard[] = []
+    await client.set("leaderboard", JSON.stringify( leaderboard))
     client.destroy();
 }
 

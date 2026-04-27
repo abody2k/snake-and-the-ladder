@@ -1,6 +1,6 @@
 import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
-import { CreateRedisClient, initDotEnv, isUserAuthorized } from './util.ts';
+import { CreateRedisClient, flushingDB, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 
@@ -146,7 +146,7 @@ app.post("/play", async (req, res) => {
 
     if (token) {
         const userID = token.userID;
-        let arr = await play(userID); // play as a player
+        let arr = await play(userID,token.username); // play as a player
 
         if (arr) {
 
@@ -170,6 +170,8 @@ app.post("/play", async (req, res) => {
 
 app.listen(3000, async () => {
 
+
+    await flushingDB()
     console.log('LISTENING ');
 
 

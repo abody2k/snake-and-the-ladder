@@ -1,4 +1,4 @@
-import { createClient } from "redis";
+import { createClient, REDIS_FLUSH_MODES } from "redis";
 import dotenv from "dotenv"
 import path from "path"
 import type { IncomingHttpHeaders } from "http";
@@ -15,7 +15,7 @@ export function initDotEnv() {
 }
 
 
-export function isUserAuthorized(headers: IncomingHttpHeaders): { userID: string } | null {
+export function isUserAuthorized(headers: IncomingHttpHeaders): { userID: string, username: string } | null {
     let token = headers.authorization?.split("Bearer ")[1];
     if (token) {
 
@@ -53,4 +53,11 @@ export async function increasePlayers() {
     client.destroy();
     return playerID;
 
+}
+
+export async function flushingDB(){
+
+    let client = await CreateRedisClient();
+    await client.flushDb(REDIS_FLUSH_MODES.SYNC);
+    client.destroy();
 }
