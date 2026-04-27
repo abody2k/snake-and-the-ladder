@@ -1,6 +1,6 @@
 import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
-import { CreateRedisClient, initDotEnv, isUserAuthorized } from './util.ts';
+import { CreateRedisClient, flushingDB, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 
@@ -170,6 +170,8 @@ app.post("/play", async (req, res) => {
 
 app.listen(3000, async () => {
 
+
+    await flushingDB()
     console.log('LISTENING ');
 
 
