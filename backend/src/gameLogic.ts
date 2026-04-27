@@ -43,7 +43,6 @@ export async function play(playerID: string, username: string) {
     //get room data
 
     let roomData = await getRoom(playerID)
-    console.log(roomData);
 
     if (roomData) {
 
@@ -67,6 +66,8 @@ export async function play(playerID: string, username: string) {
                     roomData.playerPos = 1
                     roomData.playerTurn = true
                     roomData.wins += 1
+
+                    //if user wins check leaderboard 
                 }
                 else {
                     roomData.playerPos += dice
