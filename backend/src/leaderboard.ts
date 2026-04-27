@@ -25,6 +25,11 @@ export async function updateLeaderboard(numberOfWins: number, playerName: string
         leaderboard = leaderboard.slice(0, 10)
         await client.set("leaderboard", JSON.stringify(leaderboard));
         await client.set("minimum_win", leaderboard[(leaderboard.length - 1) as number]?.wins as number)
+        client.destroy();
+        return true;
+    } else {
+        client.destroy();
+        return false;
     }
-    client.destroy();
+
 }
