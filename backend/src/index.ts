@@ -35,6 +35,12 @@ socketIOServer.on('connection', (socket) => {
     })
 
 
+    socket.on("lb", () => { //leave leaderboard room
+
+        socket.leave("leaderboard");
+
+    })
+
 })
 
 
