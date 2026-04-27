@@ -23,7 +23,8 @@ export async function updateLeaderboard(numberOfWins: number, playerName: string
         })
         leaderboard.sort((a, b) => b.wins - a.wins); // b - a to make it desc order
         leaderboard = leaderboard.slice(0, 10)
-        await client.set("leaderboard", JSON.stringify(leaderboard))
+        await client.set("leaderboard", JSON.stringify(leaderboard));
+        await client.set("minimum_win", leaderboard[(leaderboard.length - 1) as number]?.wins as number)
     }
     client.destroy();
 }
