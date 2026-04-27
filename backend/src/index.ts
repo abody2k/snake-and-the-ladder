@@ -4,7 +4,7 @@ import { CreateRedisClient, flushingDB, initDotEnv, isUserAuthorized } from './u
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 import * as io from "socket.io"
-import {createServer} from "http"
+import { createServer } from "http"
 
 
 
@@ -12,7 +12,7 @@ import {createServer} from "http"
 initDotEnv();
 
 let client = await CreateRedisClient();
-    
+
 await flushingDB()
 await initRoom()
 
@@ -22,9 +22,17 @@ let server = createServer(app)
 let socketIOServer = new io.Server(server)
 app.use(express.json())
 
-socketIOServer.on('connection',(socket)=>{
+socketIOServer.on('connection', (socket) => {
 
 
+
+
+    socket.on("leaderboard", () => {
+
+
+        socket.join("leaderboard");
+
+    })
 
 
 })
@@ -160,7 +168,7 @@ app.post("/play", async (req, res) => {
 
     if (token) {
         const userID = token.userID;
-        let arr = await play(userID,token.username); // play as a player
+        let arr = await play(userID, token.username, socketIOServer); // play as a player
 
         if (arr) {
 
