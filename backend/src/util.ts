@@ -15,7 +15,7 @@ export function initDotEnv() {
 }
 
 
-export function isUserAuthorized(headers: IncomingHttpHeaders): { userID: string } | null {
+export function isUserAuthorized(headers: IncomingHttpHeaders): { userID: string, username: string } | null {
     let token = headers.authorization?.split("Bearer ")[1];
     if (token) {
 

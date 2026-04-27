@@ -146,7 +146,7 @@ app.post("/play", async (req, res) => {
 
     if (token) {
         const userID = token.userID;
-        let arr = await play(userID); // play as a player
+        let arr = await play(userID,token.username); // play as a player
 
         if (arr) {
 

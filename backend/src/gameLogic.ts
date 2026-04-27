@@ -36,8 +36,9 @@ export async function startGame(playerID: string) {
  * change of numbers that shows the final position of the
  * player, otherwise it will return false
  * @param playerID 
+ * @param username 
  */
-export async function play(playerID: string) {
+export async function play(playerID: string, username: string) {
 
     //get room data
 
