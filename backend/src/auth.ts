@@ -42,11 +42,11 @@ export async function login({ username, password }: { username: string, password
     let hashh = (await client.get(username))
 
     if (hashh) {
-        console.log([hash,password,process.env.SECRET]);
-        
+        console.log([hash, password, process.env.SECRET]);
+
         if (await verify(hashh, password)) {
             let playerID = (await client.get(`${username}ID`)) as string
-            return jwt.sign({ userID: playerID }, process.env.SECRET)
+            return jwt.sign({ userID: playerID, "username": username }, process.env.SECRET)
         } else {
 
             return false;
