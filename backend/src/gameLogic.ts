@@ -68,6 +68,8 @@ export async function play(playerID: string, username: string) {
                     roomData.wins += 1
 
                     //if user wins check leaderboard 
+
+                    
                 }
                 else {
                     roomData.playerPos += dice
