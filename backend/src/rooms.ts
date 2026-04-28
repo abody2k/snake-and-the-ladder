@@ -1,7 +1,7 @@
 import { CreateRedisClient } from "./util.ts";
 
 
-type Data = {
+export type Data = {
 
     wins: number,
     loses: number,
@@ -11,7 +11,7 @@ type Data = {
 }
 
 
-type MultiplayerRoomData = {
+export type MultiplayerRoomData = {
 
     wins: [string, number][], //array of arrays to support more than 2 players [playerID, wins]
     playerTurn: string, //playerID of the player whose turn it is
@@ -90,19 +90,11 @@ export async function getRoom(playerID: string) {
     let client = await CreateRedisClient();
     let roomData = await client.get(`room${playerID}`);
     client.destroy();
-    return roomData ? JSON.parse(roomData) as Data : null;
+    return roomData ? JSON.parse(roomData) as Data | MultiplayerRoomData : null;
 
 }
 
 
-export async function getMultiplayerRoom(playerID: string) {
-
-    let client = await CreateRedisClient();
-    let roomData = await client.get(`room${playerID}`);
-    client.destroy();
-    return roomData ? JSON.parse(roomData) as MultiplayerRoomData : null;
-
-}
 
 
 

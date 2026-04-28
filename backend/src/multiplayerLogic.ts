@@ -1,9 +1,8 @@
 //make a room
 
-import { createMultiplayerRoom, getMultiplayerRoom, updateRoom } from "./rooms.ts";
+import { createMultiplayerRoom, getRoom, updateRoom, type MultiplayerRoomData } from "./rooms.ts";
 import { randomInt } from "crypto"
 import * as io from "socket.io"
-import { CreateRedisClient } from "./util.ts";
 import { TRAPS } from "./gameLogic.ts";
 import { updateLeaderboard } from "./leaderboard.ts";
 
@@ -21,7 +20,7 @@ export async function startMultiplayerGame(playerID: string) {
 export async function playMultiplayer(playerID: string, username: string, io: io.Server) {
     //get room data
 
-    let roomData = await getMultiplayerRoom(playerID)
+    let roomData = await getRoom(playerID) as MultiplayerRoomData
 
     if (roomData) {
 
