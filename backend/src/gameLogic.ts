@@ -1,5 +1,5 @@
 import { randomInt } from "crypto"
-import { createRoom, deleteRoom, getRoom, updateRoom } from "./rooms.ts";
+import { createRoom, deleteRoom, getRoom, updateRoom, type Data } from "./rooms.ts";
 import { updateLeaderboard } from "./leaderboard.ts";
 import * as io from "socket.io"
 
@@ -8,7 +8,7 @@ import * as io from "socket.io"
  * it can be updated to be room specific so that each room has its
  * own random map
  */
-const TRAPS: { [key: number]: number } = {
+export const TRAPS: { [key: number]: number } = {
 
 
     11: 1,
@@ -45,7 +45,7 @@ export async function play(playerID: string, username: string, io: io.Server) {
 
     //get room data
 
-    let roomData = await getRoom(playerID)
+    let roomData = await getRoom(playerID) as Data
 
     if (roomData) {
 
@@ -117,7 +117,7 @@ export async function leaveGame(playerID: string) {
 
 export async function pcPlay(playerID: string) {
 
-    let roomData = await getRoom(playerID)
+    let roomData = await getRoom(playerID) as Data
     if (roomData) {
         let dice = randomInt(1, 8); // throw dice
         let pcArr = [roomData.pcPos + dice] // add the new value to destination

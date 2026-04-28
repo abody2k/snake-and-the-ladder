@@ -1,13 +1,21 @@
 import { CreateRedisClient } from "./util.ts";
 
 
-type Data = {
+export type Data = {
 
     wins: number,
     loses: number,
     playerTurn: boolean,
     playerPos: number,
     pcPos: number
+}
+
+
+export type MultiplayerRoomData = {
+
+    wins: [string, number][], //array of arrays to support more than 2 players [playerID, wins]
+    playerTurn: string, //playerID of the player whose turn it is
+    playerPos: [string, number][], //array of arrays to support more than 2 players [playerID, position]
 }
 
 export type LeaderBoard = {
@@ -52,20 +60,49 @@ export async function createRoom(playerID: string) {
 }
 
 
-export async function getRoom(playerID: string) {
+/**
+ * creates a multiplayer room with init data in it
+ * @param playerID playerID that you get from the bearer auth token
+ */
+export async function createMultiplayerRoom(playerID: string) {
 
     let client = await CreateRedisClient();
-    let roomData = await client.get(`room${playerID}`);
-    client.destroy();
-    return roomData ? JSON.parse(roomData) as Data : null;
+    await client.set(`room${playerID}`, JSON.stringify({
 
-
+        wins: [[playerID, 0]], //array of arrays to support more than 2 players [playerID, wins]
+        playerTurn: playerID,
+        playerPos: [[playerID, 1]], //array of arrays to support more than 2 players
+    }), {
+        expiration: {
+            type: "EX",
+            value: 60 * 60
+        }
+    })
+    client.destroy()
 
 }
 
 
 
-export async function updateRoom(playerID: string, data: Data) {
+
+export async function getRoom(playerID: string) {
+
+    let client = await CreateRedisClient();
+    let roomData = await client.get(`room${playerID}`);
+    client.destroy();
+    return roomData ? JSON.parse(roomData) as Data | MultiplayerRoomData : null;
+
+}
+
+
+
+
+/**
+ * Updates a room data given the roomID (refered to as playerID as well)
+ * @param playerID 
+ * @param data 
+ */
+export async function updateRoom(playerID: string, data: Data | MultiplayerRoomData) {
 
     let client = await CreateRedisClient();
     await client.set(`room${playerID}`, JSON.stringify(data), {
