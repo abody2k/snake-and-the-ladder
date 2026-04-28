@@ -5,7 +5,7 @@ import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 import * as io from "socket.io"
 import { createServer } from "http"
-import { startMultiplayerGame } from './multiplayerLogic.ts';
+import { playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
 
 
 
@@ -36,9 +36,18 @@ socketIOServer.on('connection', (socket) => {
     })
 
 
-    socket.on("play", (token: string) => {
+    socket.on("play", async (data: { roomID: string, token: string }) => {
 
-        getTokenData(token)
+        const tokenData = getTokenData(data.token)
+
+        if (tokenData) {
+
+            let playerPosition = await playMultiplayer(tokenData.userID, tokenData.username, socketIOServer)
+            if (playerPosition != false) {
+
+                socketIOServer.to(data.roomID).emit(JSON.stringify(playerPosition))
+            }
+        }
 
     })
 

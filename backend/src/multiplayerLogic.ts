@@ -61,7 +61,11 @@ export async function playMultiplayer(playerID: string, username: string, io: io
 
             }
             await updateRoom(playerID, roomData) // update the room data
-            return playerArr;
+            return {
+                newPos: roomData.playerPos,
+                prePlyrPos:playerArr,
+                prePlyr:playerID
+            };
 
 
         } else {
