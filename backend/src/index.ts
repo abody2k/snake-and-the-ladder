@@ -1,11 +1,11 @@
 import express from 'express';
-import { createRoom, getRoom, initRoom } from './rooms.ts';
+import { createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
 import { CreateRedisClient, flushingDB, getTokenData, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 import * as io from "socket.io"
 import { createServer } from "http"
-import { playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
+import { joinRoom, playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
 
 
 
@@ -56,10 +56,11 @@ socketIOServer.on('connection', (socket) => {
         const tokenData = getTokenData(data.token)
 
         if (tokenData) {
-
-            if (await getRoom(data.roomID) != null){
-                //join the room function
+            const roomData = await getRoom(data.roomID);
+            if (roomData != null) {
+                await joinRoom(tokenData.userID, roomData as MultiplayerRoomData, data.roomID)
                 socket.join(data.roomID)
+                socket.emit(JSON.stringify(roomData))
             }
 
         } else {
