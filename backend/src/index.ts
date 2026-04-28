@@ -86,7 +86,7 @@ socketIOServer.on('connection', (socket) => {
 })
 
 
-app.get("/", async (req, res) => {
+app.get("/api", async (req, res) => {
 
     res.send("englizzeee")
 
@@ -99,7 +99,7 @@ app.get("/", async (req, res) => {
 
 
 
-app.get("/getRoom/:roomID", async (req, res) => {
+app.get("/api/getRoom/:roomID", async (req, res) => {
 
 
 
@@ -118,14 +118,14 @@ app.get("/getRoom/:roomID", async (req, res) => {
 
 
 
-app.post("/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
 
 
 
     try {
         if (req.body.username && req.body.password) {
             let token = await register({ username: req.body.username, password: req.body.password });
-            res.send({
+            res.status(201).send({
                 "token": token
             })
 
@@ -143,7 +143,7 @@ app.post("/register", async (req, res) => {
 
 })
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
 
 
     try {
@@ -176,7 +176,7 @@ app.post("/login", async (req, res) => {
 
 
 
-app.post("/startGame", async (req, res) => {
+app.post("/api/startGame", async (req, res) => {
 
 
     let token = isUserAuthorized(req.headers);
@@ -193,7 +193,7 @@ app.post("/startGame", async (req, res) => {
 
 
 
-app.post("/startGameM", async (req, res) => { // multiplayer game
+app.post("/api/startGameM", async (req, res) => { // multiplayer game
 
 
     let token = isUserAuthorized(req.headers);
@@ -210,7 +210,7 @@ app.post("/startGameM", async (req, res) => { // multiplayer game
 
 
 
-app.post("/play", async (req, res) => {
+app.post("/api/play", async (req, res) => {
 
 
     let token = isUserAuthorized(req.headers);

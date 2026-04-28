@@ -26,6 +26,10 @@ services:
     # is the port inside the container.
     # ports:
     #   - 8080:8080
+
+  test:
+    build:
+      dockerfile: tests.dockerfile
   redis:
     image: redis
     ports:
