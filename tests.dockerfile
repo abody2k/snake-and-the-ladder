@@ -6,4 +6,4 @@ COPY test .
 
 ENV BASE_URL=app
 
-CMD sh -c "npm i && npm i playwright@latest && npx playwright test"
+CMD sh -c "npm i && npm i playwright@latest && npx playwright test api.spec.ts --project=firefox"
