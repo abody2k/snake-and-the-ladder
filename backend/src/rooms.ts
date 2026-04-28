@@ -97,7 +97,11 @@ export async function getRoom(playerID: string) {
 
 
 
-
+/**
+ * Updates a room data given the roomID (refered to as playerID as well)
+ * @param playerID 
+ * @param data 
+ */
 export async function updateRoom(playerID: string, data: Data | MultiplayerRoomData) {
 
     let client = await CreateRedisClient();
