@@ -4,6 +4,16 @@ export const authSchema = zod.object(
 
     {
 
-        token: zod.string
+        token: zod.string()
+    }
+)
+
+
+export const playingSchema = zod.object(
+
+    {
+
+        plyrPos: zod.array(zod.number()),
+        pcPos: zod.array(zod.number())
     }
 )
