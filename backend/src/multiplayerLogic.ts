@@ -1,12 +1,14 @@
 //make a room
 
+import { createMultiplayerRoom } from "./rooms.ts";
 
 
 
-export async function startGame(playerID: string, username: string) {
+
+export async function startMultiplayerGame(playerID: string) {
 
 
-    
+    await createMultiplayerRoom(playerID);
 
 
 }
