@@ -10,6 +10,14 @@ type Data = {
     pcPos: number
 }
 
+
+type MultiplayerRoomData = {
+
+    wins: [string, number][], //array of arrays to support more than 2 players [playerID, wins]
+    playerTurn: string, //playerID of the player whose turn it is
+    playerPos: [string, number][], //array of arrays to support more than 2 players [playerID, position]
+}
+
 export type LeaderBoard = {
 
     playerName: string,
@@ -61,8 +69,7 @@ export async function createMultiplayerRoom(playerID: string) {
     let client = await CreateRedisClient();
     await client.set(`room${playerID}`, JSON.stringify({
 
-        wins: 0,
-        loses: 0,
+        wins: [[playerID, 0]], //array of arrays to support more than 2 players [playerID, wins]
         playerTurn: playerID,
         playerPos: [[playerID, 1]], //array of arrays to support more than 2 players
     }), {
@@ -76,28 +83,6 @@ export async function createMultiplayerRoom(playerID: string) {
 }
 
 
-/**
- * creates a room with init data in it
- * @param playerID playerID that you get from the bearer auth token
- */
-export async function playMultiplayer(playerID: string) {
-
-    let client = await CreateRedisClient();
-    await client.set(`room${playerID}`, JSON.stringify({
-
-        wins: 0,
-        loses: 0,
-        playerTurn: playerID,
-        playerPos: [[playerID, 1]], //array of arrays to support more than 2 players
-    }), {
-        expiration: {
-            type: "EX",
-            value: 60 * 60
-        }
-    })
-    client.destroy()
-
-}
 
 
 export async function getRoom(playerID: string) {
@@ -107,9 +92,10 @@ export async function getRoom(playerID: string) {
     client.destroy();
     return roomData ? JSON.parse(roomData) as Data : null;
 
-
-
 }
+
+
+
 
 
 
