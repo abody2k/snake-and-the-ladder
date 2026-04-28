@@ -1,5 +1,5 @@
 import { request, APIRequestContext } from "playwright";
-class ApiClient {
+export class ApiClient {
 
 
 
