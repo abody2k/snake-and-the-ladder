@@ -125,7 +125,7 @@ app.post("/api/register", async (req, res) => {
     try {
         if (req.body.username && req.body.password) {
             let token = await register({ username: req.body.username, password: req.body.password });
-            res.send({
+            res.status(201).send({
                 "token": token
             })
 

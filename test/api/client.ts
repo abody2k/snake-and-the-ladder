@@ -31,9 +31,9 @@ export class ApiClient {
         });
 
         return {
-            status: response.status,
+            status: response.status(),
             data: await response.json(),
-            statusText: response.statusText
+            statusText: response.statusText()
         };
     }
 
@@ -58,9 +58,9 @@ export class ApiClient {
 
 
         return {
-            status: response.status,
+            status: response.status(),
             data: await response.json(),
-            statusText: response.statusText
+            statusText: response.statusText()
         };
     }
 
