@@ -1,6 +1,6 @@
 import express from 'express';
 import { createRoom, getRoom, initRoom } from './rooms.ts';
-import { CreateRedisClient, flushingDB, initDotEnv, isUserAuthorized } from './util.ts';
+import { CreateRedisClient, flushingDB, getTokenData, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 import * as io from "socket.io"
@@ -32,6 +32,13 @@ socketIOServer.on('connection', (socket) => {
 
 
         socket.join("leaderboard");
+
+    })
+
+
+    socket.on("play", (token: string) => {
+
+        getTokenData(token)
 
     })
 

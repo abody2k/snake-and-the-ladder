@@ -32,6 +32,26 @@ export function isUserAuthorized(headers: IncomingHttpHeaders): { userID: string
         return null;
     }
 }
+
+export function getTokenData(token: string) {
+
+    if (token) {
+
+        try {
+            let data = jwt.verify(token, process.env.SECRET)
+            return data as {
+                userID: string, username: string
+            }
+        } catch (error) {
+            return null;
+
+        }
+
+    } else {
+
+        return null;
+    }
+}
 export async function CreateRedisClient() {
 
     let client = await createClient({
@@ -55,7 +75,7 @@ export async function increasePlayers() {
 
 }
 
-export async function flushingDB(){
+export async function flushingDB() {
 
     let client = await CreateRedisClient();
     await client.flushDb(REDIS_FLUSH_MODES.SYNC);
