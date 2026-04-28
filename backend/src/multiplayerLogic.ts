@@ -26,8 +26,15 @@ export async function playMultiplayer(playerID: string, username: string, io: io
 
         if (roomData.playerTurn === playerID) {
 
+
+
             let dice = randomInt(1, 8); // throw dice
             let index = roomData.playerPos.findIndex(pos => pos[0] === playerID)
+
+            //does this player exist in this room?
+            if (index == -1) {
+                return false
+            }
             let playerArr = [roomData.playerPos[index]![1] + dice] // add the new value to destination
             if (Object.hasOwn(TRAPS, playerArr[0] as number)) { // is it a trap?
                 playerArr.push(TRAPS[playerArr[0] as number] as number) // if so take the player to a new destination
@@ -63,8 +70,8 @@ export async function playMultiplayer(playerID: string, username: string, io: io
             await updateRoom(playerID, roomData) // update the room data
             return {
                 newPos: roomData.playerPos,
-                prePlyrPos:playerArr,
-                prePlyr:playerID
+                prePlyrPos: playerArr,
+                prePlyr: playerID
             };
 
 
