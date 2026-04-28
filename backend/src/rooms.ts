@@ -95,7 +95,14 @@ export async function getRoom(playerID: string) {
 }
 
 
+export async function getMultiplayerRoom(playerID: string) {
 
+    let client = await CreateRedisClient();
+    let roomData = await client.get(`room${playerID}`);
+    client.destroy();
+    return roomData ? JSON.parse(roomData) as MultiplayerRoomData : null;
+
+}
 
 
 
