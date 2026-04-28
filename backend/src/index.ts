@@ -5,6 +5,7 @@ import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
 import * as io from "socket.io"
 import { createServer } from "http"
+import { startMultiplayerGame } from './multiplayerLogic.ts';
 
 
 
@@ -55,21 +56,6 @@ app.get("/", async (req, res) => {
 
 
 
-
-app.get("/createRoom", async (req, res) => {
-
-
-
-    try {
-
-        res.send(await createRoom());
-
-    } catch (error) {
-        res.sendStatus(400);
-
-    }
-
-})
 
 
 app.get("/getRoom/:roomID", async (req, res) => {
@@ -164,6 +150,22 @@ app.post("/startGame", async (req, res) => {
     }
 })
 
+
+
+app.post("/startGameM", async (req, res) => { // multiplayer game
+
+
+    let token = isUserAuthorized(req.headers);
+
+    if (token) {
+        const userID = token.userID;
+        await startMultiplayerGame(userID);
+        res.sendStatus(201);
+    } else {
+
+        res.sendStatus(400);
+    }
+})
 
 
 
