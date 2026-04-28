@@ -51,6 +51,22 @@ socketIOServer.on('connection', (socket) => {
 
     })
 
+    socket.on("joinRoom", async (data: { token: string, roomID: string }) => {
+
+        const tokenData = getTokenData(data.token)
+
+        if (tokenData) {
+
+            if (await getRoom(data.roomID) != null){
+                //join the room function
+                socket.join(data.roomID)
+            }
+
+        } else {
+            socket.disconnect(true);
+        }
+    })
+
 
     socket.on("lb", () => { //leave leaderboard room
 
