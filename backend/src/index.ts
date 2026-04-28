@@ -59,6 +59,14 @@ socketIOServer.on('connection', (socket) => {
             const roomData = await getRoom(data.roomID);
             if (roomData != null) {
                 await joinRoom(tokenData.userID, roomData as MultiplayerRoomData, data.roomID)
+                //leave previous rooms
+                const rooms = socket.rooms
+                if (rooms.size > 1) {
+                    let arr = rooms.values().toArray()
+                    for (let i = 1; i < arr.length; i++) {
+                        await socket.leave(arr[i] as string)
+                    }
+                }
                 socket.join(data.roomID)
                 socket.emit(JSON.stringify(roomData))
             }
