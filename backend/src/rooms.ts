@@ -106,7 +106,7 @@ export async function getMultiplayerRoom(playerID: string) {
 
 
 
-export async function updateRoom(playerID: string, data: Data) {
+export async function updateRoom(playerID: string, data: Data | MultiplayerRoomData) {
 
     let client = await CreateRedisClient();
     await client.set(`room${playerID}`, JSON.stringify(data), {
