@@ -38,5 +38,31 @@ class ApiClient {
     }
 
 
+    async get(url: string, token?: string) {
+
+        let response;
+        if (token) {
+
+            response = await this.context.get(url, {
+
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+
+            });
+
+        } else {
+
+            response = await this.context.get(url);
+        }
+
+
+        return {
+            status: response.status,
+            data: await response.json(),
+            statusText: response.statusText
+        };
+    }
+
 
 }
