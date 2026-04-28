@@ -17,3 +17,24 @@ export const playingSchema = zod.object(
         pcPos: zod.array(zod.number())
     }
 )
+
+
+export const roomSchema = zod.object({
+
+    wins: zod.number(),
+    loses: zod.number(),
+    playerTurn: zod.number(),
+    playerPos: zod.number(),
+    pcPos: zod.number()
+})
+
+
+export const multiplayRoomSchema = zod.object({
+
+
+
+
+    wins: zod.array((zod.tuple([zod.string(), zod.number()]))),
+    playerTurn: zod.string(),
+    playerPos: zod.array((zod.tuple([zod.string(), zod.number()]))),
+})
