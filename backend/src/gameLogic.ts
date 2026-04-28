@@ -8,7 +8,7 @@ import * as io from "socket.io"
  * it can be updated to be room specific so that each room has its
  * own random map
  */
-const TRAPS: { [key: number]: number } = {
+export const TRAPS: { [key: number]: number } = {
 
 
     11: 1,
