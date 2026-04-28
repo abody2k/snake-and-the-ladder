@@ -31,10 +31,19 @@ export const roomSchema = zod.object({
 
 export const multiplayRoomSchema = zod.object({
 
-
-
-
     wins: zod.array((zod.tuple([zod.string(), zod.number()]))),
     playerTurn: zod.string(),
     playerPos: zod.array((zod.tuple([zod.string(), zod.number()]))),
+})
+
+/**
+ * used when a player makes a move and the socket sends
+ * data back to all players
+ */
+export const multiplayerSyncSchema = zod.object({
+
+
+    newPos: zod.array((zod.tuple([zod.string(), zod.number()]))),
+    prePlyrPos: zod.array(zod.number()),
+    prePlyr: zod.string()
 })
