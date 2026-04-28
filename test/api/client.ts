@@ -10,6 +10,7 @@ class ApiClient {
 
     static async createClient() {
         return new ApiClient(await request.newContext({
+            baseURL: process.env.BASE_URL,
 
             extraHTTPHeaders: {
 
@@ -19,6 +20,22 @@ class ApiClient {
 
     }
 
+
+    async post(url: string, data: {}) {
+
+        const response = await this.context.post(url, {
+
+            data: data,
+
+
+        });
+
+        return {
+            status: response.status,
+            data: await response.json(),
+            statusText: response.statusText
+        };
+    }
 
 
 
