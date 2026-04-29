@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
+import { createMultiplayerRoom, createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
 import { CreateRedisClient, flushingDB, getTokenData, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
@@ -26,7 +26,7 @@ app.use(express.json())
 socketIOServer.on('connection', (socket) => {
 
 
-
+    console.log("What a man world")
 
     socket.on("leaderboard", () => {
 
@@ -51,12 +51,12 @@ socketIOServer.on('connection', (socket) => {
 
     })
 
-    socket.on("joinRoom", async (data: { token: string, roomID: string }) => {
+    socket.on("joinRoom", async (data: { token: string, roomID: string },ack) => {
 
         const tokenData = getTokenData(data.token)
 
         if (tokenData) {
-            const roomData = await getRoom(data.roomID);
+            let roomData = await getRoom(data.roomID);
             if (roomData != null) {
                 await joinRoom(tokenData.userID, roomData as MultiplayerRoomData, data.roomID)
                 //leave previous rooms
@@ -68,7 +68,18 @@ socketIOServer.on('connection', (socket) => {
                     }
                 }
                 socket.join(data.roomID)
-                socket.emit(JSON.stringify(roomData))
+                ack(JSON.stringify(roomData))
+            } else { // create multiplayer room
+
+                
+                await createMultiplayerRoom(tokenData.userID)
+                roomData = await getRoom(tokenData.userID);
+                socket.join(tokenData.userID)
+                
+                ack(JSON.stringify(roomData))
+
+
+
             }
 
         } else {
@@ -80,6 +91,12 @@ socketIOServer.on('connection', (socket) => {
     socket.on("lb", () => { //leave leaderboard room
 
         socket.leave("leaderboard");
+
+    })
+
+
+    socket.on("disconnect", () => {
+        console.log("USER LEFT");
 
     })
 
@@ -126,7 +143,8 @@ app.post("/api/register", async (req, res) => {
         if (req.body.username && req.body.password) {
             let token = await register({ username: req.body.username, password: req.body.password });
             res.status(201).send({
-                "token": token
+                "token": token.token,
+                "userID": (token.userID.toString())
             })
 
         } else {
@@ -149,11 +167,12 @@ app.post("/api/login", async (req, res) => {
     try {
         if (req.body.username && req.body.password) {
 
-            let token = await login({ username: req.body.username, password: req.body.password })
+            let data = await login({ username: req.body.username, password: req.body.password })
 
-            if (token) {
+            if (data) {
+
                 console.log("USER DOES EXIST");
-                res.json({ token: token })
+                res.json({ token: data.token, userID: data.userID })
             } else {
                 console.log("USER DOES NOT EXIST");
 

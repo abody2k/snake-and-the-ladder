@@ -4,7 +4,8 @@ export const authSchema = zod.object(
 
     {
 
-        token: zod.string()
+        token: zod.string(),
+        userID: zod.string()
     }
 )
 

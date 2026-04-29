@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken"
  * on failure it will throw an error
  * @param param0 username and password as strings
  */
-export async function register({ username, password }: { username: string, password: string }): Promise<string> {
+export async function register({ username, password }: { username: string, password: string }) {
 
 
     let client = await CreateRedisClient();
@@ -24,7 +24,7 @@ export async function register({ username, password }: { username: string, passw
         await client.set(`${username}ID`, playerID)
         client.destroy();
 
-        return jwt.sign({ userID: playerID }, process.env.SECRET);
+        return { token: jwt.sign({ userID: playerID }, process.env.SECRET), userID: playerID };
     }
 
 
@@ -46,7 +46,7 @@ export async function login({ username, password }: { username: string, password
 
         if (await verify(hashh, password)) {
             let playerID = (await client.get(`${username}ID`)) as string
-            return jwt.sign({ userID: playerID, "username": username }, process.env.SECRET)
+            return { token: jwt.sign({ userID: playerID, "username": username }, process.env.SECRET), userID: playerID }
         } else {
 
             return false;
