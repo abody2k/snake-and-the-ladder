@@ -28,10 +28,11 @@ socketIOServer.on('connection', (socket) => {
 
     console.log("What a man world")
 
-    socket.on("leaderboard", () => {
+    socket.on("leaderboard", (_,ack) => {
 
 
         socket.join("leaderboard");
+        ack(200);
 
     })
 
@@ -88,9 +89,10 @@ socketIOServer.on('connection', (socket) => {
     })
 
 
-    socket.on("lb", () => { //leave leaderboard room
+    socket.on("lb", (_,ack) => { //leave leaderboard room
 
         socket.leave("leaderboard");
+        ack(200);
 
     })
 

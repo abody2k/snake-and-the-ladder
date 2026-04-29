@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
 import { register } from "../api/auth.api";
-import { joinRoom } from "../socket/multiplayer";
+import { joinRoom, listenToLeaderboard } from "../socket/multiplayer";
 import { multiplayRoomSchema } from "../util/schemas";
 
 test.describe("Socket tests goes here", () => {
@@ -25,4 +25,21 @@ test.describe("Socket tests goes here", () => {
 
 
     })
+
+
+
+
+    test("Returns status 200 when joining leaderboard room", async () => {
+
+
+        let response = await listenToLeaderboard()
+
+
+
+        expect(response).toBe(200)
+
+
+    })
+
+
 })
