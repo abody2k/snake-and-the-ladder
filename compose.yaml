@@ -30,6 +30,9 @@ services:
   test:
     build:
       dockerfile: tests.dockerfile
+    depends_on:
+      app:
+        condition: service_started
   redis:
     image: redis
     ports:
