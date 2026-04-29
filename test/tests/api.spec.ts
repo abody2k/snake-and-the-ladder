@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { register } from "../api/auth.api"
+import { login, register } from "../api/auth.api"
 import { authSchema } from "../util/schemas";
 
 
@@ -13,7 +13,6 @@ test.describe("Api tests goes here", () => {
 
         
         let response = await register("some usernamee", "some password");
-        console.log(response);
         
         expect(authSchema.safeParse(response.data).success).toBeTruthy()// matches schema
         expect(response.status).toBe(201)// http status
@@ -23,7 +22,18 @@ test.describe("Api tests goes here", () => {
 
     })
 
+    test("returns token when valid credentials are provided", async ({ }) => {
 
+        
+        let response = await login("some usernamee", "some password");
+        
+        expect(authSchema.safeParse(response.data).success).toBeTruthy()// matches schema
+        expect(response.status).toBe(200)// http status
+        expect(response.statusText).toBe("OK")
+
+
+
+    })
 
 
 
