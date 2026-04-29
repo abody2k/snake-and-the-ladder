@@ -14,12 +14,30 @@ export class SocketIoClient {
 
     }
 
-
+    /**
+     * Sends the data in a sync way
+     * @param event 
+     * @param data 
+     */
     send(event: string, data: {}) {
 
-        this.socket.emit(event,data)
+        this.socket.emit(event, data)
     }
 
-    
+    /**
+     * sends the data and waits for an acknowledgement
+     * @param event 
+     * @param data 
+     */
+    async sendAndWaitForAck(event: string, data: {}) {
+
+        try {
+            let response = await this.socket.emitWithAck(event, data);
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
 
 }
