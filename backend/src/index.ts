@@ -73,8 +73,8 @@ socketIOServer.on('connection', (socket) => {
 
                 
                 await createMultiplayerRoom(tokenData.userID)
-                roomData = await getRoom(data.roomID);
-                socket.join(data.roomID)
+                roomData = await getRoom(tokenData.userID);
+                socket.join(tokenData.userID)
                 
                 ack(JSON.stringify(roomData))
 
