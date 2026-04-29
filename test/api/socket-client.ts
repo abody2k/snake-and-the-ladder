@@ -15,6 +15,11 @@ export class SocketIoClient {
     }
 
 
+    send(event: string, data: {}) {
 
+        this.socket.emit(event,data)
+    }
+
+    
 
 }
