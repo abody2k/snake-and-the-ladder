@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
+import { createMultiplayerRoom, createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
 import { CreateRedisClient, flushingDB, getTokenData, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
 import { pcPlay, play, startGame } from './gameLogic.ts';
@@ -56,7 +56,7 @@ socketIOServer.on('connection', (socket) => {
         const tokenData = getTokenData(data.token)
 
         if (tokenData) {
-            const roomData = await getRoom(data.roomID);
+            let roomData = await getRoom(data.roomID);
             if (roomData != null) {
                 await joinRoom(tokenData.userID, roomData as MultiplayerRoomData, data.roomID)
                 //leave previous rooms
@@ -69,6 +69,15 @@ socketIOServer.on('connection', (socket) => {
                 }
                 socket.join(data.roomID)
                 socket.emit(JSON.stringify(roomData))
+            } else { // create multiplayer room
+
+                roomData = await getRoom(data.roomID);
+                await createMultiplayerRoom(tokenData.userID)
+                socket.join(data.roomID)
+                socket.emit(JSON.stringify(roomData))
+
+
+
             }
 
         } else {
