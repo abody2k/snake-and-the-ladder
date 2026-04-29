@@ -15,3 +15,13 @@ export async function joinRoom(roomID: string, userToken: string) {
 
 }
 
+
+
+
+export function listenToLeaderboard() {
+
+    socket.send("leaderboard",{})
+
+}
+
+
