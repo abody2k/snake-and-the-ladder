@@ -25,3 +25,8 @@ export async function listenToLeaderboard() {
 }
 
 
+export async function leaveLeaderboard() {
+
+    return await socket.sendAndWaitForAck("lb",{})
+
+}
