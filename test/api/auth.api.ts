@@ -1,9 +1,10 @@
 import { ApiClient } from "./client";
+const client = await ApiClient.createClient();
+
 
 export async function register(username: string, password: string) {
 
 
-    const client = await ApiClient.createClient();
 
     return await client.post("/api/register", {
 
@@ -18,8 +19,7 @@ export async function register(username: string, password: string) {
 export async function login(username: string, password: string) {
 
 
-    const client = await ApiClient.createClient();
-
+    
     return await client.post("/api/login", {
 
         username: username,
