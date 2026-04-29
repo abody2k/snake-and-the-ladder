@@ -37,7 +37,7 @@ socketIOServer.on('connection', (socket) => {
     })
 
 
-    socket.on("play", async (data: { roomID: string, token: string }) => {
+    socket.on("play", async (data: { roomID: string, token: string },ack) => {
 
         const tokenData = getTokenData(data.token)
 
@@ -47,7 +47,12 @@ socketIOServer.on('connection', (socket) => {
             if (playerPosition != false) {
 
                 socketIOServer.to(data.roomID).emit(JSON.stringify(playerPosition))
+                ack(200);
+            }else{
+                ack(403);
             }
+        }else{
+            ack(401);
         }
 
     })

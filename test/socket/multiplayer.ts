@@ -30,3 +30,11 @@ export async function leaveLeaderboard() {
     return await socket.sendAndWaitForAck("lb",{})
 
 }
+
+
+
+export async function play(roomID: string, userToken: string) {
+
+    return await socket.sendAndWaitForAck("play",{roomID, token: userToken})
+
+}
