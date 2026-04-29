@@ -2,7 +2,8 @@ import { io } from "socket.io-client"
 
 /**
  * a helper class to make connecting to sockets and sending
- * and handling data over sockets easier
+ * and handling data over sockets easier.
+ * IT AUTOMATICALLY CONNECTS TO THE SERVER!
  */
 
 export class SocketIoClient {
@@ -10,7 +11,7 @@ export class SocketIoClient {
     socket
     constructor() {
 
-        this.socket = io("http://app:3000")
+        this.socket = io(process.env.BASE_URL)
 
     }
 
