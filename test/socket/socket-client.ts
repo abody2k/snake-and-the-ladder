@@ -34,6 +34,8 @@ export class SocketIoClient {
 
         try {
             let response = await this.socket.emitWithAck(event, data);
+            console.log(response);
+            
             return response;
 
         } catch (error) {
