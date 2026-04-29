@@ -40,4 +40,9 @@ export class SocketIoClient {
         }
     }
 
+    disconnect(){
+
+        this.socket.disconnect()
+    }
+
 }
