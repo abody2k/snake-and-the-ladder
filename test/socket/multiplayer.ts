@@ -18,9 +18,9 @@ export async function joinRoom(roomID: string, userToken: string) {
 
 
 
-export function listenToLeaderboard() {
+export async function listenToLeaderboard() {
 
-    socket.send("leaderboard",{})
+    return await socket.sendAndWaitForAck("leaderboard",{})
 
 }
 
