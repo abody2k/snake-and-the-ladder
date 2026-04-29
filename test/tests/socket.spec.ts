@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
 import { register } from "../api/auth.api";
-import { joinRoom, leaveLeaderboard, listenToLeaderboard } from "../socket/multiplayer";
+import { joinRoom, leaveLeaderboard, listenToLeaderboard, play } from "../socket/multiplayer";
 import { multiplayRoomSchema } from "../util/schemas";
 
 test.describe("Socket tests goes here", () => {
@@ -43,7 +43,31 @@ test.describe("Socket tests goes here", () => {
 
 
 
-        test("Returns status 200 when leaving leaderboard room", async () => {
+    test("Returns status 200 when user plays in their turn", async () => {
+
+        //make an account
+
+        let res = await register("special multiplayer username", "haha")
+
+        const token: string = res.data.token
+        const userID = res.data.userID
+        //make a room and join it
+
+        await joinRoom(userID, token);
+        //play
+        let playResponse = await play(userID, token)
+        expect(playResponse).toBe(200)
+
+
+
+
+
+    })
+
+
+
+
+    test("Returns status 200 when leaving leaderboard room", async () => {
 
 
         let response = await leaveLeaderboard()
@@ -54,5 +78,4 @@ test.describe("Socket tests goes here", () => {
 
 
     })
-
 })
