@@ -4,11 +4,12 @@
 
     let socket = getSocket()
 
-
-    socket.emitWithAck("leaderboard")
+    let items = $state([{playerName:"",wins:""}])
+    socket.emitWithAck("leaderboard",{})
 
     socket.on("lbu",(data)=>{
 
+        items=data
         
     })
 
@@ -25,11 +26,11 @@
         </TableHead>
 
         <TableBody>
-
+ 
             {#each items as playerData}
                             <TableBodyRow>
-                <TableBodyCell>NUS NUS</TableBodyCell>
-                <TableBodyCell>100</TableBodyCell>
+                <TableBodyCell>{playerData.playerName}</TableBodyCell>
+                <TableBodyCell>{playerData.wins}</TableBodyCell>
             </TableBodyRow>
             {/each}
         </TableBody>

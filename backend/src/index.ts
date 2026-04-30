@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'; 
 import { createMultiplayerRoom, createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
 import { CreateRedisClient, flushingDB, getTokenData, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
@@ -6,6 +6,7 @@ import { pcPlay, play, startGame } from './gameLogic.ts';
 import * as io from "socket.io"
 import { createServer } from "http"
 import { joinRoom, playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
+import { getLeaderboard } from './leaderboard.ts';
 
 // import cors from "cors"
 
@@ -20,11 +21,11 @@ await initRoom()
 
 let app = express()
 let server = createServer(app)
-let socketIOServer = new io.Server(server,{
-cors:{
-    origin:"*"
-}
-    
+let socketIOServer = new io.Server(server, {
+    cors: {
+        origin: "*"
+    }
+
 })
 // app.use(cors({
 //     origin:"*"
@@ -36,16 +37,18 @@ socketIOServer.on('connection', (socket) => {
 
     console.log("What a man world")
 
-    socket.on("leaderboard", (_,ack) => {
+    socket.on("leaderboard", async (_, ack) => {
 
-
+        console.log([_,ack]);
+        
         socket.join("leaderboard");
         ack(200);
+        socket.emit("lbu", await getLeaderboard())
 
     })
 
 
-    socket.on("play", async (data: { roomID: string, token: string },ack) => {
+    socket.on("play", async (data: { roomID: string, token: string }, ack) => {
 
         const tokenData = getTokenData(data.token)
 
@@ -56,16 +59,16 @@ socketIOServer.on('connection', (socket) => {
 
                 socketIOServer.to(data.roomID).emit(JSON.stringify(playerPosition))
                 ack(200);
-            }else{
+            } else {
                 ack(403);
             }
-        }else{
+        } else {
             ack(401);
         }
 
     })
 
-    socket.on("joinRoom", async (data: { token: string, roomID: string },ack) => {
+    socket.on("joinRoom", async (data: { token: string, roomID: string }, ack) => {
 
         const tokenData = getTokenData(data.token)
 
@@ -85,11 +88,11 @@ socketIOServer.on('connection', (socket) => {
                 ack(JSON.stringify(roomData))
             } else { // create multiplayer room
 
-                
+
                 await createMultiplayerRoom(tokenData.userID)
                 roomData = await getRoom(tokenData.userID);
                 socket.join(tokenData.userID)
-                
+
                 ack(JSON.stringify(roomData))
 
 
@@ -102,7 +105,7 @@ socketIOServer.on('connection', (socket) => {
     })
 
 
-    socket.on("lb", (_,ack) => { //leave leaderboard room
+    socket.on("lb", (_, ack) => { //leave leaderboard room
 
         socket.leave("leaderboard");
         ack(200);
