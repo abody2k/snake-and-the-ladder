@@ -17,10 +17,17 @@ export async function updateLeaderboard(numberOfWins: number, playerName: string
     if (numberOfWins > minimumWins) {
 
         let leaderboard: LeaderBoard[] = JSON.parse(await client.get("leaderboard") as string);
-        leaderboard.push({
-            playerName: playerName,
-            wins: numberOfWins
-        })
+        let pos = leaderboard.findIndex((x) => x.playerName == playerName)
+        if (pos != -1) {
+            if (leaderboard[pos])
+                leaderboard[pos].wins += 1
+        } else {
+            leaderboard.push({
+                playerName: playerName,
+                wins: numberOfWins
+            })
+        }
+
         leaderboard.sort((a, b) => b.wins - a.wins); // b - a to make it desc order
         leaderboard = leaderboard.slice(0, 10)
         await client.set("leaderboard", JSON.stringify(leaderboard));
