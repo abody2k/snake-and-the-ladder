@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { makeRoom, playAgainstAI } from "../../../utils";
     import { Button, Li, List } from "flowbite-svelte";
+    import Topbar from "../../Topbar.svelte";
     let itIsAI = false;
     let itIsMyRoom = false;
     let myTurn = $state(true);
@@ -33,7 +34,7 @@
 </script>
 
 <div class="p-8">
-
+<Topbar></Topbar>
     {#if myTurn}
     <Button
         onclick={async () => {
