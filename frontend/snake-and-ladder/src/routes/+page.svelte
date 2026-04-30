@@ -9,6 +9,17 @@
         NavUl,
     } from "flowbite-svelte";
     import Topbar from "./Topbar.svelte";
+    import { goto } from "$app/navigation";
+
+    async function playAgainstAI() {
+        //if not logged in then login
+        let userID = localStorage.getItem("userID");
+        if (!userID) {
+            goto("/auth");
+        } else {
+            goto(`/rooms/${userID}`);
+        }
+    }
 </script>
 
 <div class="p-8">
