@@ -4,7 +4,7 @@ import { createMultiplayerRoom, getRoom, updateRoom, type MultiplayerRoomData } 
 import { randomInt } from "crypto"
 import * as io from "socket.io"
 import { TRAPS } from "./gameLogic.ts";
-import { updateLeaderboard } from "./leaderboard.ts";
+import { getLeaderboard, updateLeaderboard } from "./leaderboard.ts";
 
 
 
@@ -56,7 +56,8 @@ export async function playMultiplayer(playerID: string, username: string, io: io
 
                     if (leaderboardUpdated) {
                         //broadcast to leaderboard the changes
-                        io.to("leaderboard").emit("lbu", leaderboardUpdated); //leaderboard updated
+
+                        io.to("leaderboard").emit("lbu", await getLeaderboard()); //leaderboard updated
                     }
                 }
                 else {

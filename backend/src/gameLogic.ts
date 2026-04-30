@@ -1,6 +1,6 @@
 import { randomInt } from "crypto"
-import { createRoom, deleteRoom, getRoom, updateRoom, type Data } from "./rooms.ts";
-import { updateLeaderboard } from "./leaderboard.ts";
+import { createRoom, deleteRoom, getRoom, updateRoom, type Data, type LeaderBoard } from "./rooms.ts";
+import { getLeaderboard, updateLeaderboard } from "./leaderboard.ts";
 import * as io from "socket.io"
 
 /**
@@ -75,8 +75,9 @@ export async function play(playerID: string, username: string, io: io.Server) {
                     let leaderboardUpdated = await updateLeaderboard(roomData.wins, username)
 
                     if (leaderboardUpdated) {
+                        let leaderboard = await getLeaderboard()
                         //broadcast to leaderboard the changes
-                        io.to("leaderboard").emit("lbu", leaderboardUpdated); //leaderboard updated
+                        io.to("leaderboard").emit("lbu", leaderboard); //leaderboard updated
                     }
                 }
                 else {

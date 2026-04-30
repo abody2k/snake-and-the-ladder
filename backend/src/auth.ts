@@ -24,7 +24,7 @@ export async function register({ username, password }: { username: string, passw
         await client.set(`${username}ID`, playerID)
         client.destroy();
 
-        return { token: jwt.sign({ userID: playerID }, process.env.SECRET), userID: playerID };
+        return { token: jwt.sign({ userID: playerID, username: username }, process.env.SECRET), userID: playerID };
     }
 
 
