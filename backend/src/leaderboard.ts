@@ -33,3 +33,15 @@ export async function updateLeaderboard(numberOfWins: number, playerName: string
     }
 
 }
+
+
+export async function getLeaderboard() {
+
+
+    let client = await CreateRedisClient();
+    let leaderboard: LeaderBoard[] = JSON.parse(await client.get("leaderboard") as string);
+    client.destroy();
+    return leaderboard;
+
+
+}

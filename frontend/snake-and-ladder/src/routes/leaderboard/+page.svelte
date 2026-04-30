@@ -1,9 +1,18 @@
 <script>
+    import { getSocket } from "$lib/socket";
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
 
-    let items
+    let socket = getSocket()
 
-    
+
+    socket.emitWithAck("leaderboard")
+
+    socket.on("lbu",(data)=>{
+
+        
+    })
+
+
 
 </script>
 
