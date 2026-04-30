@@ -1,14 +1,27 @@
-export async function postRequest(url: string, data: {}) {
+export async function postRequest(url: string, data: {}, token?: string) {
 
+    if (token) {
+        return await fetch("http://localhost:3000/api/" + url, {
+            body: JSON.stringify(data),
+            method: "POST",
+            headers: {
+                'Content-Type': "Application/json",
+                'Authorization': `Bearer ${token}`
+            },
 
-    return await fetch("http://localhost:3000/api/" + url, {
-        body: JSON.stringify(data),
-        method: "POST",
-        headers: {
-            'Content-Type': "Application/json"
-        },
+        });
+    } else {
 
-    })
+        return await fetch("http://localhost:3000/api/" + url, {
+            body: JSON.stringify(data),
+            method: "POST",
+            headers: {
+                'Content-Type': "Application/json"
+            },
+
+        });
+    }
+
 
 }
 
@@ -37,5 +50,22 @@ export async function handleAuthData(data: Response, username: string) {
     localStorage.setItem("username", username);
     localStorage.setItem("token", token);
     localStorage.setItem("userID", userID);
+
+}
+
+
+
+
+export async function makeRoom() {
+
+
+    await postRequest("startGame", {}, localStorage.getItem("token") as string)
+}
+
+
+
+export async function playAgainstAI() {
+
+    return await (await postRequest("play", {}, localStorage.getItem("token") as string)).json()
 
 }

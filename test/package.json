@@ -13,6 +13,8 @@
     "@types/node": "^25.6.0"
   },
   "dependencies": {
+    "allure-commandline": "^2.38.1",
+    "allure-playwright": "^3.7.1",
     "socket.io-client": "^4.8.3",
     "zod": "^4.3.6"
   }
