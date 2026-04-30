@@ -8,12 +8,32 @@
         ListgroupItem,
     } from "flowbite-svelte";
     import Topbar from "../Topbar.svelte";
-    import { postRequest } from "../../utils";
+    import { handleAuthData, postRequest } from "../../utils";
+    import { goto } from "$app/navigation";
     let login = $state(true);
     function flipLoginSignup() {
         login = !login;
     }
 
+    let username = $state("");
+    let password = $state("");
+
+    async function loginRequest() {
+        let data;
+
+        try {
+            data = await postRequest("login", {
+                username: username,
+                password: password,
+            });
+
+            await handleAuthData(data,username);
+            
+            goto("/");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
 
