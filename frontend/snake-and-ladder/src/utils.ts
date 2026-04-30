@@ -1,7 +1,7 @@
 export async function postRequest(url: string, data: {}) {
 
 
-    fetch("http://app:3000/api/"+url, {
+    return await fetch("http://app:3000/api/" + url, {
         body: JSON.stringify(data),
         method: "POST",
         headers: {
@@ -13,15 +13,29 @@ export async function postRequest(url: string, data: {}) {
 }
 
 
-export async function getRequest(url: string, ) {
+export async function getRequest(url: string,) {
 
 
-    fetch("http://app:3000/api/"+url, {
+    return await fetch("http://app:3000/api/" + url, {
         method: "GET",
         headers: {
             'Content-Type': "Application/json"
         },
 
     })
+
+}
+
+
+export async function handleAuthData(data: Response, username: string) {
+
+
+    const responseObj = await data.json();
+    let token = responseObj.token;
+    let userID = responseObj.userID;
+
+    localStorage.setItem("username", username);
+    localStorage.setItem("token", token);
+    localStorage.setItem("userID", userID);
 
 }
