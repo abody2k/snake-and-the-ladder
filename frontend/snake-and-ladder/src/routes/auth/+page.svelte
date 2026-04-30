@@ -1,6 +1,50 @@
 <script>
+    import {
+        Alert,
+        Button,
+        Input,
+        Label,
+        Listgroup,
+        ListgroupItem,
+    } from "flowbite-svelte";
     import Topbar from "../Topbar.svelte";
-
+    let login = $state(true);
+    function flipLoginSignup() {
+        login = !login;
+    }
 </script>
 
-    <Topbar></Topbar>
+<Topbar></Topbar>
+
+<div class="flex justify-center items-center">
+
+    <Listgroup>
+    <ListgroupItem>
+        <Input type="text" placeholder="Username"></Input>
+    </ListgroupItem>
+    <ListgroupItem>
+        <Input type="text" placeholder="password"></Input>
+    </ListgroupItem>
+    {#if login}
+        <ListgroupItem>
+            <Button color="dark">Login</Button>
+        </ListgroupItem>
+    {:else}
+        <ListgroupItem>
+            <Button color="dark">Sign up</Button>
+        </ListgroupItem>
+    {/if}
+
+    {#if login}
+        <ListgroupItem>
+            <Button onclick={flipLoginSignup}>
+                Click here if you want to sign up</Button
+            >
+        </ListgroupItem>
+    {:else}
+        <ListgroupItem>
+            <Button onclick={flipLoginSignup}>Click here if you want to login</Button>
+        </ListgroupItem>
+    {/if}
+</Listgroup>
+</div>
