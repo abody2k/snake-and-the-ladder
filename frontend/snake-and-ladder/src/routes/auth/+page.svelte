@@ -12,7 +12,9 @@
     import Topbar from "../Topbar.svelte";
     import { handleAuthData, postRequest } from "../../utils";
     import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
     let login = $state(true);
+    let alreadySignedIn = $state(false);
     function flipLoginSignup() {
         login = !login;
     }
@@ -58,50 +60,69 @@
 
         busy = false;
     }
+
+    onMount(async () => {
+        if (localStorage.getItem("username")) {
+            alreadySignedIn= true;
+        }
+    });
 </script>
 
 <Topbar></Topbar>
-<Modal
-    class="flex items-center justify-center  size-fit"
-    form
-    title={login ? "Logging in" : "Signing up"}
-    open={busy}
-    permanent
->
-    <Spinner size="12" type="pulse"></Spinner>
-</Modal>
-<div class="flex justify-center items-center">
-    <Listgroup>
-        <ListgroupItem>
-            <Input type="text" placeholder="Username" bind:value={username}
-            ></Input>
-        </ListgroupItem>
-        <ListgroupItem>
-            <Input type="text" placeholder="password" bind:value={password}
-            ></Input>
-        </ListgroupItem>
-        {#if login}
-            <ListgroupItem>
-                <Button color="dark" onclick={loginRequest}>Login</Button>
-            </ListgroupItem>
-        {:else}
-            <ListgroupItem>
-                <Button color="dark" onclick={signupRequest}>Sign up</Button>
-            </ListgroupItem>
-        {/if}
 
-        {#if login}
+{#if alreadySignedIn}
+
+<Alert color="blue">
+    You Have already signed in!
+</Alert>
+
+{:else}
+    <Modal
+        class="flex items-center justify-center  size-fit"
+        form
+        title={login ? "Logging in" : "Signing up"}
+        open={busy}
+        permanent
+    >
+        <Spinner size="12" type="pulse"></Spinner>
+    </Modal>
+    <div class="flex justify-center items-center">
+        <Listgroup>
             <ListgroupItem>
-                <Button onclick={flipLoginSignup}>
-                    Click here if you want to sign up</Button
-                >
+                <Input type="text" placeholder="Username" bind:value={username}
+                ></Input>
             </ListgroupItem>
-        {:else}
             <ListgroupItem>
-                <Button onclick={flipLoginSignup}
-                    >Click here if you want to login</Button
-                >
+                <Input
+                    type="password"
+                    placeholder="password"
+                    bind:value={password}
+                ></Input>
             </ListgroupItem>
-        {/if}
-    </Listgroup>
-</div>
+            {#if login}
+                <ListgroupItem>
+                    <Button color="dark" onclick={loginRequest}>Login</Button>
+                </ListgroupItem>
+            {:else}
+                <ListgroupItem>
+                    <Button color="dark" onclick={signupRequest}>Sign up</Button
+                    >
+                </ListgroupItem>
+            {/if}
+
+            {#if login}
+                <ListgroupItem>
+                    <Button onclick={flipLoginSignup}>
+                        Click here if you want to sign up</Button
+                    >
+                </ListgroupItem>
+            {:else}
+                <ListgroupItem>
+                    <Button onclick={flipLoginSignup}
+                        >Click here if you want to login</Button
+                    >
+                </ListgroupItem>
+            {/if}
+        </Listgroup>
+    </div>
+{/if}

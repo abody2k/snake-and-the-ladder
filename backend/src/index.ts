@@ -8,7 +8,7 @@ import { createServer } from "http"
 import { joinRoom, playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
 import { getLeaderboard } from './leaderboard.ts';
 
-// import cors from "cors"
+import cors from "cors"
 
 
 initDotEnv();
@@ -27,9 +27,9 @@ let socketIOServer = new io.Server(server, {
     }
 
 })
-// app.use(cors({
-//     origin:"*"
-// }))
+app.use(cors({
+    origin:"*"
+}));
 app.use(express.json())
 
 socketIOServer.on('connection', (socket) => {

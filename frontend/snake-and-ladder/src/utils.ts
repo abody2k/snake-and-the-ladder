@@ -1,7 +1,7 @@
 export async function postRequest(url: string, data: {}) {
 
 
-    return await fetch("http://app:3000/api/" + url, {
+    return await fetch("http://localhost:3000/api/" + url, {
         body: JSON.stringify(data),
         method: "POST",
         headers: {
@@ -16,7 +16,7 @@ export async function postRequest(url: string, data: {}) {
 export async function getRequest(url: string,) {
 
 
-    return await fetch("http://app:3000/api/" + url, {
+    return await fetch("http://localhost:3000/api/" + url, {
         method: "GET",
         headers: {
             'Content-Type': "Application/json"
