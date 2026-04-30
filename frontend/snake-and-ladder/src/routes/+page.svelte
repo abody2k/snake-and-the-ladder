@@ -1,10 +1,26 @@
 <script lang="ts">
-    import { Alert, Button, Navbar, NavLi, NavUl } from "flowbite-svelte";
+    import {
+        Alert,
+        Button,
+        Listgroup,
+        ListgroupItem,
+        Navbar,
+        NavLi,
+        NavUl,
+    } from "flowbite-svelte";
     import Topbar from "./Topbar.svelte";
 </script>
 
 <div class="p-8">
     <Topbar></Topbar>
-        <Button color="blue">Play against AI</Button>
-    <Button color="dark">Play with friends</Button>
+    <div class="flex justify-center items-center self-center">
+        <Listgroup>
+            <ListgroupItem>
+                <Button outline color="dark">Play against AI</Button>
+            </ListgroupItem>
+            <ListgroupItem
+                ><Button outline color="dark">Play with friends</Button>
+            </ListgroupItem>
+        </Listgroup>
+    </div>
 </div>

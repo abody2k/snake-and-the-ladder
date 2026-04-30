@@ -72,7 +72,7 @@
 
 {#if alreadySignedIn}
 
-<Alert color="blue">
+<Alert color="gray">
     You Have already signed in!
 </Alert>
 
