@@ -14,6 +14,17 @@
 
 			socket.connect()
 		}
+
+		socket.on("connected",()=>{
+
+			console.log("Connected");
+			
+		})
+		socket.on("connection",()=>{
+
+			console.log("Connected with tion");
+			
+		})
 		//HANDLE INCOMING TRANSMISSIONS OVER HERE
 	})
 </script>

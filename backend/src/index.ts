@@ -7,7 +7,7 @@ import * as io from "socket.io"
 import { createServer } from "http"
 import { joinRoom, playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
 
-
+// import cors from "cors"
 
 
 initDotEnv();
@@ -20,7 +20,15 @@ await initRoom()
 
 let app = express()
 let server = createServer(app)
-let socketIOServer = new io.Server(server)
+let socketIOServer = new io.Server(server,{
+cors:{
+    origin:"*"
+}
+    
+})
+// app.use(cors({
+//     origin:"*"
+// }))
 app.use(express.json())
 
 socketIOServer.on('connection', (socket) => {
