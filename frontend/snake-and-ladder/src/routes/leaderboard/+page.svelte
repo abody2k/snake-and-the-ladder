@@ -1,6 +1,7 @@
 <script>
     import { getSocket } from "$lib/socket";
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from "flowbite-svelte";
+    import Topbar from "../Topbar.svelte";
 
     let socket = getSocket()
 
@@ -17,6 +18,7 @@
 
 </script>
 
+    <Topbar></Topbar>
 
 <div class="p-10">
     <Table>
