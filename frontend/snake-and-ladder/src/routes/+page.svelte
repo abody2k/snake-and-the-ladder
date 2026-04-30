@@ -15,9 +15,9 @@
         //if not logged in then login
         let userID = localStorage.getItem("userID");
         if (!userID) {
-            goto("/auth");
+            await goto("/auth");
         } else {
-            goto(`/rooms/${userID}`);
+            await goto(`/rooms/${userID}`);
         }
     }
 </script>
@@ -27,7 +27,7 @@
     <div class="flex justify-center items-center self-center">
         <Listgroup>
             <ListgroupItem>
-                <Button outline color="dark">Play against AI</Button>
+                <Button outline color="dark" onclick={playAgainstAI}>Play against AI</Button>
             </ListgroupItem>
             <ListgroupItem
                 ><Button outline color="dark">Play with friends</Button>
