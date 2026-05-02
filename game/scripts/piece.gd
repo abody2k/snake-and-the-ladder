@@ -63,3 +63,7 @@ func _process(delta):
 			timer = 0.0
 			
 	
+	
+func set_pos(pos: int):
+	transform.origin = path.curve.get_point_position(pos-1)
+	modulate = Color.from_ok_hsl(randf(),1,1,1)
