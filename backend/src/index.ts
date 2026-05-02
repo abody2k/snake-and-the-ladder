@@ -84,6 +84,9 @@ socketIOServer.on('connection', (socket) => {
                         await socket.leave(arr[i] as string)
                     }
                 }
+                
+                roomData = await getRoom(data.roomID); // sends to them the new data
+                socketIOServer.to(data.roomID).emit("someoneJoined",roomData)
                 socket.join(data.roomID)
                 ack(JSON.stringify(roomData))
             } else if (tokenData.userID === data.roomID) { // create multiplayer room
