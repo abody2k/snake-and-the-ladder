@@ -27,6 +27,9 @@
     });
 
     onMount(async () => {
+
+        
+
         if (page.params.userID === localStorage.getItem("userID")) {
             //making my own room
             itIsMyRoom = true;
@@ -40,6 +43,7 @@
                 await makeRoom();
             } else {
                 socket = getSocket();
+
                 socket.removeAllListeners();
                 roomDataMultiplayer = await startMultiplayerGame(socket);
             }
