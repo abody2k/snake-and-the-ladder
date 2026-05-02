@@ -40,11 +40,13 @@
                 await makeRoom();
             } else {
                 socket = getSocket();
+                socket.removeAllListeners();
                 roomDataMultiplayer = await startMultiplayerGame(socket);
             }
         } else {
             //joining somebody's else room
             socket = getSocket();
+            socket.removeAllListeners();
             roomDataMultiplayer = await startMultiplayerGame(socket);
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }
