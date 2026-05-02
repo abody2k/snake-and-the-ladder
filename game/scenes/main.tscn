@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://cjhd1nawhuuwt"]
 
 [ext_resource type="Script" uid="uid://c8xg5a5vjb7fb" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://qbhdjl7b2q88" path="res://scenes/snake.tscn" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://cxq1mvjsg8qw3" path="res://images/checker.jpg" id="2_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://bnlu1cxjgv3f" path="res://images/snake.png" id="3_tbgi4"]
 
 [node name="main" type="Node2D" unique_id=1275062714]
 script = ExtResource("1_o5qli")
@@ -22,3 +25,96 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Checker" type="Sprite2D" parent="." unique_id=1919932610]
+texture = ExtResource("2_jyhfs")
+
+[node name="Snake" type="Sprite2D" parent="." unique_id=934443736]
+position = Vector2(201, 290)
+rotation = -2.4538279
+texture = ExtResource("3_tbgi4")
+
+[node name="Snake" type="Sprite2D" parent="Snake" unique_id=547181439]
+position = Vector2(571.71875, 125.6249)
+rotation = -1.457011
+scale = Vector2(1.3367673, 1.7643373)
+texture = ExtResource("3_tbgi4")
+flip_h = true
+
+[node name="Snake" type="Sprite2D" parent="Snake/Snake" unique_id=2066333990]
+position = Vector2(264.0873, -119.47272)
+rotation = -0.11385083
+scale = Vector2(0.64398813, 0.77727705)
+texture = ExtResource("3_tbgi4")
+flip_h = true
+
+[node name="Skeleton2D" parent="Snake/Snake" unique_id=19517775 instance=ExtResource("2_0wfyh")]
+position = Vector2(-99.32593, -117.83081)
+rotation = -2.5086892
+scale = Vector2(0.6665426, 0.66074216)
+skew = 0.27388966
+
+[node name="Head" parent="Snake/Snake/Skeleton2D/Skeleton2D" parent_id_path=PackedInt32Array(19517775, 1886449508) index="0" unique_id=189421639]
+position = Vector2(236.99998, -129)
+rotation = -2.789233
+editor_settings/show_bone_gizmo = false
+
+[node name="1" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head" index="0" unique_id=407451243]
+editor_settings/show_bone_gizmo = false
+
+[node name="2" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1" index="0" unique_id=1014153622]
+editor_settings/show_bone_gizmo = false
+
+[node name="3" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2" index="0" unique_id=272995557]
+rotation = 0.28261307
+scale = Vector2(0.99999994, 0.99999994)
+editor_settings/show_bone_gizmo = false
+
+[node name="4" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3" index="0" unique_id=102396392]
+editor_settings/show_bone_gizmo = false
+
+[node name="5" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4" index="0" unique_id=1511488524]
+editor_settings/show_bone_gizmo = false
+
+[node name="6" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5" index="0" unique_id=1311580589]
+rotation = 0.39195284
+scale = Vector2(0.99999994, 0.99999994)
+editor_settings/show_bone_gizmo = false
+
+[node name="7" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6" index="0" unique_id=284630443]
+editor_settings/show_bone_gizmo = false
+
+[node name="8" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7" index="0" unique_id=1738508138]
+editor_settings/show_bone_gizmo = false
+
+[node name="9" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8" index="0" unique_id=2099244584]
+editor_settings/show_bone_gizmo = false
+
+[node name="10" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9" index="0" unique_id=1701353285]
+editor_settings/show_bone_gizmo = false
+
+[node name="11" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10" index="0" unique_id=462274569]
+editor_settings/show_bone_gizmo = false
+
+[node name="12" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11" index="0" unique_id=4967118]
+editor_settings/show_bone_gizmo = false
+
+[node name="13" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12" index="0" unique_id=887584897]
+editor_settings/show_bone_gizmo = false
+
+[node name="14" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13" index="0" unique_id=1634865165]
+editor_settings/show_bone_gizmo = false
+
+[node name="15" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14" index="0" unique_id=1285209510]
+editor_settings/show_bone_gizmo = false
+
+[node name="16" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" index="0" unique_id=1513949713]
+editor_settings/show_bone_gizmo = false
+
+[node name="17" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" index="0" unique_id=890649165]
+editor_settings/show_bone_gizmo = false
+
+[node name="18" parent="Snake/Snake/Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" index="0" unique_id=790675728]
+editor_settings/show_bone_gizmo = false
+
+[editable path="Snake/Snake/Skeleton2D"]
