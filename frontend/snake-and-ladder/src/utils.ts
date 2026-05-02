@@ -99,3 +99,20 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
 
 
 }
+
+
+
+
+export async function playAgainstPlayer(socket: Socket) {
+
+
+    const token = localStorage.getItem("token");
+    const roomID = localStorage.getItem("userID");
+    let response;
+    if (token && roomID)
+        response = await socket.emitWithAck("play", { token, roomID })
+    else
+        throw new Error("You are not signed in or your token has expired");
+
+    return response == 200;
+}
