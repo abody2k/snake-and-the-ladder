@@ -41,6 +41,11 @@ func _on_timer_timeout():
 	print("NEW TARGET : " + str(target))
 
 var timer = 0.0
+
+func pick_next_pos(next_target):
+	target = next_target - 1
+	moving = true
+	
 	
 func _process(delta):
 	
