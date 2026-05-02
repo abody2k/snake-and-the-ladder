@@ -11,7 +11,9 @@ config_version=5
 [application]
 
 config/name="snake-and-the-ladder"
+run/main_scene="uid://cjhd1nawhuuwt"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/image="uid://ce4lboc8vop26"
 config/icon="res://icon.svg"
 
 [physics]
