@@ -1,12 +1,18 @@
 <script>
     import { page } from "$app/state";
     import { onMount } from "svelte";
-    import { makeRoom, playAgainstAI } from "../../../utils";
+    import {
+        makeRoom,
+        playAgainstAI,
+        startMultiplayerGame,
+    } from "../../../utils";
     import { Button, Li, List } from "flowbite-svelte";
     import Topbar from "../../Topbar.svelte";
+    import { getSocket } from "$lib/socket";
     let itIsAI = false;
     let itIsMyRoom = false;
     let myTurn = $state(true);
+    let socket;
 
     let data = $state({
         plyrPos: [],
@@ -26,6 +32,7 @@
             if (itIsAI) {
                 await makeRoom();
             } else {
+
             }
         } else {
             //joining somebody's else room
@@ -34,25 +41,24 @@
 </script>
 
 <div class="p-8">
-<Topbar></Topbar>
+    <Topbar></Topbar>
     {#if myTurn}
-    <Button
-        onclick={async () => {
-            myTurn = false;
-            data = await playAgainstAI();
-            myTurn = true;
-        }}>Play</Button
-    >
-{/if}
+        <Button
+            onclick={async () => {
+                myTurn = false;
+                data = await playAgainstAI();
+                myTurn = true;
+            }}>Play</Button
+        >
+    {/if}
 
-<List>
-    <Li>
-        Player Positions : {data.plyrPos.join("...")}
-    </Li>
+    <List>
+        <Li>
+            Player Positions : {data.plyrPos.join("...")}
+        </Li>
 
-    <Li>
-        AI Positions : {data.pcPos.join("...")}
-    </Li>
-</List>
-
+        <Li>
+            AI Positions : {data.pcPos.join("...")}
+        </Li>
+    </List>
 </div>

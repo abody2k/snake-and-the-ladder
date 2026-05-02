@@ -97,7 +97,7 @@ socketIOServer.on('connection', (socket) => {
 
 
 
-            }else{
+            } else {
 
                 socket.disconnect();
             }
