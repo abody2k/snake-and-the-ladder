@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://cjhd1nawhuuwt"]
 
 [ext_resource type="Script" uid="uid://c8xg5a5vjb7fb" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://qbhdjl7b2q88" path="res://scenes/snake.tscn" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://bb0disnkoq5sl" path="res://images/checker.png" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://bnlu1cxjgv3f" path="res://images/snake.png" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://4xy6li60wll8" path="res://images/ladder.png" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bd1c8svwea61d" path="res://scenes/piece.tscn" id="6_tefeu"]
+
+[sub_resource type="Curve2D" id="Curve2D_o6xl0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -421.52795, 423.58545, 0, 0, 0, 0, -333.18518, 423.72952, 0, 0, 0, 0, -241, 423, 0, 0, 0, 0, -145.92984, 421.4894, 0, 0, 0, 0, -48.344856, 420.50693, 0, 0, 0, 0, 53, 429, 0, 0, 0, 0, 149, 437, 0, 0, 0, 0, 233, 437, 0, 0, 0, 0, 351, 424, 0, 0, 0, 0, 425, 421, 0, 0, 0, 0, 431, 333, 0, 0, 0, 0, 339, 328, 0, 0, 0, 0, 250, 328, 0, 0, 0, 0, 152, 324, 0, 0, 0, 0, 42, 333, 0, 0, 0, 0, -34, 331, 0, 0, 0, 0, -150, 328, 0, 0, 0, 0, -238, 327, 0, 0, 0, 0, -340, 331, 0, 0, 0, 0, -435, 328, 0, 0, 0, 0, -441, 226, 0, 0, 0, 0, -345, 244, 0, 0, 0, 0, -224, 240, 0, 0, 0, 0, -135, 241, 0, 0, 0, 0, -48, 240, 0, 0, 0, 0, 43, 234, 0, 0, 0, 0, 155, 234, 0, 0, 0, 0, 246, 231, 0, 0, 0, 0, 326, 233, 0, 0, 0, 0, 438, 236, 0, 0, 0, 0, 435, 134, 0, 0, 0, 0, 366, 138, 0, 0, 0, 0, 248, 133, 0, 0, 0, 0, 145, 130, 0, 0, 0, 0, 73, 128, 0, 0, 0, 0, -57, 137, 0, 0, 0, 0, -141, 138, 0, 0, 0, 0, -243, 134, 0, 0, 0, 0, -348, 136, 0, 0, 0, 0, -411, 136, 0, 0, 0, 0, -443, 46, 0, 0, 0, 0, -343, 44, 0, 0, 0, 0, -244, 46, 0, 0, 0, 0, -161, 43, 0, 0, 0, 0, -61, 44, 0, 0, 0, 0, 38, 46, 0, 0, 0, 0, 146, 40, 0, 0, 0, 0, 253, 47, 0, 0, 0, 0, 325, 37, 0, 0, 0, 0, 425, 40, 0, 0, 0, 0, 428, -60, 0, 0, 0, 0, 353, -54, 0, 0, 0, 0, 248, -57, 0, 0, 0, 0, 138, -60, 0, 0, 0, 0, 45, -49, 0, 0, 0, 0, -50, -56, 0, 0, 0, 0, -147, -63, 0, 0, 0, 0, -245, -59, 0, 0, 0, 0, -340, -50, 0, 0, 0, 0, -430, -52, 0, 0, 0, 0, -444, -147, 0, 0, 0, 0, -343, -149, 0, 0, 0, 0, -248, -152, 0, 0, 0, 0, -146, -149, 0, 0, 0, 0, -50, -153, 0, 0, 0, 0, 46, -143, 0, 0, 0, 0, 142, -142, 0, 0, 0, 0, 250, -145, 0, 0, 0, 0, 336, -152, 0, 0, 0, 0, 423, -147, 0, 0, 0, 0, 440, -248, 0, 0, 0, 0, 341, -248, 0, 0, 0, 0, 234, -248, 0, 0, 0, 0, 137, -251, 0, 0, 0, 0, 49, -242, 0, 0, 0, 0, -52, -250, 0, 0, 0, 0, -151, -243, 0, 0, 0, 0, -249, -247, 0, 0, 0, 0, -341, -247, 0, 0, 0, 0, -439, -253, 0, 0, 0, 0, -442, -342, 0, 0, 0, 0, -338, -342, 0, 0, 0, 0, -245, -346, 0, 0, 0, 0, -142, -335, 0, 0, 0, 0, -46, -344, 0, 0, 0, 0, 58, -341, 0, 0, 0, 0, 152, -341, 0, 0, 0, 0, 232, -341, 0, 0, 0, 0, 347, -346, 0, 0, 0, 0, 426, -341, 0, 0, 0, 0, 431, -449, 0, 0, 0, 0, 330, -437, 0, 0, 0, 0, 243, -440, 0, 0, 0, 0, 138, -443, 0, 0, 0, 0, 49, -437, 0, 0, 0, 0, -54, -438, 0, 0, 0, 0, -153, -445, 0, 0, 0, 0, -245, -437, 0, 0, 0, 0, -348, -435, 0, 0, 0, 0, -440, -435, 0, 0, 0, 0, -421.52795, 423.58545)
+}
+point_count = 101
 
 [node name="main" type="Node2D" unique_id=1275062714]
 script = ExtResource("1_o5qli")
@@ -22,3 +33,125 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Checker" type="Sprite2D" parent="." unique_id=1919932610]
+scale = Vector2(0.8751552, 0.8751552)
+texture = ExtResource("2_tefeu")
+
+[node name="Snake3" type="Sprite2D" parent="." unique_id=2066333990]
+position = Vector2(-300, 209.99997)
+rotation = 2.2225578
+scale = Vector2(0.8649745, 1.3676041)
+skew = 0.06336963
+texture = ExtResource("3_tbgi4")
+flip_h = true
+
+[node name="Snake2" type="Sprite2D" parent="." unique_id=547181439]
+position = Vector2(-185, -212.99998)
+rotation = 2.3723464
+scale = Vector2(1.3367672, 1.7643373)
+texture = ExtResource("3_tbgi4")
+flip_h = true
+
+[node name="Snake" type="Sprite2D" parent="." unique_id=934443736]
+position = Vector2(201, 351)
+rotation = -2.4538279
+scale = Vector2(0.6966523, 0.6966523)
+texture = ExtResource("3_tbgi4")
+
+[node name="Skeleton2D" parent="." unique_id=19517775 instance=ExtResource("2_0wfyh")]
+position = Vector2(121, -308)
+
+[node name="Head" parent="Skeleton2D/Skeleton2D" parent_id_path=PackedInt32Array(19517775, 1886449508) index="0" unique_id=189421639]
+position = Vector2(236.99998, -129)
+rotation = -2.789233
+editor_settings/show_bone_gizmo = false
+
+[node name="1" parent="Skeleton2D/Skeleton2D/Head" index="0" unique_id=407451243]
+editor_settings/show_bone_gizmo = false
+
+[node name="2" parent="Skeleton2D/Skeleton2D/Head/1" index="0" unique_id=1014153622]
+editor_settings/show_bone_gizmo = false
+
+[node name="3" parent="Skeleton2D/Skeleton2D/Head/1/2" index="0" unique_id=272995557]
+rotation = 0.282613
+scale = Vector2(0.99999994, 0.99999994)
+editor_settings/show_bone_gizmo = false
+
+[node name="4" parent="Skeleton2D/Skeleton2D/Head/1/2/3" index="0" unique_id=102396392]
+editor_settings/show_bone_gizmo = false
+
+[node name="5" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4" index="0" unique_id=1511488524]
+editor_settings/show_bone_gizmo = false
+
+[node name="6" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5" index="0" unique_id=1311580589]
+rotation = 0.39195284
+scale = Vector2(0.9999999, 0.9999999)
+editor_settings/show_bone_gizmo = false
+
+[node name="7" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6" index="0" unique_id=284630443]
+editor_settings/show_bone_gizmo = false
+
+[node name="8" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7" index="0" unique_id=1738508138]
+editor_settings/show_bone_gizmo = false
+
+[node name="9" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8" index="0" unique_id=2099244584]
+editor_settings/show_bone_gizmo = false
+
+[node name="10" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9" index="0" unique_id=1701353285]
+editor_settings/show_bone_gizmo = false
+
+[node name="11" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10" index="0" unique_id=462274569]
+editor_settings/show_bone_gizmo = false
+
+[node name="12" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11" index="0" unique_id=4967118]
+editor_settings/show_bone_gizmo = false
+
+[node name="13" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12" index="0" unique_id=887584897]
+editor_settings/show_bone_gizmo = false
+
+[node name="14" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13" index="0" unique_id=1634865165]
+editor_settings/show_bone_gizmo = false
+
+[node name="15" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14" index="0" unique_id=1285209510]
+editor_settings/show_bone_gizmo = false
+
+[node name="16" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15" index="0" unique_id=1513949713]
+editor_settings/show_bone_gizmo = false
+
+[node name="17" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16" index="0" unique_id=890649165]
+editor_settings/show_bone_gizmo = false
+
+[node name="18" parent="Skeleton2D/Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" index="0" unique_id=790675728]
+editor_settings/show_bone_gizmo = false
+
+[node name="Ladder2" type="Sprite2D" parent="." unique_id=1636063330]
+position = Vector2(415, -13.999999)
+rotation = 0.1443479
+texture = ExtResource("5_tbgi4")
+
+[node name="Ladder" type="Sprite2D" parent="." unique_id=1185312266]
+position = Vector2(-2, 206)
+rotation = 0.22796318
+texture = ExtResource("5_tbgi4")
+
+[node name="Ladder3" type="Sprite2D" parent="." unique_id=1709086610]
+position = Vector2(203.00002, -360)
+rotation = 0.4571234
+scale = Vector2(0.65139157, 0.4346525)
+texture = ExtResource("5_tbgi4")
+
+[node name="Piece" parent="." unique_id=1075886398 instance=ExtResource("6_tefeu")]
+rotation = 0.0384114
+scale = Vector2(0.12110435, 0.11039035)
+skew = 0.007838368
+
+[node name="path" type="Path2D" parent="." unique_id=136074586 groups=["path"]]
+scale = Vector2(1.1169751, 1.0178192)
+curve = SubResource("Curve2D_o6xl0")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="path" unique_id=661561754]
+position = Vector2(-421.52795, 423.58545)
+rotation = 0.0016308449
+
+[editable path="Skeleton2D"]

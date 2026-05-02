@@ -1,3 +1,4 @@
+import { getSocket } from "$lib/socket";
 import type { Socket } from "socket.io-client";
 
 
@@ -103,9 +104,9 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
 
 
 
-export async function playAgainstPlayer(socket: Socket) {
+window.play = async function playAgainstPlayer() {
 
-
+    let socket = getSocket();
     const token = localStorage.getItem("token");
     const roomID = localStorage.getItem("userID");
     let response;
@@ -121,12 +122,13 @@ export async function playAgainstPlayer(socket: Socket) {
 export function listenToAllEvents(socket: Socket) {
     socket.on("played", (data) => {
 
-
+        window.gameUpdated(data)
     })
 
     socket.on("someoneJoined", (data: MultiplayerRoomData) => {
 
 
         //talk to godot and share the info
+        window.userJoined(data)
     })
 }
