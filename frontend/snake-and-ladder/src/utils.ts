@@ -1,3 +1,15 @@
+import type { Socket } from "socket.io-client";
+
+
+
+type MultiplayerRoomData = {
+
+    wins: [string, number][], //array of arrays to support more than 2 players [playerID, wins]
+    playerTurn: string, //playerID of the player whose turn it is
+    playerPos: [string, number][], //array of arrays to support more than 2 players [playerID, position]
+}
+
+
 export async function postRequest(url: string, data: {}, token?: string) {
 
     if (token) {
@@ -68,4 +80,53 @@ export async function playAgainstAI() {
 
     return await (await postRequest("play", {}, localStorage.getItem("token") as string)).json()
 
+}
+
+
+
+export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerRoomData> {
+
+    const token = localStorage.getItem("token");
+    const roomID = localStorage.getItem("userID");
+    let response;
+    if (token && roomID)
+        response = await socket.emitWithAck("joinRoom", { token, roomID })
+    else
+        throw new Error("You are not signed in or your token has expired");
+
+    return response;
+
+
+
+}
+
+
+
+
+export async function playAgainstPlayer(socket: Socket) {
+
+
+    const token = localStorage.getItem("token");
+    const roomID = localStorage.getItem("userID");
+    let response;
+    if (token && roomID)
+        response = await socket.emitWithAck("play", { token, roomID })
+    else
+        throw new Error("You are not signed in or your token has expired");
+
+    return response == 200;
+}
+
+
+export function listenToAllEvents(socket: Socket) {
+    socket.on("played", (data) => {
+
+
+    })
+
+    socket.on("someoneJoined", (data: MultiplayerRoomData) => {
+
+
+        //talk to godot and share the info
+    })
 }

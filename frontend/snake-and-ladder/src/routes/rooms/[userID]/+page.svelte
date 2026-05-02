@@ -1,16 +1,29 @@
 <script>
     import { page } from "$app/state";
     import { onMount } from "svelte";
-    import { makeRoom, playAgainstAI } from "../../../utils";
+    import {
+        makeRoom,
+        playAgainstAI,
+        startMultiplayerGame,
+    } from "../../../utils";
     import { Button, Li, List } from "flowbite-svelte";
     import Topbar from "../../Topbar.svelte";
+    import { getSocket } from "$lib/socket";
     let itIsAI = false;
     let itIsMyRoom = false;
     let myTurn = $state(true);
+    let myID = "";
+    let socket;
 
     let data = $state({
+        //this is only for single player
         plyrPos: [],
         pcPos: [],
+    });
+    let roomDataMultiplayer = $state({
+        wins: [["", 0]], //array of arrays to support more than 2 players [playerID, wins]
+        playerTurn: "", //playerID of the player whose turn it is
+        playerPos: [["", 0]], //array of arrays to support more than 2 players [playerID, position]
     });
 
     onMount(async () => {
@@ -20,39 +33,45 @@
             //if it's PC mode then use the REST API
 
             itIsAI = localStorage.getItem("target") === "AI";
-
+            myID = localStorage.getItem("userID") ?? "";
             //otherwise use the socket.io client
 
             if (itIsAI) {
                 await makeRoom();
             } else {
+                socket = getSocket();
+                socket.removeAllListeners();
+                roomDataMultiplayer = await startMultiplayerGame(socket);
             }
         } else {
             //joining somebody's else room
+            socket = getSocket();
+            socket.removeAllListeners();
+            roomDataMultiplayer = await startMultiplayerGame(socket);
+            myTurn = roomDataMultiplayer.playerTurn === myID;
         }
     });
 </script>
 
 <div class="p-8">
-<Topbar></Topbar>
+    <Topbar></Topbar>
     {#if myTurn}
-    <Button
-        onclick={async () => {
-            myTurn = false;
-            data = await playAgainstAI();
-            myTurn = true;
-        }}>Play</Button
-    >
-{/if}
+        <Button
+            onclick={async () => {
+                myTurn = false;
+                data = await playAgainstAI();
+                myTurn = true;
+            }}>Play</Button
+        >
+    {/if}
 
-<List>
-    <Li>
-        Player Positions : {data.plyrPos.join("...")}
-    </Li>
+    <List>
+        <Li>
+            Player Positions : {data.plyrPos.join("...")}
+        </Li>
 
-    <Li>
-        AI Positions : {data.pcPos.join("...")}
-    </Li>
-</List>
-
+        <Li>
+            AI Positions : {data.pcPos.join("...")}
+        </Li>
+    </List>
 </div>

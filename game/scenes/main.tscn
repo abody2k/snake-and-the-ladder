@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cjhd1nawhuuwt"]
+
+[ext_resource type="Script" uid="uid://c8xg5a5vjb7fb" path="res://scripts/main.gd" id="1_o5qli"]
+
+[node name="main" type="Node2D" unique_id=1275062714]
+script = ExtResource("1_o5qli")
+
+[node name="Control" type="Control" parent="." unique_id=1701853163]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=333116514]
+
+[node name="Control" type="Control" parent="Control/CanvasLayer" unique_id=181588734]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -72,7 +72,8 @@ export async function playMultiplayer(playerID: string, username: string, io: io
             return {
                 newPos: roomData.playerPos, //new player
                 prePlyrPos: playerArr,
-                prePlyr: playerID
+                prePlyr: playerID,
+                roomData:roomData
             };
 
 

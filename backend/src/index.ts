@@ -1,4 +1,4 @@
-import express from 'express'; 
+import express from 'express';
 import { createMultiplayerRoom, createRoom, getRoom, initRoom, type MultiplayerRoomData } from './rooms.ts';
 import { CreateRedisClient, flushingDB, getTokenData, initDotEnv, isUserAuthorized } from './util.ts';
 import { login, register } from './auth.ts';
@@ -28,7 +28,7 @@ let socketIOServer = new io.Server(server, {
 
 })
 app.use(cors({
-    origin:"*"
+    origin: "*"
 }));
 app.use(express.json())
 
@@ -39,8 +39,8 @@ socketIOServer.on('connection', (socket) => {
 
     socket.on("leaderboard", async (_, ack) => {
 
-        console.log([_,ack]);
-        
+        console.log([_, ack]);
+
         socket.join("leaderboard");
         ack(200);
         socket.emit("lbu", await getLeaderboard())
@@ -57,7 +57,7 @@ socketIOServer.on('connection', (socket) => {
             let playerPosition = await playMultiplayer(tokenData.userID, tokenData.username, socketIOServer)
             if (playerPosition != false) {
 
-                socketIOServer.to(data.roomID).emit(JSON.stringify(playerPosition))
+                socketIOServer.to(data.roomID).emit("played", JSON.stringify(playerPosition))
                 ack(200);
             } else {
                 ack(403);
@@ -84,9 +84,12 @@ socketIOServer.on('connection', (socket) => {
                         await socket.leave(arr[i] as string)
                     }
                 }
+
+                roomData = await getRoom(data.roomID); // sends to them the new data
+                socketIOServer.to(data.roomID).emit("someoneJoined", roomData)
                 socket.join(data.roomID)
                 ack(JSON.stringify(roomData))
-            } else { // create multiplayer room
+            } else if (tokenData.userID === data.roomID) { // create multiplayer room
 
 
                 await createMultiplayerRoom(tokenData.userID)
@@ -97,6 +100,9 @@ socketIOServer.on('connection', (socket) => {
 
 
 
+            } else {
+
+                socket.disconnect();
             }
 
         } else {
