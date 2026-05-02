@@ -57,7 +57,7 @@ socketIOServer.on('connection', (socket) => {
             let playerPosition = await playMultiplayer(tokenData.userID, tokenData.username, socketIOServer)
             if (playerPosition != false) {
 
-                socketIOServer.to(data.roomID).emit(JSON.stringify(playerPosition))
+                socketIOServer.to(data.roomID).emit("played", JSON.stringify(playerPosition))
                 ack(200);
             } else {
                 ack(403);
@@ -84,9 +84,9 @@ socketIOServer.on('connection', (socket) => {
                         await socket.leave(arr[i] as string)
                     }
                 }
-                
+
                 roomData = await getRoom(data.roomID); // sends to them the new data
-                socketIOServer.to(data.roomID).emit("someoneJoined",roomData)
+                socketIOServer.to(data.roomID).emit("someoneJoined", roomData)
                 socket.join(data.roomID)
                 ack(JSON.stringify(roomData))
             } else if (tokenData.userID === data.roomID) { // create multiplayer room
