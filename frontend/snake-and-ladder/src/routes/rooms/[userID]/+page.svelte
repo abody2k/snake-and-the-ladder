@@ -32,7 +32,8 @@
             if (itIsAI) {
                 await makeRoom();
             } else {
-
+                socket = getSocket();
+                await startMultiplayerGame(socket);
             }
         } else {
             //joining somebody's else room
