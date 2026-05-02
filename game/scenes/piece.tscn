@@ -6,3 +6,9 @@
 [node name="Piece" type="Sprite2D" unique_id=1075886398]
 texture = ExtResource("1_gebih")
 script = ExtResource("2_s58gp")
+
+[node name="Timer" type="Timer" parent="." unique_id=1900954986]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

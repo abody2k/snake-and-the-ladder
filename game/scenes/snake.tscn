@@ -94,8 +94,3 @@ rest = Transform2D(1, 0, 0, 1, -17, 29)
 [node name="18" type="Bone2D" parent="Skeleton2D/Head/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17" unique_id=790675728]
 position = Vector2(48, 42)
 rest = Transform2D(1, 0, 0, 1, 48, 42)
-
-[node name="Timer" type="Timer" parent="." unique_id=1922742615]
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
