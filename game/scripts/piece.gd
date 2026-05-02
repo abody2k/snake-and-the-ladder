@@ -43,8 +43,9 @@ func _on_timer_timeout():
 var timer = 0.0
 
 func pick_next_pos(next_target):
-	target = next_target - 1
+	target = next_target
 	moving = true
+	timer = 0.0
 	
 	
 func _process(delta):
