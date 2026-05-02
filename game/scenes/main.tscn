@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://cjhd1nawhuuwt"]
 
+[ext_resource type="Script" uid="uid://c8xg5a5vjb7fb" path="res://scripts/main.gd" id="1_o5qli"]
+
 [node name="Node2D" type="Node2D" unique_id=1275062714]
+script = ExtResource("1_o5qli")
 
 [node name="Control" type="Control" parent="." unique_id=1701853163]
 layout_mode = 3
