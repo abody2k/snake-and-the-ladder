@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://qbhdjl7b2q88"]
 
 [ext_resource type="Texture2D" uid="uid://bnlu1cxjgv3f" path="res://images/snake.png" id="1_a5f6l"]
+[ext_resource type="Script" uid="uid://n73l6fi1r041" path="res://scripts/snake.gd" id="1_yc36x"]
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_yc36x"]
 enabled = true
 
 [node name="Skeleton2D" type="Node2D" unique_id=19517775]
+script = ExtResource("1_yc36x")
 
 [node name="body" type="Polygon2D" parent="." unique_id=1260279646]
 texture = ExtResource("1_a5f6l")
@@ -18,7 +20,7 @@ bones = ["Head", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 modification_stack = SubResource("SkeletonModificationStack2D_yc36x")
 
 [node name="Head" type="Bone2D" parent="Skeleton2D" unique_id=189421639]
-position = Vector2(290, 128)
+position = Vector2(5, -3)
 rotation = 2.9961288
 rest = Transform2D(1, 0, 0, 1, 306, 317)
 
@@ -41,7 +43,7 @@ rest = Transform2D(1, 0, 0, 1, 53, -20)
 [node name="Bone2D" type="Bone2D" parent="Skeleton2D/Head/Bone2D/Bone2D/Bone2D" unique_id=102396392]
 position = Vector2(1, -44)
 rotation = 0.9362133
-scale = Vector2(0.9999999, 0.9999999)
+scale = Vector2(0.9999998, 0.9999998)
 rest = Transform2D(1, 0, 0, 1, 1, -44)
 
 [node name="error" type="Bone2D" parent="Skeleton2D/Head/Bone2D/Bone2D/Bone2D/Bone2D" unique_id=1511488524]
