@@ -121,12 +121,13 @@ export async function playAgainstPlayer(socket: Socket) {
 export function listenToAllEvents(socket: Socket) {
     socket.on("played", (data) => {
 
-
+        window.gameUpdated(data)
     })
 
     socket.on("someoneJoined", (data: MultiplayerRoomData) => {
 
 
         //talk to godot and share the info
+        window.userJoined(data)
     })
 }

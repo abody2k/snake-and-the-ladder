@@ -8,6 +8,12 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	interface Window {
+    userJoined: any,
+    gameUpdated: any,
+    play: any
+}
 }
 
 export {};

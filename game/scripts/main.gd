@@ -9,10 +9,14 @@ func _ready():
 	
 
 func user_joining_game(args):
+	print("USER JOINED : ")
+	print(args)
 	pass
 	
 
 func game_updated(args):
+	print("GAME UPDATED : ")
+	print(args)
 	pass
 	
 func play():
