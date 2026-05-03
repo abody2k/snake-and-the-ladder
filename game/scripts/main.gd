@@ -13,13 +13,15 @@ const PIECE = preload("res://scenes/piece.tscn")
 var my_piece
 
 func init_data(args):
-	print("INITALIZED ALL DATA")
+	print("INITALIZED ALL DATA with this : ")
 	var real_data = JSON.parse_string(args[0])
+	print(real_data)
 	my_ID = real_data.userID
 	my_turn = real_data.myTurn
 	my_piece = PIECE.instantiate()
 	add_child(my_piece)
-	my_piece.set_pos(1)
+	my_piece.set_pos(real_data.pos
+	)
 	
 	
 	

@@ -2,6 +2,7 @@
     import { page } from "$app/state";
     import { onMount } from "svelte";
     import {
+    initUserWithData,
         joinRoom,
         listenToAllEvents,
         makeRoom,
@@ -40,18 +41,6 @@
                 listenToAllEvents(getSocket());
                 clearInterval(intervalID);
                 window[0].play = playAgainstPlayer;
-                let tempInterval = setInterval(() => {
-                    if (window[0].init) {
-                        window[0].init(
-                            JSON.stringify({
-                                userID: myID,
-                                myTurn: roomDataMultiplayer.playerTurn == myID,
-                            }),
-                        );
-                        clearInterval(tempInterval)
-
-                    }
-                }, 250);
             }
         }, 250);
 
@@ -74,7 +63,7 @@
                 console.log("Making a new room as the room owner");
 
                 roomDataMultiplayer = await startMultiplayerGame(socket);
-
+                initUserWithData(roomDataMultiplayer);
                 console.log(roomDataMultiplayer);
             }
         } else {
@@ -84,6 +73,7 @@
             socket.removeAllListeners();
             console.log("Joining somebody's else room");
             roomDataMultiplayer = await joinRoom(socket, page.params.userID);
+            initUserWithData(roomDataMultiplayer);
             console.log(roomDataMultiplayer);
 
             myTurn = roomDataMultiplayer.playerTurn === myID;
