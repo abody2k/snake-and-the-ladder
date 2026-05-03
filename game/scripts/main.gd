@@ -7,11 +7,20 @@ var init_game_ref = JavaScriptBridge.create_callback(init_data)
 var my_turn = false
 var my_ID = ""
 
+
+const PIECE = preload("res://scenes/piece.tscn")
+
+var my_piece
+
 func init_data(args):
 	print("INITALIZED ALL DATA")
 	var real_data = JSON.parse_string(args[0])
 	my_ID = real_data.userID
 	my_turn = real_data.myTurn
+	my_piece = PIECE.instantiate()
+	add_child(my_piece)
+	my_piece.set_pos(1)
+	
 	
 	
 	
