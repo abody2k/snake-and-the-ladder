@@ -3,7 +3,17 @@ extends Node2D
 var window_js : JavaScriptObject
 var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
 var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
+var my_turn = false
+var my_ID = ""
 
+func init(data : String ):
+	var real_data = JSON.parse_string(data)
+	my_ID = real_data.userID
+	my_turn = real_data.myTurn
+	
+	
+	
+	
 func _ready():
 
 	if OS.get_name() == "Web":
@@ -23,13 +33,16 @@ func _process(delta):
 
 func user_joining_game(args):
 	print("USER JOINED : ")
-	print(args)
-	pass
+	print(JSON.parse_string(args[0]))
+	
+	
+	
+
 	
 
 func game_updated(args):
 	print("GAME UPDATED : ")
-	print(args)
+	print(JSON.parse_string(args[0]))
 	pass
 	
 func play():
