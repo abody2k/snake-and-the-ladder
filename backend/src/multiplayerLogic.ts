@@ -113,7 +113,9 @@ function getNextPlayerTurn(arr: [string, number][], index: number) {
  */
 export async function joinRoom(playerID: string, roomData: MultiplayerRoomData, roomID: string) {
 
-
+    if (roomData.playerPos.findIndex((e)=>e[0]==playerID)!=-1){
+        return;
+    }
     roomData.playerPos.push([playerID, 0])
     roomData.wins.push([playerID, 0])
     await updateRoom(roomID, roomData)
