@@ -9,6 +9,7 @@
     import { Button, Li, List } from "flowbite-svelte";
     import Topbar from "../../Topbar.svelte";
     import { getSocket } from "$lib/socket";
+    import Game from "../../../components/Game.svelte";
     let itIsAI = false;
     let itIsMyRoom = false;
     let myTurn = $state(true);
@@ -57,25 +58,9 @@
     });
 </script>
 
-<div class="p-8">
-    <Topbar></Topbar>
-    {#if myTurn}
-        <Button
-            onclick={async () => {
-                myTurn = false;
-                data = await playAgainstAI();
-                myTurn = true;
-            }}>Play</Button
-        >
-    {/if}
 
-    <List>
-        <Li>
-            Player Positions : {data.plyrPos.join("...")}
-        </Li>
 
-        <Li>
-            AI Positions : {data.pcPos.join("...")}
-        </Li>
-    </List>
-</div>
+
+  
+        <Game></Game>
+ 

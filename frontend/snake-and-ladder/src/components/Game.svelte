@@ -3,7 +3,7 @@
 </script>
 
 
-<iframe src="/snake-and-the-ladder.html" title="game">
+<iframe class="w-full h-lvh" src="/snake-and-the-ladder.html" title="game">
 
 
 </iframe>
