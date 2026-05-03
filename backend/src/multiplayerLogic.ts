@@ -116,7 +116,7 @@ export async function joinRoom(playerID: string, roomData: MultiplayerRoomData, 
     if (roomData.playerPos.findIndex((e)=>e[0]==playerID)!=-1){
         return;
     }
-    roomData.playerPos.push([playerID, 0])
+    roomData.playerPos.push([playerID, 1])
     roomData.wins.push([playerID, 0])
     await updateRoom(roomID, roomData)
 }

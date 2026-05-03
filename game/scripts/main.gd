@@ -54,9 +54,11 @@ func user_joining_game(args):
 	piece_manager.get_children().all(func (piece): piece.queue_free())
 	
 	for i in range(data.wins.size()):
+		print(i)
+		print(data.playerPos[i])
 		var piece = PIECE.instantiate()
 		piece_manager.add_child(piece)
-		piece.set_pos(int(data.playerPos[i][1]))
+		piece.set_pos((data.playerPos[i][1]))
 		if data.playerPos[i][0] == my_ID:
 			my_piece = piece
 	if data.playerTurn == my_ID:
