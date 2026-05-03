@@ -76,7 +76,9 @@ func play():
 
 
 func _on_dice_clicked(viewport, event, shape_idx):
-	print(event)
+	if not my_turn:
+		return
+	
 	if event is InputEventMouseButton:
 		print(event)
 		if (event as InputEventMouseButton).button_index == 1:
