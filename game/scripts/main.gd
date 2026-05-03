@@ -35,3 +35,12 @@ func game_updated(args):
 func play():
 	print("PLAYYYINGGGGG brrrrrr")
 	window_js.play()
+
+
+func _on_dice_clicked(viewport, event, shape_idx):
+	print(event)
+	if event is InputEventMouseButton:
+		print(event)
+		if (event as InputEventMouseButton).button_index == 1:
+			print("haaaaaaaa")
+			$dice.play("moving")

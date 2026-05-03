@@ -64,6 +64,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
+size = Vector2(252.20227, 233.81262)
+
 [node name="main" type="Node2D" unique_id=1275062714]
 script = ExtResource("1_o5qli")
 
@@ -72,8 +75,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -6.1035156e-05
+offset_right = -6.1035156e-05
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=333116514]
 
@@ -84,6 +90,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Checker" type="Sprite2D" parent="." unique_id=1919932610]
 scale = Vector2(0.8751552, 0.8751552)
@@ -207,13 +214,21 @@ rotation = 0.0016308449
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=271330107]
 position = Vector2(130, -1)
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="dice" type="AnimatedSprite2D" parent="." unique_id=599752015]
-position = Vector2(674, 351)
+position = Vector2(674, 437)
 scale = Vector2(0.76129377, 0.76129377)
 sprite_frames = SubResource("SpriteFrames_a8y0u")
 animation = &"moving"
-frame = 5
-frame_progress = 0.03684147
+
+[node name="Area2D" type="Area2D" parent="dice" unique_id=1099843055]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dice/Area2D" unique_id=1474625817]
+position = Vector2(-5.2542114, -1.3134766)
+shape = SubResource("RectangleShape2D_tipki")
+
+[connection signal="input_event" from="dice/Area2D" to="." method="_on_dice_clicked"]
 
 [editable path="Skeleton2D"]
