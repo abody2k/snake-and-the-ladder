@@ -3,6 +3,7 @@ extends Node2D
 var window_js : JavaScriptObject
 var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
 var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
+var init_game_ref = JavaScriptBridge.create_callback(init)
 var my_turn = false
 var my_ID = ""
 
@@ -22,6 +23,7 @@ func _ready():
 		window_js =JavaScriptBridge.get_interface("window")
 		window_js.userJoined = user_joining_game_ref
 		window_js.gameUpdated = game_updated_ref
+		window_js.init = init_game_ref
 
 
 func _process(delta):
