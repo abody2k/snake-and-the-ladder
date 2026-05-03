@@ -3,12 +3,13 @@ extends Node2D
 var window_js : JavaScriptObject
 var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
 var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
-var init_game_ref = JavaScriptBridge.create_callback(init)
+var init_game_ref = JavaScriptBridge.create_callback(init_data)
 var my_turn = false
 var my_ID = ""
 
-func init(data : String ):
-	var real_data = JSON.parse_string(data)
+func init_data(args):
+	print("INITALIZED ALL DATA")
+	var real_data = JSON.parse_string(args[0])
 	my_ID = real_data.userID
 	my_turn = real_data.myTurn
 	

@@ -31,26 +31,27 @@
     });
 
     onMount(async () => {
-
-        // window.ev = new CustomEvent("cool")
-        // window.addEventListener("cool",()=>{
-
-        //     console.log("EVENT FIRED");
-            
-        // })
-        
-
-
         let intervalID = setInterval(() => {
             console.log("checking ...");
             console.log(window);
             console.log(window[0]);
-            
 
             if (window[0]) {
                 listenToAllEvents(getSocket());
                 clearInterval(intervalID);
                 window[0].play = playAgainstPlayer;
+                let tempInterval = setInterval(() => {
+                    if (window[0].init) {
+                        window[0].init(
+                            JSON.stringify({
+                                userID: myID,
+                                myTurn: roomDataMultiplayer.playerTurn == myID,
+                            }),
+                        );
+                        clearInterval(tempInterval)
+
+                    }
+                }, 250);
             }
         }, 250);
 
@@ -74,7 +75,6 @@
 
                 roomDataMultiplayer = await startMultiplayerGame(socket);
 
-
                 console.log(roomDataMultiplayer);
             }
         } else {
@@ -85,8 +85,6 @@
             console.log("Joining somebody's else room");
             roomDataMultiplayer = await joinRoom(socket, page.params.userID);
             console.log(roomDataMultiplayer);
-
-
 
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }
