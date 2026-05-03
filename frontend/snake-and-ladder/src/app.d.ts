@@ -10,10 +10,13 @@ declare global {
 	}
 
 	interface Window {
-    userJoined: any,
-    gameUpdated: any,
-    play: any
-}
+		userJoined: any,
+		gameUpdated: any,
+		play: any,
+		init: any,
+		godotReady: any,
+		ev: Event,
+	}
 }
 
-export {};
+export { };
