@@ -33,6 +33,8 @@
 
         
 
+        console.log([localStorage.getItem("userID"),page.params.userID]);
+        
         if (page.params.userID === localStorage.getItem("userID")) {
             //making my own room
             itIsMyRoom = true;
@@ -52,6 +54,7 @@
                 console.log("Making a new room as the room owner");
                 
                 roomDataMultiplayer = await startMultiplayerGame(socket);
+                console.log(roomDataMultiplayer);
                 listenToAllEvents(socket)
             }
         } else {
@@ -61,6 +64,10 @@
             socket.removeAllListeners();
             console.log("Joining somebody's else room");
             roomDataMultiplayer = await startMultiplayerGame(socket);
+            console.log(roomDataMultiplayer);
+            console.log(socket.listeners("userJoined"));
+            
+            
             listenToAllEvents(socket)
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }

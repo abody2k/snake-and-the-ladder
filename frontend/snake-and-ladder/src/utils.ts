@@ -95,7 +95,7 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
     else
         throw new Error("You are not signed in or your token has expired");
 
-    return response;
+    return JSON.parse(response);
 
 
 
@@ -120,17 +120,20 @@ export async function playAgainstPlayer() {
 
 
 export function listenToAllEvents(socket: Socket) {
+
+    console.log("listening");
+    
     socket.on("played", (data) => {
         console.log("PLAYED GOT FIRED");
         
         window.gameUpdated(data)
-    })
+    });
 
-    socket.on("someoneJoined", (data: MultiplayerRoomData) => {
+    socket.on("someoneJoined", (data: any) => {
 
         //talk to godot and share the info
         console.log("someone joined GOT FIRED");
         window.userJoined(data)
         
-    })
+    });
 }

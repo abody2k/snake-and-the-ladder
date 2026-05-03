@@ -77,7 +77,7 @@ socketIOServer.on('connection', (socket) => {
             if (roomData != null) {
                 await joinRoom(tokenData.userID, roomData as MultiplayerRoomData, data.roomID)
                 //leave previous rooms
-                const rooms = socket.rooms
+                const rooms = socket.rooms;
                 if (rooms.size > 1) {
                     let arr = rooms.values().toArray()
                     for (let i = 1; i < arr.length; i++) {
@@ -85,16 +85,25 @@ socketIOServer.on('connection', (socket) => {
                     }
                 }
 
+                
+
                 roomData = await getRoom(data.roomID); // sends to them the new data
                 socketIOServer.to(data.roomID).emit("someoneJoined", roomData)
                 socket.join(data.roomID)
                 ack(JSON.stringify(roomData))
+                console.log(`Joining room with UD ${data.roomID}`);
+                console.log("JOINED A ROOM");
+                
             } else if (tokenData.userID === data.roomID) { // create multiplayer room
 
 
+                console.log("CREATED A ROOM");
+                
                 await createMultiplayerRoom(tokenData.userID)
                 roomData = await getRoom(tokenData.userID);
                 socket.join(tokenData.userID)
+                console.log(`Making room with UD ${tokenData.userID}`);
+                
 
                 ack(JSON.stringify(roomData))
 
@@ -284,7 +293,7 @@ app.post("/api/play", async (req, res) => {
 
 server.listen(3000, async () => {
 
-
+    
     console.log('LISTENING ');
 
 
