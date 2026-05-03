@@ -20,8 +20,10 @@ func init_data(args):
 	my_turn = real_data.myTurn
 	my_piece = PIECE.instantiate()
 	add_child(my_piece)
-	my_piece.set_pos(real_data.pos
-	)
+	my_piece.set_pos(real_data.pos)
+	my_piece.id = my_ID
+	
+	user_joining_game(args)
 	
 	
 	
@@ -46,13 +48,15 @@ func _process(delta):
 
 var piece_manager 
 
-
+	
+	
 func user_joining_game(args):
 	print("USER JOINED : ")
+	print(args)
 	var data = JSON.parse_string(args[0])
 	piece_manager = get_tree().get_first_node_in_group("piece_manager")
-	piece_manager.get_children().all(func (piece): piece.queue_free())
-	
+	get_tree().call_group("pieces","queue_free")
+	print(data)
 	for i in range(data.wins.size()):
 		print(i)
 		print(data.playerPos[i])
@@ -72,7 +76,12 @@ func user_joining_game(args):
 func game_updated(args):
 	print("GAME UPDATED : ")
 	print(JSON.parse_string(args[0]))
-	pass
+	var data = JSON.parse_string(args[0])
+	
+	
+	my_turn = my_ID == data.roomData.playerTurn
+	
+	user_joining_game([JSON.stringify(data.roomData)])
 	
 func play():
 	print("PLAYYYINGGGGG brrrrrr")
@@ -88,3 +97,4 @@ func _on_dice_clicked(viewport, event, shape_idx):
 		if (event as InputEventMouseButton).button_index == 1:
 			print("haaaaaaaa")
 			$dice.play("moving")
+			play()

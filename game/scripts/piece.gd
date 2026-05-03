@@ -8,6 +8,9 @@ var path : Path2D
 var tween : Tween
 var moving = false
 
+
+var id = "1"
+var pos = 1
 func _ready():
 	scale.x=0.121
 	scale.y=0.11
