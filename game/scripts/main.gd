@@ -1,12 +1,25 @@
 extends Node2D
 
 var window_js : JavaScriptObject
+var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
+var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
 
 func _ready():
-	window_js =JavaScriptBridge.get_interface("window")
-	window_js.userJoined = JavaScriptBridge.create_callback(user_joining_game)
-	window_js.gameUpdated = JavaScriptBridge.create_callback(game_updated)
+
+	if OS.get_name() == "Web":
+		print("THIS IS THE RIGHT OS ...")
+		
+		window_js =JavaScriptBridge.get_interface("window")
+		window_js.userJoined = user_joining_game_ref
+		window_js.gameUpdated = game_updated_ref
+
+
+func _process(delta):
 	
+	if Input.is_action_just_pressed("playing"):
+		play()
+		
+
 
 func user_joining_game(args):
 	print("USER JOINED : ")
@@ -20,4 +33,5 @@ func game_updated(args):
 	pass
 	
 func play():
+	print("PLAYYYINGGGGG brrrrrr")
 	window_js.play()

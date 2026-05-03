@@ -90,21 +90,36 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
     const token = localStorage.getItem("token");
     const roomID = localStorage.getItem("userID");
     let response;
+    console.log({ token, roomID });
+    
     if (token && roomID)
         response = await socket.emitWithAck("joinRoom", { token, roomID })
     else
         throw new Error("You are not signed in or your token has expired");
 
-    return response;
+    return JSON.parse(response);
+
+}
 
 
+export async function joinRoom(socket: Socket, roomID : any): Promise<MultiplayerRoomData> {
+
+    const token = localStorage.getItem("token");
+    let response;
+    console.log({ token, roomID });
+    
+    if (token && roomID)
+        response = await socket.emitWithAck("joinRoom", { token, roomID })
+    else
+        throw new Error("You are not signed in or your token has expired");
+
+    return JSON.parse(response);
 
 }
 
 
 
-
-window.play = async function playAgainstPlayer() {
+export async function playAgainstPlayer() {
 
     let socket = getSocket();
     const token = localStorage.getItem("token");
@@ -120,15 +135,22 @@ window.play = async function playAgainstPlayer() {
 
 
 export function listenToAllEvents(socket: Socket) {
+
+    console.log("listening");
+    
     socket.on("played", (data) => {
+        console.log("PLAYED GOT FIRED");
+        console.log(data);
+        
+        window[0].gameUpdated(data);
+    });
 
-        window.gameUpdated(data)
-    })
-
-    socket.on("someoneJoined", (data: MultiplayerRoomData) => {
-
+    socket.on("someoneJoined", (data: any) => {
 
         //talk to godot and share the info
-        window.userJoined(data)
-    })
+        console.log(data);
+        console.log("someone joined GOT FIRED");
+        window[0].userJoined(data);
+        
+    });
 }

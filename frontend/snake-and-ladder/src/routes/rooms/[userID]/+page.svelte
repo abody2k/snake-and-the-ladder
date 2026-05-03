@@ -2,13 +2,17 @@
     import { page } from "$app/state";
     import { onMount } from "svelte";
     import {
+        joinRoom,
+        listenToAllEvents,
         makeRoom,
         playAgainstAI,
+        playAgainstPlayer,
         startMultiplayerGame,
     } from "../../../utils";
     import { Button, Li, List } from "flowbite-svelte";
     import Topbar from "../../Topbar.svelte";
     import { getSocket } from "$lib/socket";
+    import Game from "../../../components/Game.svelte";
     let itIsAI = false;
     let itIsMyRoom = false;
     let myTurn = $state(true);
@@ -28,7 +32,27 @@
 
     onMount(async () => {
 
+        // window.ev = new CustomEvent("cool")
+        // window.addEventListener("cool",()=>{
+
+        //     console.log("EVENT FIRED");
+            
+        // })
         
+
+
+        let intervalID = setInterval(() => {
+            console.log("checking ...");
+            console.log(window);
+            console.log(window[0]);
+            
+
+            if (window[0]) {
+                listenToAllEvents(getSocket());
+                clearInterval(intervalID);
+                window[0].play = playAgainstPlayer;
+            }
+        }, 250);
 
         if (page.params.userID === localStorage.getItem("userID")) {
             //making my own room
@@ -42,40 +66,31 @@
             if (itIsAI) {
                 await makeRoom();
             } else {
+                window.play = playAgainstPlayer;
                 socket = getSocket();
 
                 socket.removeAllListeners();
+                console.log("Making a new room as the room owner");
+
                 roomDataMultiplayer = await startMultiplayerGame(socket);
+
+
+                console.log(roomDataMultiplayer);
             }
         } else {
             //joining somebody's else room
             socket = getSocket();
+            window.play = playAgainstPlayer;
             socket.removeAllListeners();
-            roomDataMultiplayer = await startMultiplayerGame(socket);
+            console.log("Joining somebody's else room");
+            roomDataMultiplayer = await joinRoom(socket, page.params.userID);
+            console.log(roomDataMultiplayer);
+
+
+
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }
     });
 </script>
 
-<div class="p-8">
-    <Topbar></Topbar>
-    {#if myTurn}
-        <Button
-            onclick={async () => {
-                myTurn = false;
-                data = await playAgainstAI();
-                myTurn = true;
-            }}>Play</Button
-        >
-    {/if}
-
-    <List>
-        <Li>
-            Player Positions : {data.plyrPos.join("...")}
-        </Li>
-
-        <Li>
-            AI Positions : {data.pcPos.join("...")}
-        </Li>
-    </List>
-</div>
+<Game></Game>

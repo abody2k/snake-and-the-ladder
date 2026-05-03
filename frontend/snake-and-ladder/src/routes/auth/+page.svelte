@@ -76,6 +76,13 @@
     You Have already signed in!
 </Alert>
 
+
+<Button onclick={()=>{
+
+
+    localStorage.clear()
+}}> Click here to logout</Button>
+
 {:else}
     <Modal
         class="flex items-center justify-center  size-fit"
