@@ -104,7 +104,7 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
 
 
 
-window.play = async function playAgainstPlayer() {
+export async function playAgainstPlayer() {
 
     let socket = getSocket();
     const token = localStorage.getItem("token");
@@ -121,14 +121,16 @@ window.play = async function playAgainstPlayer() {
 
 export function listenToAllEvents(socket: Socket) {
     socket.on("played", (data) => {
-
+        console.log("PLAYED GOT FIRED");
+        
         window.gameUpdated(data)
     })
 
     socket.on("someoneJoined", (data: MultiplayerRoomData) => {
 
-
         //talk to godot and share the info
+        console.log("someone joined GOT FIRED");
         window.userJoined(data)
+        
     })
 }

@@ -2,8 +2,10 @@
     import { page } from "$app/state";
     import { onMount } from "svelte";
     import {
+    listenToAllEvents,
         makeRoom,
         playAgainstAI,
+        playAgainstPlayer,
         startMultiplayerGame,
     } from "../../../utils";
     import { Button, Li, List } from "flowbite-svelte";
@@ -43,16 +45,23 @@
             if (itIsAI) {
                 await makeRoom();
             } else {
+                window.play = playAgainstPlayer
                 socket = getSocket();
 
                 socket.removeAllListeners();
+                console.log("Making a new room as the room owner");
+                
                 roomDataMultiplayer = await startMultiplayerGame(socket);
+                listenToAllEvents(socket)
             }
         } else {
             //joining somebody's else room
             socket = getSocket();
+            window.play = playAgainstPlayer
             socket.removeAllListeners();
+            console.log("Joining somebody's else room");
             roomDataMultiplayer = await startMultiplayerGame(socket);
+            listenToAllEvents(socket)
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }
     });

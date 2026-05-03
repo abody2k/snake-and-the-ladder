@@ -3,9 +3,9 @@ extends Node2D
 var window_js : JavaScriptObject
 
 func _ready():
-	print(OS.get_model_name())
-	print(OS.get_name())
-	if OS.get_model_name() == "web":
+
+	if OS.get_name() == "Web":
+		print("THIS IS THE RIGHT OS ...")
 		window_js =JavaScriptBridge.get_interface("window")
 		window_js.userJoined = JavaScriptBridge.create_callback(user_joining_game)
 		window_js.gameUpdated = JavaScriptBridge.create_callback(game_updated)
