@@ -229,6 +229,8 @@ animation = &"moving"
 position = Vector2(-5.2542114, -1.3134766)
 shape = SubResource("RectangleShape2D_tipki")
 
+[node name="pieces" type="Node2D" parent="." unique_id=1456720364 groups=["piece_manager"]]
+
 [connection signal="input_event" from="dice/Area2D" to="." method="_on_dice_clicked"]
 
 [editable path="Skeleton2D"]

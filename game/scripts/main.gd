@@ -42,10 +42,23 @@ func _process(delta):
 		play()
 		
 
+var piece_manager 
+
 
 func user_joining_game(args):
 	print("USER JOINED : ")
-	print(JSON.parse_string(args[0]))
+	var data = JSON.parse_string(args[0])
+	piece_manager = get_tree().get_first_node_in_group("piece_manager")
+	piece_manager.get_children().all(func (piece): piece.queue_free())
+	
+	for i in range(data.wins.size()):
+		var piece = PIECE.instantiate()
+		piece_manager.add_child(piece)
+		piece.set_pos(int(data.playerPos[i][1]))
+		if data.playerPos[i][0] == my_ID:
+			my_piece = piece
+	if data.playerTurn == my_ID:
+		my_turn = true
 	
 	
 	
