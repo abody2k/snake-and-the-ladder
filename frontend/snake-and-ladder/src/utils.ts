@@ -91,7 +91,7 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
     const roomID = localStorage.getItem("userID");
     let response;
     console.log({ token, roomID });
-    
+
     if (token && roomID)
         response = await socket.emitWithAck("joinRoom", { token, roomID })
     else
@@ -102,12 +102,12 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
 }
 
 
-export async function joinRoom(socket: Socket, roomID : any): Promise<MultiplayerRoomData> {
+export async function joinRoom(socket: Socket, roomID: any): Promise<MultiplayerRoomData> {
 
     const token = localStorage.getItem("token");
     let response;
     console.log({ token, roomID });
-    
+
     if (token && roomID)
         response = await socket.emitWithAck("joinRoom", { token, roomID })
     else
@@ -119,17 +119,20 @@ export async function joinRoom(socket: Socket, roomID : any): Promise<Multiplaye
 
 
 
-export async function playAgainstPlayer() {
-
+export async function playAgainstPlayer(roomID : string) {
+    console.log("Playing invoked .......");
+    console.log(roomID);
+    
     let socket = getSocket();
     const token = localStorage.getItem("token");
-    const roomID = localStorage.getItem("userID");
     let response;
     if (token && roomID)
         response = await socket.emitWithAck("play", { token, roomID })
     else
         throw new Error("You are not signed in or your token has expired");
 
+    console.log(response);
+    
     return response == 200;
 }
 
@@ -137,20 +140,42 @@ export async function playAgainstPlayer() {
 export function listenToAllEvents(socket: Socket) {
 
     console.log("listening");
-    
+
     socket.on("played", (data) => {
         console.log("PLAYED GOT FIRED");
-        console.log(data);
-        
+        console.log(JSON.parse(data));
+
         window[0].gameUpdated(data);
     });
 
     socket.on("someoneJoined", (data: any) => {
 
         //talk to godot and share the info
-        console.log(data);
+        console.log(typeof data);
         console.log("someone joined GOT FIRED");
-        window[0].userJoined(data);
-        
+        window[0].userJoined(JSON.stringify(data));
+
     });
+}
+
+
+export function initUserWithData(data: any,roomID : any) {
+    let randomInterval = setInterval(() => {
+
+        if (window[0]) {
+
+            if (window[0].init) {
+                data["userID"] = localStorage.getItem("userID")
+                data["myTurn"] = data.playerTurn == data["userID"];
+                data["roomID"] = roomID
+                let item = ((data.playerPos as []).find((value) => value[0] == data["userID"]))
+                if (item) {
+                    data["pos"] = item[1];
+                }
+                window[0].init(JSON.stringify(data))
+                clearInterval(randomInterval)
+            }
+
+        }
+    }, 100);
 }

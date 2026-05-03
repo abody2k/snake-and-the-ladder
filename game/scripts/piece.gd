@@ -8,8 +8,14 @@ var path : Path2D
 var tween : Tween
 var moving = false
 
+
+var id = "1"
+var pos = 1
 func _ready():
+	scale.x=0.121
+	scale.y=0.11
 	path = get_tree().get_first_node_in_group("path")
+	modulate = Color.from_ok_hsl(randf(),1,1,1)
 	
 func move_from_to(source : int,destination: int):
 	tween = create_tween()
@@ -72,4 +78,4 @@ func _process(delta):
 	
 func set_pos(pos: int):
 	transform.origin = path.curve.get_point_position(pos-1)
-	modulate = Color.from_ok_hsl(randf(),1,1,1)
+	

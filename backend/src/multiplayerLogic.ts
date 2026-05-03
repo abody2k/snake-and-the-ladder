@@ -17,10 +17,10 @@ export async function startMultiplayerGame(playerID: string) {
 }
 
 
-export async function playMultiplayer(playerID: string, username: string, io: io.Server) {
+export async function playMultiplayer(playerID: string,roomID: string, username: string, io: io.Server) {
     //get room data
 
-    let roomData = await getRoom(playerID) as MultiplayerRoomData
+    let roomData = await getRoom(roomID) as MultiplayerRoomData
 
     if (roomData) {
 
@@ -33,7 +33,10 @@ export async function playMultiplayer(playerID: string, username: string, io: io
 
             //does this player exist in this room?
             if (index == -1) {
+                console.log("Player is not in this room");
                 return false
+                
+                
             }
             let playerArr = [roomData.playerPos[index]![1] + dice] // add the new value to destination
             if (Object.hasOwn(TRAPS, playerArr[0] as number)) { // is it a trap?
@@ -44,7 +47,7 @@ export async function playMultiplayer(playerID: string, username: string, io: io
                 if (roomData.playerPos[index]![1] + dice > 100) {
                     let remaining = roomData.playerPos[index]![1] + dice - 100
                     roomData.playerPos[index]![1] = 100 - remaining
-
+                    roomData.playerTurn = getNextPlayerTurn(roomData.playerPos, index)
                 } else if (roomData.playerPos[index]![1] + dice === 100) {
 
                     roomData.playerTurn = getNextPlayerTurn(roomData.playerPos, index)
@@ -68,20 +71,28 @@ export async function playMultiplayer(playerID: string, username: string, io: io
 
 
             }
-            await updateRoom(playerID, roomData) // update the room data
+            roomData.playerTurn = getNextPlayerTurn(roomData.playerPos, index)
+            await updateRoom(roomID, roomData) // update the room data
             return {
                 newPos: roomData.playerPos, //new player
                 prePlyrPos: playerArr,
                 prePlyr: playerID,
-                roomData:roomData
+                roomData: roomData
             };
 
 
         } else {
+            console.log("Not the right player turn");
+            console.log(roomData);
+            
+            
             return false;
         }
 
     } else {
+
+        console.log("Room does not exist");
+        
 
         return false;
     }
@@ -95,12 +106,17 @@ export async function playMultiplayer(playerID: string, username: string, io: io
 function getNextPlayerTurn(arr: [string, number][], index: number) {
 
     //if this is the last element then pick the first, otherwise pick it
+    console.log(`Player index ${index} player`);
 
     if (arr.length - 1 == index) {
+        console.log(`So it has to be index ${arr[0]![0]} turn`);
         return arr[0]![0];
     } else {
+        console.log(`So it has to be index ${arr[0]![0]} turn`);
         return arr[index + 1]![0];
     }
+
+
 
 }
 
@@ -113,10 +129,10 @@ function getNextPlayerTurn(arr: [string, number][], index: number) {
  */
 export async function joinRoom(playerID: string, roomData: MultiplayerRoomData, roomID: string) {
 
-    if (roomData.playerPos.findIndex((e)=>e[0]==playerID)!=-1){
+    if (roomData.playerPos.findIndex((e) => e[0] == playerID) != -1) {
         return;
     }
-    roomData.playerPos.push([playerID, 0])
+    roomData.playerPos.push([playerID, 1])
     roomData.wins.push([playerID, 0])
     await updateRoom(roomID, roomData)
 }

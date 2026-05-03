@@ -5,13 +5,66 @@
 [ext_resource type="Texture2D" uid="uid://bb0disnkoq5sl" path="res://images/checker.png" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://bnlu1cxjgv3f" path="res://images/snake.png" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://4xy6li60wll8" path="res://images/ladder.png" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://bd1c8svwea61d" path="res://scenes/piece.tscn" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://bvvhyewfbpewm" path="res://images/dice.png" id="7_o6xl0"]
 
 [sub_resource type="Curve2D" id="Curve2D_o6xl0"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -421.52795, 423.58545, 0, 0, 0, 0, -333.18518, 423.72952, 0, 0, 0, 0, -241, 423, 0, 0, 0, 0, -145.92984, 421.4894, 0, 0, 0, 0, -48.344856, 420.50693, 0, 0, 0, 0, 53, 429, 0, 0, 0, 0, 149, 437, 0, 0, 0, 0, 233, 437, 0, 0, 0, 0, 351, 424, 0, 0, 0, 0, 425, 421, 0, 0, 0, 0, 431, 333, 0, 0, 0, 0, 339, 328, 0, 0, 0, 0, 250, 328, 0, 0, 0, 0, 152, 324, 0, 0, 0, 0, 42, 333, 0, 0, 0, 0, -34, 331, 0, 0, 0, 0, -150, 328, 0, 0, 0, 0, -238, 327, 0, 0, 0, 0, -340, 331, 0, 0, 0, 0, -435, 328, 0, 0, 0, 0, -441, 226, 0, 0, 0, 0, -345, 244, 0, 0, 0, 0, -224, 240, 0, 0, 0, 0, -135, 241, 0, 0, 0, 0, -48, 240, 0, 0, 0, 0, 43, 234, 0, 0, 0, 0, 155, 234, 0, 0, 0, 0, 246, 231, 0, 0, 0, 0, 326, 233, 0, 0, 0, 0, 438, 236, 0, 0, 0, 0, 435, 134, 0, 0, 0, 0, 366, 138, 0, 0, 0, 0, 248, 133, 0, 0, 0, 0, 145, 130, 0, 0, 0, 0, 73, 128, 0, 0, 0, 0, -57, 137, 0, 0, 0, 0, -141, 138, 0, 0, 0, 0, -243, 134, 0, 0, 0, 0, -348, 136, 0, 0, 0, 0, -411, 136, 0, 0, 0, 0, -443, 46, 0, 0, 0, 0, -343, 44, 0, 0, 0, 0, -244, 46, 0, 0, 0, 0, -161, 43, 0, 0, 0, 0, -61, 44, 0, 0, 0, 0, 38, 46, 0, 0, 0, 0, 146, 40, 0, 0, 0, 0, 253, 47, 0, 0, 0, 0, 325, 37, 0, 0, 0, 0, 425, 40, 0, 0, 0, 0, 428, -60, 0, 0, 0, 0, 353, -54, 0, 0, 0, 0, 248, -57, 0, 0, 0, 0, 138, -60, 0, 0, 0, 0, 45, -49, 0, 0, 0, 0, -50, -56, 0, 0, 0, 0, -147, -63, 0, 0, 0, 0, -245, -59, 0, 0, 0, 0, -340, -50, 0, 0, 0, 0, -430, -52, 0, 0, 0, 0, -444, -147, 0, 0, 0, 0, -343, -149, 0, 0, 0, 0, -248, -152, 0, 0, 0, 0, -146, -149, 0, 0, 0, 0, -50, -153, 0, 0, 0, 0, 46, -143, 0, 0, 0, 0, 142, -142, 0, 0, 0, 0, 250, -145, 0, 0, 0, 0, 336, -152, 0, 0, 0, 0, 423, -147, 0, 0, 0, 0, 440, -248, 0, 0, 0, 0, 341, -248, 0, 0, 0, 0, 234, -248, 0, 0, 0, 0, 137, -251, 0, 0, 0, 0, 49, -242, 0, 0, 0, 0, -52, -250, 0, 0, 0, 0, -151, -243, 0, 0, 0, 0, -249, -247, 0, 0, 0, 0, -341, -247, 0, 0, 0, 0, -439, -253, 0, 0, 0, 0, -442, -342, 0, 0, 0, 0, -338, -342, 0, 0, 0, 0, -245, -346, 0, 0, 0, 0, -142, -335, 0, 0, 0, 0, -46, -344, 0, 0, 0, 0, 58, -341, 0, 0, 0, 0, 152, -341, 0, 0, 0, 0, 232, -341, 0, 0, 0, 0, 347, -346, 0, 0, 0, 0, 426, -341, 0, 0, 0, 0, 431, -449, 0, 0, 0, 0, 330, -437, 0, 0, 0, 0, 243, -440, 0, 0, 0, 0, 138, -443, 0, 0, 0, 0, 49, -437, 0, 0, 0, 0, -54, -438, 0, 0, 0, 0, -153, -445, 0, 0, 0, 0, -245, -437, 0, 0, 0, 0, -348, -435, 0, 0, 0, 0, -440, -435, 0, 0, 0, 0, -421.52795, 423.58545)
 }
 point_count = 101
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(0, 0, 333, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85g3d"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(333, 0, 333, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(666, 0, 333, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4ey"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(0, 250, 333, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb6dy"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(333, 250, 333, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trceg"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(666, 250, 333, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8y0u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tipki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85g3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_choun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya4ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb6dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trceg")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
+size = Vector2(252.20227, 233.81262)
 
 [node name="main" type="Node2D" unique_id=1275062714]
 script = ExtResource("1_o5qli")
@@ -21,8 +74,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -6.1035156e-05
+offset_right = -6.1035156e-05
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=333116514]
 
@@ -33,6 +89,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Checker" type="Sprite2D" parent="." unique_id=1919932610]
 scale = Vector2(0.8751552, 0.8751552)
@@ -141,20 +198,29 @@ rotation = 0.4571234
 scale = Vector2(0.65139157, 0.4346525)
 texture = ExtResource("5_tbgi4")
 
-[node name="Piece" parent="." unique_id=1075886398 instance=ExtResource("6_tefeu")]
-rotation = 0.0384114
-scale = Vector2(0.12110435, 0.11039035)
-skew = 0.007838368
-
 [node name="path" type="Path2D" parent="." unique_id=136074586 groups=["path"]]
 scale = Vector2(1.1169751, 1.0178192)
 curve = SubResource("Curve2D_o6xl0")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="path" unique_id=661561754]
-position = Vector2(-421.52795, 423.58545)
-rotation = 0.0016308449
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=271330107]
 position = Vector2(130, -1)
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="dice" type="AnimatedSprite2D" parent="." unique_id=599752015]
+position = Vector2(674, 437)
+scale = Vector2(0.76129377, 0.76129377)
+sprite_frames = SubResource("SpriteFrames_a8y0u")
+animation = &"moving"
+
+[node name="Area2D" type="Area2D" parent="dice" unique_id=1099843055]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dice/Area2D" unique_id=1474625817]
+position = Vector2(-5.2542114, -1.3134766)
+shape = SubResource("RectangleShape2D_tipki")
+
+[node name="pieces" type="Node2D" parent="." unique_id=1456720364 groups=["piece_manager"]]
+
+[connection signal="input_event" from="dice/Area2D" to="." method="_on_dice_clicked"]
 
 [editable path="Skeleton2D"]
