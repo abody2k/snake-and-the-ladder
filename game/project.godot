@@ -13,8 +13,15 @@ config_version=5
 config/name="snake-and-the-ladder"
 run/main_scene="uid://cjhd1nawhuuwt"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0.11366532, 0.113665275, 0.11366526, 1)
 boot_splash/image="uid://ce4lboc8vop26"
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1358
+window/size/viewport_height=1082
+window/stretch/mode="canvas_items"
 
 [global_group]
 
@@ -30,3 +37,4 @@ pieces=""
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

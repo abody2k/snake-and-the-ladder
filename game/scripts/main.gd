@@ -3,10 +3,13 @@ extends Node2D
 var window_js : JavaScriptObject
 
 func _ready():
-	window_js =JavaScriptBridge.get_interface("window")
-	window_js.userJoined = JavaScriptBridge.create_callback(user_joining_game)
-	window_js.gameUpdated = JavaScriptBridge.create_callback(game_updated)
-	
+	print(OS.get_model_name())
+	print(OS.get_name())
+	if OS.get_model_name() == "web":
+		window_js =JavaScriptBridge.get_interface("window")
+		window_js.userJoined = JavaScriptBridge.create_callback(user_joining_game)
+		window_js.gameUpdated = JavaScriptBridge.create_callback(game_updated)
+		
 
 func user_joining_game(args):
 	print("USER JOINED : ")

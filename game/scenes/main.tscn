@@ -154,4 +154,7 @@ curve = SubResource("Curve2D_o6xl0")
 position = Vector2(-421.52795, 423.58545)
 rotation = 0.0016308449
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=271330107]
+position = Vector2(130, -1)
+
 [editable path="Skeleton2D"]
