@@ -6,6 +6,7 @@ var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
 var init_game_ref = JavaScriptBridge.create_callback(init_data)
 var my_turn = false
 var my_ID = ""
+var room_id = ""
 
 
 const PIECE = preload("res://scenes/piece.tscn")
@@ -17,6 +18,7 @@ func init_data(args):
 	var real_data = JSON.parse_string(args[0])
 	print(real_data)
 	my_ID = real_data.userID
+	room_id = real_data.roomID
 	my_turn = real_data.myTurn
 	my_piece = PIECE.instantiate()
 	add_child(my_piece)
@@ -85,7 +87,7 @@ func game_updated(args):
 	
 func play():
 	print("PLAYYYINGGGGG brrrrrr")
-	window_js.play()
+	print(window_js.play(room_id))
 
 
 func _on_dice_clicked(viewport, event, shape_idx):

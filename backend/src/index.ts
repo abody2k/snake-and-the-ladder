@@ -54,7 +54,7 @@ socketIOServer.on('connection', (socket) => {
 
         if (tokenData) {
 
-            let playerPosition = await playMultiplayer(tokenData.userID, tokenData.username, socketIOServer)
+            let playerPosition = await playMultiplayer(tokenData.userID, data.roomID, tokenData.username, socketIOServer)
             if (playerPosition != false) {
 
                 socketIOServer.to(data.roomID).emit("played", JSON.stringify(playerPosition))
@@ -85,7 +85,7 @@ socketIOServer.on('connection', (socket) => {
                     }
                 }
 
-                
+
 
                 roomData = await getRoom(data.roomID); // sends to them the new data
                 socketIOServer.to(data.roomID).emit("someoneJoined", roomData)
@@ -93,17 +93,17 @@ socketIOServer.on('connection', (socket) => {
                 ack(JSON.stringify(roomData))
                 console.log(`Joining room with UD ${data.roomID}`);
                 console.log("JOINED A ROOM");
-                
+
             } else if (tokenData.userID === data.roomID) { // create multiplayer room
 
 
                 console.log("CREATED A ROOM");
-                
+
                 await createMultiplayerRoom(tokenData.userID)
                 roomData = await getRoom(tokenData.userID);
                 socket.join(tokenData.userID)
                 console.log(`Making room with UD ${tokenData.userID}`);
-                
+
 
                 ack(JSON.stringify(roomData))
 
@@ -293,7 +293,7 @@ app.post("/api/play", async (req, res) => {
 
 server.listen(3000, async () => {
 
-    
+
     console.log('LISTENING ');
 
 

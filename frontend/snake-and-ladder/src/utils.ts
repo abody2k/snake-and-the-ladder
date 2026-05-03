@@ -119,17 +119,20 @@ export async function joinRoom(socket: Socket, roomID: any): Promise<Multiplayer
 
 
 
-export async function playAgainstPlayer() {
-
+export async function playAgainstPlayer(roomID : string) {
+    console.log("Playing invoked .......");
+    console.log(roomID);
+    
     let socket = getSocket();
     const token = localStorage.getItem("token");
-    const roomID = localStorage.getItem("userID");
     let response;
     if (token && roomID)
         response = await socket.emitWithAck("play", { token, roomID })
     else
         throw new Error("You are not signed in or your token has expired");
 
+    console.log(response);
+    
     return response == 200;
 }
 
@@ -156,7 +159,7 @@ export function listenToAllEvents(socket: Socket) {
 }
 
 
-export function initUserWithData(data: any) {
+export function initUserWithData(data: any,roomID : any) {
     let randomInterval = setInterval(() => {
 
         if (window[0]) {
@@ -164,6 +167,7 @@ export function initUserWithData(data: any) {
             if (window[0].init) {
                 data["userID"] = localStorage.getItem("userID")
                 data["myTurn"] = data.playerTurn == data["userID"];
+                data["roomID"] = roomID
                 let item = ((data.playerPos as []).find((value) => value[0] == data["userID"]))
                 if (item) {
                     data["pos"] = item[1];

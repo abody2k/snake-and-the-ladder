@@ -63,7 +63,7 @@
                 console.log("Making a new room as the room owner");
 
                 roomDataMultiplayer = await startMultiplayerGame(socket);
-                initUserWithData(roomDataMultiplayer);
+                initUserWithData(roomDataMultiplayer,page.params.userID);
                 console.log(roomDataMultiplayer);
             }
         } else {
@@ -73,7 +73,7 @@
             socket.removeAllListeners();
             console.log("Joining somebody's else room");
             roomDataMultiplayer = await joinRoom(socket, page.params.userID);
-            initUserWithData(roomDataMultiplayer);
+            initUserWithData(roomDataMultiplayer,page.params.userID);
             console.log(roomDataMultiplayer);
 
             myTurn = roomDataMultiplayer.playerTurn === myID;
