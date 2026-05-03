@@ -2,6 +2,7 @@
     import { page } from "$app/state";
     import { onMount } from "svelte";
     import {
+    joinRoom,
     listenToAllEvents,
         makeRoom,
         playAgainstAI,
@@ -63,7 +64,7 @@
             window.play = playAgainstPlayer
             socket.removeAllListeners();
             console.log("Joining somebody's else room");
-            roomDataMultiplayer = await startMultiplayerGame(socket);
+            roomDataMultiplayer = await joinRoom(socket,page.params.userID);
             console.log(roomDataMultiplayer);
             console.log(socket.listeners("userJoined"));
             

@@ -90,6 +90,8 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
     const token = localStorage.getItem("token");
     const roomID = localStorage.getItem("userID");
     let response;
+    console.log({ token, roomID });
+    
     if (token && roomID)
         response = await socket.emitWithAck("joinRoom", { token, roomID })
     else
@@ -97,10 +99,23 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
 
     return JSON.parse(response);
 
-
-
 }
 
+
+export async function joinRoom(socket: Socket, roomID : any): Promise<MultiplayerRoomData> {
+
+    const token = localStorage.getItem("token");
+    let response;
+    console.log({ token, roomID });
+    
+    if (token && roomID)
+        response = await socket.emitWithAck("joinRoom", { token, roomID })
+    else
+        throw new Error("You are not signed in or your token has expired");
+
+    return JSON.parse(response);
+
+}
 
 
 
