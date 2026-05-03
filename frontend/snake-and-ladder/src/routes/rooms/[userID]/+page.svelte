@@ -32,12 +32,12 @@
 
     onMount(async () => {
 
-        window.ev = new CustomEvent("cool")
-        window.addEventListener("cool",()=>{
+        // window.ev = new CustomEvent("cool")
+        // window.addEventListener("cool",()=>{
 
-            console.log("EVENT FIRED");
+        //     console.log("EVENT FIRED");
             
-        })
+        // })
         
 
 
@@ -50,6 +50,7 @@
             if (window[0]) {
                 listenToAllEvents(getSocket());
                 clearInterval(intervalID);
+                window[0].play = playAgainstPlayer;
             }
         }, 250);
 
@@ -85,9 +86,7 @@
             roomDataMultiplayer = await joinRoom(socket, page.params.userID);
             console.log(roomDataMultiplayer);
 
-            window.init = () => {
-                listenToAllEvents(getSocket());
-            };
+
 
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }

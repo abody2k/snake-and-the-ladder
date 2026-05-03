@@ -140,6 +140,7 @@ export function listenToAllEvents(socket: Socket) {
     
     socket.on("played", (data) => {
         console.log("PLAYED GOT FIRED");
+        console.log(data);
         
         window[0].gameUpdated(data);
     });
@@ -147,6 +148,7 @@ export function listenToAllEvents(socket: Socket) {
     socket.on("someoneJoined", (data: any) => {
 
         //talk to godot and share the info
+        console.log(data);
         console.log("someone joined GOT FIRED");
         window[0].userJoined(data);
         

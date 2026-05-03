@@ -3,7 +3,6 @@ extends Node2D
 var window_js : JavaScriptObject
 var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
 var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
-var readyy_ref = JavaScriptBridge.create_callback(_readyy)
 
 func _ready():
 
@@ -13,8 +12,12 @@ func _ready():
 		window_js =JavaScriptBridge.get_interface("window")
 		window_js.userJoined = user_joining_game_ref
 		window_js.gameUpdated = game_updated_ref
-		window_js.godotReady = readyy_ref
-		_readyy()
+
+
+func _process(delta):
+	
+	if Input.is_action_just_pressed("playing"):
+		play()
 		
 
 
@@ -30,7 +33,5 @@ func game_updated(args):
 	pass
 	
 func play():
+	print("PLAYYYINGGGGG brrrrrr")
 	window_js.play()
-
-func _readyy():
-	JavaScriptBridge.eval("window.init()")
