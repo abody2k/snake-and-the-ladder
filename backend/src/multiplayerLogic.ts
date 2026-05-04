@@ -8,16 +8,16 @@ import { getLeaderboard, updateLeaderboard } from "./leaderboard.ts";
 
 
 
-export async function startMultiplayerGame(playerID: string) {
+export async function startMultiplayerGame(playerID: string,playerName:string) {
 
 
-    await createMultiplayerRoom(playerID);
+    await createMultiplayerRoom(playerID,playerName);
 
 
 }
 
 
-export async function playMultiplayer(playerID: string,roomID: string, username: string, io: io.Server) {
+export async function playMultiplayer(playerID: string, roomID: string, username: string, io: io.Server) {
     //get room data
 
     let roomData = await getRoom(roomID) as MultiplayerRoomData
@@ -28,15 +28,15 @@ export async function playMultiplayer(playerID: string,roomID: string, username:
 
 
 
-            let dice = randomInt(1, 8); // throw dice
+            let dice = randomInt(1, 7); // throw dice
             let index = roomData.playerPos.findIndex(pos => pos[0] === playerID)
 
             //does this player exist in this room?
             if (index == -1) {
                 console.log("Player is not in this room");
                 return false
-                
-                
+
+
             }
             let playerArr = [roomData.playerPos[index]![1] + dice] // add the new value to destination
             if (Object.hasOwn(TRAPS, playerArr[0] as number)) { // is it a trap?
@@ -52,6 +52,10 @@ export async function playMultiplayer(playerID: string,roomID: string, username:
 
                     roomData.playerTurn = getNextPlayerTurn(roomData.playerPos, index)
                     roomData.wins[index]![1] += 1; // increment wins for the player
+
+                    //all users in room should go back to pos 1
+
+                    roomData.playerPos = roomData.playerPos.map((e)=>[e[0],1])
 
                     //if user wins check leaderboard 
 
@@ -77,22 +81,23 @@ export async function playMultiplayer(playerID: string,roomID: string, username:
                 newPos: roomData.playerPos, //new player
                 prePlyrPos: playerArr,
                 prePlyr: playerID,
-                roomData: roomData
+                roomData: roomData,
+                dice: dice
             };
 
 
         } else {
             console.log("Not the right player turn");
             console.log(roomData);
-            
-            
+
+
             return false;
         }
 
     } else {
 
         console.log("Room does not exist");
-        
+
 
         return false;
     }
@@ -127,12 +132,13 @@ function getNextPlayerTurn(arr: [string, number][], index: number) {
  * @param roomData 
  * @param roomID 
  */
-export async function joinRoom(playerID: string, roomData: MultiplayerRoomData, roomID: string) {
+export async function joinRoom(playerID: string, playerName: string, roomData: MultiplayerRoomData, roomID: string) {
 
     if (roomData.playerPos.findIndex((e) => e[0] == playerID) != -1) {
         return;
     }
     roomData.playerPos.push([playerID, 1])
     roomData.wins.push([playerID, 0])
+    roomData.names.push([playerID, playerName])
     await updateRoom(roomID, roomData)
 }

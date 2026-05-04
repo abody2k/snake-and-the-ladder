@@ -8,9 +8,12 @@ var my_turn = false
 var my_ID = ""
 var room_id = ""
 
+var names = {}
+var wins ={}
+
 
 const PIECE = preload("res://scenes/piece.tscn")
-
+const ROW = preload("res://scenes/row.tscn")
 var my_piece
 
 func init_data(args):
@@ -59,6 +62,19 @@ func user_joining_game(args):
 	piece_manager = get_tree().get_first_node_in_group("piece_manager")
 	get_tree().call_group("pieces","queue_free")
 	print(data)
+	
+	#saving names
+	names={}
+	wins={}
+	print(data.names)
+	for i in data.names:
+		print("printing names")
+		print(i)
+		names.set(str(i[0]),i[1])
+	for i in data.wins:
+		wins.set(str(i[0]),i[1])		
+				
+	set_labels()
 	for i in range(data.wins.size()):
 		print(i)
 		print(data.playerPos[i])
@@ -72,6 +88,7 @@ func user_joining_game(args):
 	
 	
 	
+	
 
 	
 
@@ -80,7 +97,8 @@ func game_updated(args):
 	print(JSON.parse_string(args[0]))
 	var data = JSON.parse_string(args[0])
 	
-	
+	$dice.stop()
+	$dice.frame = int(data.dice) -1
 	my_turn = my_ID == data.roomData.playerTurn
 	
 	user_joining_game([JSON.stringify(data.roomData)])
@@ -89,6 +107,17 @@ func play():
 	print("PLAYYYINGGGGG brrrrrr")
 	print(window_js.play(room_id))
 
+
+func set_labels():
+	get_tree().call_group("rows","queue_free")
+	
+	for key in names.keys():
+		var row = ROW.instantiate()
+		$CanvasLayer/Panel/vert.add_child(row)
+		
+		row.update_row(names[(key)],wins[(key)])
+		
+	pass
 
 func _on_dice_clicked(viewport, event, shape_idx):
 	if not my_turn:
