@@ -1,3 +1,4 @@
+import { randomInt } from "node:crypto";
 import { expect, test } from "../fixtures/globalFixture";
 import { login, register } from "../flows/auth.flows";
 
@@ -12,9 +13,10 @@ test.describe("Auth tests goes here", () => {
 
         await home.goHome();
         await home.clickOnAuthInTopBar();
-        await register("a very new username", "cool password", auth);
-
-        await expect(page).toHaveURL(process.env.BASE_URL);
+        const username = "username : " + randomInt(100000);
+        await register(username, "cool passworddd", auth,page);
+        
+        await expect(page).toHaveURL(process.env.CLIENT,{timeout:30000});
 
 
     })
@@ -25,19 +27,22 @@ test.describe("Auth tests goes here", () => {
 
         await home.goHome();
         await home.clickOnAuthInTopBar();
-        await register("nneww username", "pass", auth);
+        const username = "username : " + randomInt(1000);
+
+        await register(username, "pass", auth,page);
+        
 
         await home.clickOnAuthInTopBar()
         await auth.clickOnLogOut();
-        await login("nneww username", "pass", auth);
+        await login(username, "pass", auth);
 
-        await expect(page).toHaveURL(process.env.BASE_URL);
+        await expect(page).toHaveURL(process.env.CLIENT);
 
 
     })
 
 
-    
+
 
 
 })

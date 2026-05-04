@@ -5,21 +5,22 @@ import { authSchema } from "../util/schemas";
 
 import dotenv from "dotenv"
 import path from "path"
+import { randomInt } from "crypto";
 
 
 console.log('CONFIGURING EVERYTHING...');
-console.log(path.resolve(__dirname,"../.env"));
+console.log(path.resolve(__dirname, "../.env"));
 
 dotenv.config({
 
-    path:path.resolve(__dirname,"../.env")
+    path: path.resolve(__dirname, "../.env")
 })
 
 
 
 
 
-console.log([process.env.CLIENT,process.env.BASE_URL]);
+console.log([process.env.CLIENT, process.env.BASE_URL]);
 
 
 test.describe("Api tests goes here", () => {
@@ -29,8 +30,8 @@ test.describe("Api tests goes here", () => {
 
     test("registers a user when a valid credientals are provided", async ({ }) => {
 
-
-        let response = await register("some usernamee", "some password");
+        const username = "username : " + randomInt(100);
+        let response = await register(username, "some password");
 
         expect(authSchema.safeParse(response.data).success).toBeTruthy()// matches schema
         expect(response.status).toBe(201)// http status
@@ -41,12 +42,12 @@ test.describe("Api tests goes here", () => {
     })
 
     test("returns token when valid credentials are provided", async ({ }) => {
-
-        let registerResponse = await register("some username", "some password");
-        let response = await login("some username", "some password");
-        if (authSchema.safeParse(response.data).error){
+        const username = "username : " + randomInt(100);
+        let registerResponse = await register(username, "some password");
+        let response = await login(username, "some password");
+        if (authSchema.safeParse(response.data).error) {
             console.log(authSchema.safeParse(response.data).error);
-            
+
         }
         expect(authSchema.safeParse(response.data).success).toBeTruthy()// matches schema
         expect(response.status).toBe(200)// http status

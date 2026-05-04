@@ -1,3 +1,4 @@
+import { randomInt } from "crypto";
 import { expect, test } from "../fixtures/globalFixture";
 import { register } from "../flows/auth.flows";
 
@@ -21,7 +22,7 @@ test.describe("UI tests go here", () => {
         await home.goHome();
         await home.clickOnHomeTopBar();
 
-        await expect(page).toHaveURL(process.env.BASE_URL)
+        await expect(page).toHaveURL(process.env.CLIENT)
     })
 
 
@@ -58,7 +59,8 @@ test.describe("UI tests go here", () => {
 
         await home.goHome(); // goes to homepage
         await home.clickOnAuthInTopBar(); //go to auth
-        await register("cool player", "sss", auth); //make an account that will take you back home
+        const username = "username : " + randomInt(100);
+        await register(username, "sss", auth,page); //make an account that will take you back home
         await home.clickOnPlayAgainstAI(); // clicks on leaderboard link on topbar
 
         await expect(page).toHaveURL(/.*rooms/);
@@ -66,7 +68,7 @@ test.describe("UI tests go here", () => {
 
             return localStorage.getItem("userID");
         })
-        expect(page).toHaveURL(new RegExp(`**/rooms/${userID}`))
+        expect(page).toHaveURL( RegExp(`**/rooms/${userID}`))
 
     })
 

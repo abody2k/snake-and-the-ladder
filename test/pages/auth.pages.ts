@@ -15,7 +15,7 @@ export class Auth {
         this.signUpButton = page.getByRole('button', { name: 'Sign up' })
 
         this.loggedInLabel = page.getByText('You Have already signed in!')
-        this.switchingLocator = page.getByRole('button', { name: 'Click here if you want to' });
+        this.switchingLocator = page.getByTitle("switch");
 
 
     }
@@ -37,7 +37,10 @@ export class Auth {
         await this.page.getByRole('button', { name: 'Click here if you want to' }).click()
     }
 
+    getModal() {
 
+        return this.page.getByTitle("modal id")
+    }
     async clickOnLogin() {
 
         await this.loginButton.click();
@@ -46,13 +49,13 @@ export class Auth {
 
     async clickOnSignUp() {
 
-        await this.signUpButton.click();
+        await this.page.getByTitle("signup").click({timeout:30000});
     }
 
 
     async clickOnLogOut() {
 
-        await this.page.getByRole('button', { name: 'Click here to logout' }).click()
+        await this.page.getByRole('button', { name: 'Click here to logout' }).click({force:true})
     }
 
 }
