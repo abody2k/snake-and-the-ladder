@@ -8,12 +8,12 @@ import { expect, test } from "../fixtures/globalFixture";
  * in one place, otherwise I would have use seperate files for
  * each UI
  */
-test.describe("UI tests go here",()=>{
+test.describe("UI tests go here", () => {
 
 
 
 
-    test("Goes home when clicking on Home link in top bat",async({home,page})=>{
+    test("Goes home when clicking on Home link in top bat", async ({ home, page }) => {
 
 
 
@@ -24,7 +24,7 @@ test.describe("UI tests go here",()=>{
     })
 
 
-        test("Goes to Leaderboard when clicking on Leaderboard link in top bat",async({home,page})=>{
+    test("Goes to Leaderboard when clicking on Leaderboard link in top bat", async ({ home, page }) => {
 
 
 
@@ -34,4 +34,15 @@ test.describe("UI tests go here",()=>{
         await expect(page).toHaveURL(/.*leaderboard/)
     })
 
+
+
+    test("Goes to Auth UI when clicking on Auth link in top bat", async ({ home, page }) => {
+
+
+
+        await home.goHome(); // goes to homepage
+        await home.clickOnAuthInTopBar(); // clicks on leaderboard link on topbar
+
+        await expect(page).toHaveURL(/.*auth/)
+    })
 })
