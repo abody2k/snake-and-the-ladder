@@ -85,7 +85,10 @@
 <Button onclick={()=>{
 
 
-    localStorage.clear()
+    localStorage.clear();
+    alreadySignedIn = false;
+    username="";
+    password="";
 }}> Click here to logout</Button>
 
 </div>
