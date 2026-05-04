@@ -5,12 +5,16 @@ export class Auth {
 
     loginButton: Locator
     signUpButton: Locator
+
+    loggedInLabel : Locator
+
     constructor(private page: Page) {
 
         this.loginButton = page.getByRole('button', { name: 'Login' })
         this.signUpButton = page.getByRole('button', { name: 'Sign up' })
 
-
+        this.loggedInLabel = page.getByText('You Have already signed in!')
+        
 
 
     }
