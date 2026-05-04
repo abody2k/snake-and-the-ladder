@@ -50,7 +50,7 @@ export class Auth {
     }
 
 
-    async logOut() {
+    async clickOnLogOut() {
 
         await this.page.getByRole('button', { name: 'Click here to logout' }).click()
     }
