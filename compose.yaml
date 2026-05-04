@@ -36,7 +36,7 @@ services:
     build:
       dockerfile: frontend.dockerfile
     ports:
-      - 3002:5173
+      - 3002:3002
     # volumes:
     #   - ./frontend/snake-and-ladder/:/app
     # The commented out section below is an example of how to define a PostgreSQL
