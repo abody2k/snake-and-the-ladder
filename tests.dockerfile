@@ -6,4 +6,4 @@ COPY test .
 
 ENV BASE_URL="http://app:3000"
 
-CMD sh -c "sleep 25 && npm i && npm i playwright@latest && npx playwright test --project=firefox"
+CMD sh -c "sleep 25 && npm i && npm i playwright@latest && npx playwright install && npx playwright test --project=firefox"

@@ -3,6 +3,24 @@ import { login, register } from "../api/auth.api"
 import { authSchema } from "../util/schemas";
 
 
+import dotenv from "dotenv"
+import path from "path"
+
+
+console.log('CONFIGURING EVERYTHING...');
+console.log(path.resolve(__dirname,"../.env"));
+
+dotenv.config({
+
+    path:path.resolve(__dirname,"../.env")
+})
+
+
+
+
+
+console.log([process.env.CLIENT,process.env.BASE_URL]);
+
 
 test.describe("Api tests goes here", () => {
 

@@ -9,7 +9,7 @@ export class Home {
 
     async goHome() {
 
-        await this.page.goto(process.env.BASE_URL);
+        await this.page.goto(process.env.CLIENT);
 
     }
 
