@@ -80,7 +80,8 @@ func game_updated(args):
 	print(JSON.parse_string(args[0]))
 	var data = JSON.parse_string(args[0])
 	
-	
+	$dice.stop()
+	$dice.frame = int(data.dice) -1
 	my_turn = my_ID == data.roomData.playerTurn
 	
 	user_joining_game([JSON.stringify(data.roomData)])
