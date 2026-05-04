@@ -53,6 +53,10 @@ export async function playMultiplayer(playerID: string, roomID: string, username
                     roomData.playerTurn = getNextPlayerTurn(roomData.playerPos, index)
                     roomData.wins[index]![1] += 1; // increment wins for the player
 
+                    //all users in room should go back to pos 1
+
+                    roomData.playerPos = roomData.playerPos.map((e)=>[e[0],1])
+
                     //if user wins check leaderboard 
 
                     let leaderboardUpdated = await updateLeaderboard(roomData.wins[index]![1], username)
