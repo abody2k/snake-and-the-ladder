@@ -6,7 +6,7 @@
 size_flags_vertical = 3
 script = ExtResource("1_7024n")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1426976062]
+[node name="username" type="RichTextLabel" parent="." unique_id=1426976062]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -14,7 +14,7 @@ theme_override_font_sizes/normal_font_size = 39
 text = "player name"
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=1850081229]
+[node name="wins" type="RichTextLabel" parent="." unique_id=1850081229]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0, 0, 0, 1)
