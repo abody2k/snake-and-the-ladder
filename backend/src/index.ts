@@ -75,7 +75,7 @@ socketIOServer.on('connection', (socket) => {
         if (tokenData) {
             let roomData = await getRoom(data.roomID);
             if (roomData != null) {
-                await joinRoom(tokenData.userID, roomData as MultiplayerRoomData, data.roomID)
+                await joinRoom(tokenData.userID,tokenData.username, roomData as MultiplayerRoomData, data.roomID)
                 //leave previous rooms
                 const rooms = socket.rooms;
                 if (rooms.size > 1) {

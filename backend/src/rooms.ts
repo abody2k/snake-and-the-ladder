@@ -15,7 +15,8 @@ export type MultiplayerRoomData = {
 
     wins: [string, number][], //array of arrays to support more than 2 players [playerID, wins]
     playerTurn: string, //playerID of the player whose turn it is
-    playerPos: [string, number][], //array of arrays to support more than 2 players [playerID, position]
+    playerPos: [string, number][], //array of arrays to support more than 2 players [playerID, position],
+    names: [string,string][]
 }
 
 export type LeaderBoard = {

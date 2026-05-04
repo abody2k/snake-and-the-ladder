@@ -128,12 +128,13 @@ function getNextPlayerTurn(arr: [string, number][], index: number) {
  * @param roomData 
  * @param roomID 
  */
-export async function joinRoom(playerID: string, roomData: MultiplayerRoomData, roomID: string) {
+export async function joinRoom(playerID: string, playerName: string, roomData: MultiplayerRoomData, roomID: string) {
 
     if (roomData.playerPos.findIndex((e) => e[0] == playerID) != -1) {
         return;
     }
     roomData.playerPos.push([playerID, 1])
     roomData.wins.push([playerID, 0])
+    roomData.names.push([playerID, playerName])
     await updateRoom(roomID, roomData)
 }
