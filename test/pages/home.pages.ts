@@ -25,5 +25,10 @@ export class Home {
     }
 
 
+        async clickOnLeaderboardInTopBar() {
+
+        await this.page.getByRole('link', { name: 'leaderboard' }).click();
+    }
+
 
 }
