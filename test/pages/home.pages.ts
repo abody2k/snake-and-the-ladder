@@ -13,11 +13,16 @@ export class Home {
 
     }
 
-    async clickOnHomeIcon() {
+    async clickOnHomeTopBar() {
 
         await this.page.getByRole('link', { name: 'Home' }).click();
     }
 
+
+        async clickOnAuthInTopBar() {
+
+        await this.page.getByRole('link', { name: 'sign in / sign up' }).click();
+    }
 
 
 
