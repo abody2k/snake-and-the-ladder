@@ -2,6 +2,7 @@
     import {
         Alert,
         Button,
+        Img,
         Input,
         Label,
         Listgroup,
@@ -72,10 +73,14 @@
 
 {#if alreadySignedIn}
 
-<Alert color="gray">
+<div class="flex flex-col justify-center items-center">
+
+    <Alert color="gray">
     You Have already signed in!
 </Alert>
 
+<Img width={200} src={"/snake-and-the-ladder.png"}>
+</Img>
 
 <Button onclick={()=>{
 
@@ -83,6 +88,7 @@
     localStorage.clear()
 }}> Click here to logout</Button>
 
+</div>
 {:else}
     <Modal
         class="flex items-center justify-center  size-fit"
