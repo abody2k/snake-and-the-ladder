@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dk4cm6tkjnx17" path="res://scripts/row.gd" id="1_7024n"]
 
-[node name="row" type="HBoxContainer" unique_id=278651946]
+[node name="row" type="HBoxContainer" unique_id=278651946 groups=["rows"]]
 size_flags_vertical = 3
 script = ExtResource("1_7024n")
 

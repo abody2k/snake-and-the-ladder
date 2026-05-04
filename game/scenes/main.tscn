@@ -99,26 +99,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="row" type="HBoxContainer" parent="CanvasLayer/Panel/vert" unique_id=2040373025]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Panel/vert/row" unique_id=2098469]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 39
-text = "player name"
-fit_content = true
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Panel/vert/row" unique_id=1407986936]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 39
-text = "12"
-fit_content = true
-
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=181588734]
 layout_mode = 3
 anchor_left = -0.40100002

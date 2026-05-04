@@ -65,7 +65,7 @@ export async function createRoom(playerID: string) {
  * creates a multiplayer room with init data in it
  * @param playerID playerID that you get from the bearer auth token
  */
-export async function createMultiplayerRoom(playerID: string) {
+export async function createMultiplayerRoom(playerID: string,playerName:string) {
 
     let client = await CreateRedisClient();
     await client.set(`room${playerID}`, JSON.stringify({
@@ -73,6 +73,8 @@ export async function createMultiplayerRoom(playerID: string) {
         wins: [[playerID, 0]], //array of arrays to support more than 2 players [playerID, wins]
         playerTurn: playerID,
         playerPos: [[playerID, 1]], //array of arrays to support more than 2 players
+        names:[[playerID,playerName]]
+    
     }), {
         expiration: {
             type: "EX",

@@ -99,7 +99,7 @@ socketIOServer.on('connection', (socket) => {
 
                 console.log("CREATED A ROOM");
 
-                await createMultiplayerRoom(tokenData.userID)
+                await createMultiplayerRoom(tokenData.userID,tokenData.username)
                 roomData = await getRoom(tokenData.userID);
                 socket.join(tokenData.userID)
                 console.log(`Making room with UD ${tokenData.userID}`);
@@ -252,7 +252,7 @@ app.post("/api/startGameM", async (req, res) => { // multiplayer game
 
     if (token) {
         const userID = token.userID;
-        await startMultiplayerGame(userID);
+        await startMultiplayerGame(userID,token.username);
         res.sendStatus(201);
     } else {
 

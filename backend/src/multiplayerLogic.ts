@@ -8,10 +8,10 @@ import { getLeaderboard, updateLeaderboard } from "./leaderboard.ts";
 
 
 
-export async function startMultiplayerGame(playerID: string) {
+export async function startMultiplayerGame(playerID: string,playerName:string) {
 
 
-    await createMultiplayerRoom(playerID);
+    await createMultiplayerRoom(playerID,playerName);
 
 
 }
