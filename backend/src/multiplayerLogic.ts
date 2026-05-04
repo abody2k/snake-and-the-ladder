@@ -28,7 +28,7 @@ export async function playMultiplayer(playerID: string, roomID: string, username
 
 
 
-            let dice = randomInt(1, 8); // throw dice
+            let dice = randomInt(1, 7); // throw dice
             let index = roomData.playerPos.findIndex(pos => pos[0] === playerID)
 
             //does this player exist in this room?
