@@ -17,7 +17,7 @@ export async function startMultiplayerGame(playerID: string) {
 }
 
 
-export async function playMultiplayer(playerID: string,roomID: string, username: string, io: io.Server) {
+export async function playMultiplayer(playerID: string, roomID: string, username: string, io: io.Server) {
     //get room data
 
     let roomData = await getRoom(roomID) as MultiplayerRoomData
@@ -35,8 +35,8 @@ export async function playMultiplayer(playerID: string,roomID: string, username:
             if (index == -1) {
                 console.log("Player is not in this room");
                 return false
-                
-                
+
+
             }
             let playerArr = [roomData.playerPos[index]![1] + dice] // add the new value to destination
             if (Object.hasOwn(TRAPS, playerArr[0] as number)) { // is it a trap?
@@ -77,22 +77,23 @@ export async function playMultiplayer(playerID: string,roomID: string, username:
                 newPos: roomData.playerPos, //new player
                 prePlyrPos: playerArr,
                 prePlyr: playerID,
-                roomData: roomData
+                roomData: roomData,
+                dice: dice
             };
 
 
         } else {
             console.log("Not the right player turn");
             console.log(roomData);
-            
-            
+
+
             return false;
         }
 
     } else {
 
         console.log("Room does not exist");
-        
+
 
         return false;
     }
