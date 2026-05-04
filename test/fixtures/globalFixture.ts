@@ -19,3 +19,5 @@ export const test = base.extend<MyFixture>({
     }
 
 })
+
+export const expect = test.expect;
