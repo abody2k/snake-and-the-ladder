@@ -1,4 +1,5 @@
 import { expect, test } from "../fixtures/globalFixture";
+import { register } from "./flows/auth.flows";
 
 
 /**
@@ -52,8 +53,7 @@ test.describe("UI tests go here", () => {
 
         await home.goHome();
         await home.clickOnAuthInTopBar();
-        await auth.fillUsername("a very new uersname");
-        await auth.fillPassword("a very new password");
+        await register("a very new username", "cool password", auth);
         if ((await auth.switchingLocator.textContent())?.includes("sign up")) {
             await auth.switchBetweenLoginAndSignUp(); // switch only if the current UI is for logging in
         }
@@ -64,4 +64,24 @@ test.describe("UI tests go here", () => {
 
 
     })
+
+
+    test("Logs in when valid credentials are provided", async ({ page, home, auth }) => {
+
+
+        await home.goHome();
+        await home.clickOnAuthInTopBar();
+        await register("nneww username", "pass", auth);
+        if ((await auth.switchingLocator.textContent())?.includes("sign up")) {
+            await auth.switchBetweenLoginAndSignUp(); // switch only if the current UI is for logging in
+        }
+
+        await auth.clickOnSignUp();
+
+        await expect(page).toHaveURL(process.env.BASE_URL);
+
+
+    })
+
+
 })
