@@ -8,6 +8,9 @@ var my_turn = false
 var my_ID = ""
 var room_id = ""
 
+var names = {}
+var wins ={}
+
 
 const PIECE = preload("res://scenes/piece.tscn")
 
@@ -59,6 +62,15 @@ func user_joining_game(args):
 	piece_manager = get_tree().get_first_node_in_group("piece_manager")
 	get_tree().call_group("pieces","queue_free")
 	print(data)
+	
+	#saving names
+	names={}
+	wins={}
+	for i in data.names:
+		names.set(i[0],i[1])
+	for i in data.wins:
+		wins.set(i[0],i[1])		
+				
 	for i in range(data.wins.size()):
 		print(i)
 		print(data.playerPos[i])
@@ -69,6 +81,7 @@ func user_joining_game(args):
 			my_piece = piece
 	if data.playerTurn == my_ID:
 		my_turn = true
+	
 	
 	
 	
@@ -90,6 +103,11 @@ func play():
 	print("PLAYYYINGGGGG brrrrrr")
 	print(window_js.play(room_id))
 
+
+func set_labels():
+	for i in range(wins.size()):
+		pass
+	pass
 
 func _on_dice_clicked(viewport, event, shape_idx):
 	if not my_turn:
