@@ -38,4 +38,10 @@ export class Home {
     }
 
 
+
+        async clickOnPlayWithFriends() {
+
+        await this.page.getByRole('button', { name: 'Play with friends' }).click();
+    }
+
 }
