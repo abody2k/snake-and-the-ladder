@@ -7,6 +7,7 @@ export class Auth {
     signUpButton: Locator
 
     loggedInLabel: Locator
+    switchingLocator: Locator
 
     constructor(private page: Page) {
 
@@ -14,7 +15,7 @@ export class Auth {
         this.signUpButton = page.getByRole('button', { name: 'Sign up' })
 
         this.loggedInLabel = page.getByText('You Have already signed in!')
-
+        this.switchingLocator = page.getByRole('button', { name: 'Click here if you want to' });
 
 
     }

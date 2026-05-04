@@ -45,4 +45,23 @@ test.describe("UI tests go here", () => {
 
         await expect(page).toHaveURL(/.*auth/)
     })
+
+
+    test("Signs up with new valid credentials", async ({ page, home, auth }) => {
+
+
+        await home.goHome();
+        await home.clickOnAuthInTopBar();
+        await auth.fillUsername("a very new uersname");
+        await auth.fillPassword("a very new password");
+        if ((await auth.switchingLocator.textContent())?.includes("sign up")) {
+            await auth.switchBetweenLoginAndSignUp(); // switch only if the current UI is for logging in
+        }
+
+        await auth.clickOnSignUp();
+
+        await expect(page).toHaveURL(process.env.BASE_URL);
+
+
+    })
 })
