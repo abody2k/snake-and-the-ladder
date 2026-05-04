@@ -1,0 +1,16 @@
+services:
+
+  backend:
+
+    build:
+      dockerfile: docker/backend.dockerfile
+    ports:
+      - 80:3000
+  
+
+  redis:
+    image: redis
+    
+  frontend:
+    build:
+      dockerfile: docker/frontend.dockerfile
