@@ -39,5 +39,9 @@ export class Auth {
     }
 
 
+    async clickOnSignUp(){
+
+        await this.signUpButton.click();
+    }
 
 }
