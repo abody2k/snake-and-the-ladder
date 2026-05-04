@@ -7,9 +7,9 @@ import * as io from "socket.io"
 import { createServer } from "http"
 import { joinRoom, playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
 import { getLeaderboard } from './leaderboard.ts';
-
 import cors from "cors"
-
+ // @ts-ignore
+import { handler } from "./public/handler.js";
 
 initDotEnv();
 
@@ -289,7 +289,7 @@ app.post("/api/play", async (req, res) => {
 })
 
 
-
+app.use(handler);
 
 server.listen(3000, async () => {
 

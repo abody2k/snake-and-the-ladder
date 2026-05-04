@@ -20,8 +20,8 @@ export function isUserAuthorized(headers: IncomingHttpHeaders): { userID: string
     if (token) {
 
         try {
-            let data = jwt.verify(token, process.env.SECRET)
-            return data
+            let data = jwt.verify(token, process.env.SECRET as string);
+            return (data as { userID: string, username: string }  );
         } catch (error) {
             return null;
 
@@ -38,7 +38,7 @@ export function getTokenData(token: string) {
     if (token) {
 
         try {
-            let data = jwt.verify(token, process.env.SECRET)
+            let data = jwt.verify(token, process.env.SECRET as string)
             return data as {
                 userID: string, username: string
             }
