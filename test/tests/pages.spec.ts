@@ -24,4 +24,14 @@ test.describe("UI tests go here",()=>{
     })
 
 
+        test("Goes to Leaderboard when clicking on Leaderboard link in top bat",async({home,page})=>{
+
+
+
+        await home.goHome(); // goes to homepage
+        await home.clickOnLeaderboardInTopBar(); // clicks on leaderboard link on topbar
+
+        await expect(page).toHaveURL(/.*leaderboard/)
+    })
+
 })
