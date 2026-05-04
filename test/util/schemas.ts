@@ -35,6 +35,7 @@ export const multiplayRoomSchema = zod.object({
     wins: zod.array((zod.tuple([zod.string(), zod.number()]))),
     playerTurn: zod.string(),
     playerPos: zod.array((zod.tuple([zod.string(), zod.number()]))),
+    names:zod.array((zod.tuple([zod.string(), zod.string()])))
 })
 
 /**
