@@ -10,14 +10,13 @@ import * as io from "socket.io"
  */
 export const TRAPS: { [key: number]: number } = {
 
-
-    11: 1,
-
-    24: 9,
-    99: 70,
-
-    33: 7,
-    67: 44
+41:19,
+99:59,
+92:52,
+28:8,
+5:55,
+29:71,
+74:93
 }
 
 
