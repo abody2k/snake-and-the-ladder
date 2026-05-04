@@ -93,7 +93,8 @@
 
 </div>
 {:else}
-    <Modal
+<div title="modal id">
+        <Modal
         class="flex items-center justify-center  size-fit"
         form
         title={login ? "Logging in" : "Signing up"}
@@ -102,6 +103,8 @@
     >
         <Spinner size="12" type="pulse"></Spinner>
     </Modal>
+</div>
+
     <div class="flex justify-center items-center">
         <Listgroup>
             <ListgroupItem>
@@ -121,20 +124,20 @@
                 </ListgroupItem>
             {:else}
                 <ListgroupItem>
-                    <Button color="dark" onclick={signupRequest}>Sign up</Button
+                    <Button color="dark" title="signup" onclick={signupRequest}>Sign up</Button
                     >
                 </ListgroupItem>
             {/if}
 
             {#if login}
                 <ListgroupItem>
-                    <Button onclick={flipLoginSignup}>
+                    <Button title="switch" onclick={flipLoginSignup}>
                         Click here if you want to sign up</Button
                     >
                 </ListgroupItem>
             {:else}
                 <ListgroupItem>
-                    <Button onclick={flipLoginSignup}
+                    <Button title="switch" onclick={flipLoginSignup}
                         >Click here if you want to login</Button
                     >
                 </ListgroupItem>
