@@ -6,7 +6,7 @@ export class Auth {
     loginButton: Locator
     signUpButton: Locator
 
-    loggedInLabel : Locator
+    loggedInLabel: Locator
 
     constructor(private page: Page) {
 
@@ -14,7 +14,7 @@ export class Auth {
         this.signUpButton = page.getByRole('button', { name: 'Sign up' })
 
         this.loggedInLabel = page.getByText('You Have already signed in!')
-        
+
 
 
     }
@@ -37,15 +37,21 @@ export class Auth {
     }
 
 
-    async clickOnLogin(){
+    async clickOnLogin() {
 
         await this.loginButton.click();
     }
 
 
-    async clickOnSignUp(){
+    async clickOnSignUp() {
 
         await this.signUpButton.click();
+    }
+
+
+    async logOut() {
+
+        await this.page.getByRole('button', { name: 'Click here to logout' }).click()
     }
 
 }
