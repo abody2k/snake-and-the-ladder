@@ -19,15 +19,22 @@ export class Home {
     }
 
 
-        async clickOnAuthInTopBar() {
+    async clickOnAuthInTopBar() {
 
         await this.page.getByRole('link', { name: 'sign in / sign up' }).click();
     }
 
 
-        async clickOnLeaderboardInTopBar() {
+    async clickOnLeaderboardInTopBar() {
 
         await this.page.getByRole('link', { name: 'leaderboard' }).click();
+    }
+
+
+
+    async clickOnPlayAgainstAI() {
+
+        await this.page.getByRole('button', { name: 'Play against AI' }).click();
     }
 
 
