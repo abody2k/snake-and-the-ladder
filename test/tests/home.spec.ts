@@ -1,5 +1,5 @@
 import { expect, test } from "../fixtures/globalFixture";
-import { register } from "./flows/auth.flows";
+import { register } from "../flows/auth.flows";
 
 
 /**
