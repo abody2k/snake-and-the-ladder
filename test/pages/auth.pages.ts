@@ -33,4 +33,11 @@ export class Auth {
     }
 
 
+    async clickOnLogin(){
+
+        await this.loginButton.click();
+    }
+
+
+
 }
