@@ -20,7 +20,7 @@ jobs:
       run: cd test && npx playwright install --with-deps
 
     - name: Building and running docker compose
-      run: docker compose -f compose.production.yaml up -d
+      run: ls && pwd && sleep 7 && docker compose -f compose.production.yaml up -d
 
     - name: Run Playwright tests
       run: cd test && sleep 10 && npx playwright test --project=firefox

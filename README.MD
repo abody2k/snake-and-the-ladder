@@ -8,6 +8,9 @@ The system is fully Dockerized, tested using Playwright, and designed with clear
 
 ---
 
+[![tests and production](https://github.com/abody2k/snake-and-the-ladder/actions/workflows/main.yml/badge.svg)](https://github.com/abody2k/snake-and-the-ladder/actions/workflows/main.yml)
+
+
 ## Tech Stack
 
 **Frontend**
