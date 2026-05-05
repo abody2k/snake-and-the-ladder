@@ -137,10 +137,9 @@ GitHub Actions pipeline:
 
 ## Screenshots / Demo
 
-![dashboard](./media/)
-![Game leaderboard](./media/)
-![Auth UI](./media/)
-![Game dashboard](./media/)
+![game play](./media/gameplay.mp4)
+
+
 ![reports](./media/)
 
 ---
