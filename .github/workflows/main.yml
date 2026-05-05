@@ -24,8 +24,13 @@ jobs:
         # We will install the tests dependencies first
     - name: Install dependencies
       run: cd test && npm ci
+
+
     - name: Install Playwright Browsers
       run: cd test && npx playwright install --with-deps
+
+    - name: Building the images
+      run: docker compose -f compose.prod.yaml build
 
     - name: Building and running docker compose
       run: ls && pwd && sleep 7 && docker compose -f compose.prod.yaml up -d
@@ -43,6 +48,14 @@ jobs:
 
     - name: Shut down container
       run: docker compose -f compose.prod.yaml down
+
+    - name: logging in docker
+      uses: docker/login-action@v3
+      with:
+        username: ${{secrets.NAME }}
+        password: ${{secrets.TOKEN }}
+    - name: pushing images to dockerhub
+      run: docker compose -f compose.prod.yaml push
 
     - name: Setup Pages
       uses: actions/configure-pages@v5
