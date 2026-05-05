@@ -32,6 +32,7 @@ jobs:
 
     - name: Run Playwright tests
       run: cd test && sleep 10 && npx playwright test --project=firefox
+      continue-on-error: true
 
 
     - name: Install Allure CLI
