@@ -143,8 +143,10 @@ GitHub Actions pipeline:
 ![game play](./media/gameplay.mp4)
 
 
-![reports](./media/)
+![reports](./media/2.png)
+![reports](./media/3.png)
 
+![Pipeline](./media/Untitled.png)
 ---
 
 ## What I Learned
