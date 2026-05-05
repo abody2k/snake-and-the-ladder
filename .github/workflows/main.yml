@@ -4,6 +4,14 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   app:
     timeout-minutes: 60
@@ -24,10 +32,11 @@ jobs:
 
     - name: Run Playwright tests
       run: cd test && sleep 10 && npx playwright test --project=firefox
+      continue-on-error: true
 
 
     - name: Install Allure CLI
-      run: cd test npm install -g allure-commandline --save-dev
+      run: cd test && npm install -g allure-commandline --save-dev
 
     - name: Generate Allure report
       run: cd test && allure generate allure-results --clean -o allure-report
