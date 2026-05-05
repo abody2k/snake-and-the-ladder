@@ -14,7 +14,7 @@ type MultiplayerRoomData = {
 export async function postRequest(url: string, data: {}, token?: string) {
 
     if (token) {
-        return await fetch("http://localhost:3000/api/" + url, {
+        return await fetch(`/api/` + url, {
             body: JSON.stringify(data),
             method: "POST",
             headers: {
@@ -25,7 +25,7 @@ export async function postRequest(url: string, data: {}, token?: string) {
         });
     } else {
 
-        return await fetch("http://localhost:3000/api/" + url, {
+        return await fetch(`/api/` + url, {
             body: JSON.stringify(data),
             method: "POST",
             headers: {
@@ -42,7 +42,7 @@ export async function postRequest(url: string, data: {}, token?: string) {
 export async function getRequest(url: string,) {
 
 
-    return await fetch("http://localhost:3000/api/" + url, {
+    return await fetch(`/api/` + url, {
         method: "GET",
         headers: {
             'Content-Type': "Application/json"

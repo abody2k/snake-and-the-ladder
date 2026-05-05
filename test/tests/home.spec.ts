@@ -10,7 +10,7 @@ import { register } from "../flows/auth.flows";
  * in one place, otherwise I would have use seperate files for
  * each UI
  */
-test.describe("UI tests go here", () => {
+test.describe("UI tests go here", () => { 
 
 
 

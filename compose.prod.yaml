@@ -1,0 +1,22 @@
+services:
+
+  app:
+
+    build:
+      dockerfile: docker/app.dockerfile
+    ports:
+      - 80:3000
+    environment:
+      - SECRET="You smell like carrots!"
+
+
+  
+
+  redis:
+    image: redis
+
+  # frontend:
+  #   build: 
+  #     dockerfile: docker/frontend.dockerfile
+  #   ports:
+  #     - 80:3000

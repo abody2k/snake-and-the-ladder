@@ -24,7 +24,7 @@ export async function register({ username, password }: { username: string, passw
         await client.set(`${username}ID`, playerID)
         client.destroy();
 
-        return { token: jwt.sign({ userID: playerID, username: username }, process.env.SECRET), userID: playerID };
+        return { token: jwt.sign({ userID: playerID, username: username }, process.env.SECRET as string), userID: playerID };
     }
 
 
@@ -46,7 +46,7 @@ export async function login({ username, password }: { username: string, password
 
         if (await verify(hashh, password)) {
             let playerID = (await client.get(`${username}ID`)) as string
-            return { token: jwt.sign({ userID: playerID, "username": username }, process.env.SECRET), userID: playerID }
+            return { token: jwt.sign({ userID: playerID, "username": username }, process.env.SECRET as string), userID: playerID }
         } else {
 
             return false;
