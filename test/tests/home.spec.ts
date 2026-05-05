@@ -68,7 +68,7 @@ test.describe("UI tests go here", () => {
 
             return localStorage.getItem("userID");
         })
-        expect(page).toHaveURL(/\/room\/\d+$/)
+        expect(page).toHaveURL(/\/rooms\/\d+(\/)?$/)
 
     })
 
