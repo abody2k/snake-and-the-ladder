@@ -30,6 +30,8 @@ WORKDIR /app
 COPY --from=build /backend/dist .
 RUN mkdir public
 COPY --from=build /frontend/build public/
+COPY --from=build /frontend/package.json public/
 COPY --from=build /backend/package.json .
-
-CMD sh -c "npm i && ls && pwd && node index.js"
+RUN cd public && npm i
+RUN npm i
+CMD sh -c "node index.js"
