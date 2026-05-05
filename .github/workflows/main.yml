@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  test:
+  app:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -13,15 +13,41 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+        # We will install the tests dependencies first
     - name: Install dependencies
-      run: npm ci
+      run: cd test && npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: cd test && npx playwright install --with-deps
+
+    - name: Building and running docker compose
+      run: docker compose -f compose.production.yaml up -d
+
     - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+      run: cd test && sleep 10 && npx playwright test --project=firefox
+
+
+    - name: Install Allure CLI
+      run: cd test npm install -g allure-commandline --save-dev
+
+    - name: Generate Allure report
+      run: cd test && allure generate allure-results --clean -o allure-report
+
+    - name: Shut down container
+      run: docker compose -f compose.prod.yaml down
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+        path: test/allure-report/
+
+
+  deploy:
+    needs: app
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
