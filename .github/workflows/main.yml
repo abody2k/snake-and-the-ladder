@@ -36,7 +36,7 @@ jobs:
 
 
     - name: Install Allure CLI
-      run: cd test npm install -g allure-commandline --save-dev
+      run: cd test && npm install -g allure-commandline --save-dev
 
     - name: Generate Allure report
       run: cd test && allure generate allure-results --clean -o allure-report
