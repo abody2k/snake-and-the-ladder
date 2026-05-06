@@ -6,7 +6,7 @@ import { authSchema } from "../util/schemas";
 import dotenv from "dotenv"
 import path from "path"
 import { randomInt } from "crypto";
-import { getRoomData } from "../api/rooms.api";
+import { createRoom, getRoomData } from "../api/rooms.api";
 
 
 console.log('CONFIGURING EVERYTHING...');
@@ -107,4 +107,26 @@ test.describe("Api tests goes here", () => {
         expect(response.statusText).toBe("Not Found");
 
     })
+
+
+
+
+
+
+
+    test("Returns room data when valid roomID is provided ", async ({ }) => {
+
+
+        const username = "username : " + randomInt(100000);
+        const authData = await register(username, "random password");
+        const token = authData.data.token;
+        const roomID = authData.data.userID;
+        await createRoom(token);
+        const response = await getRoomData(roomID);
+        expect(response.status).toBe(200)// http status
+        expect(response.statusText).toBe("OK");
+
+    })
+
+
 })
