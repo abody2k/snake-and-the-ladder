@@ -8,7 +8,7 @@ import { createServer } from "http"
 import { joinRoom, playMultiplayer, startMultiplayerGame } from './multiplayerLogic.ts';
 import { getLeaderboard } from './leaderboard.ts';
 import cors from "cors"
- // @ts-ignore
+// @ts-ignore
 import { handler } from "./public/handler.js";
 
 initDotEnv();
@@ -75,7 +75,7 @@ socketIOServer.on('connection', (socket) => {
         if (tokenData) {
             let roomData = await getRoom(data.roomID);
             if (roomData != null) {
-                await joinRoom(tokenData.userID,tokenData.username, roomData as MultiplayerRoomData, data.roomID)
+                await joinRoom(tokenData.userID, tokenData.username, roomData as MultiplayerRoomData, data.roomID)
                 //leave previous rooms
                 const rooms = socket.rooms;
                 if (rooms.size > 1) {
@@ -99,7 +99,7 @@ socketIOServer.on('connection', (socket) => {
 
                 console.log("CREATED A ROOM");
 
-                await createMultiplayerRoom(tokenData.userID,tokenData.username)
+                await createMultiplayerRoom(tokenData.userID, tokenData.username)
                 roomData = await getRoom(tokenData.userID);
                 socket.join(tokenData.userID)
                 console.log(`Making room with UD ${tokenData.userID}`);
@@ -153,12 +153,12 @@ app.get("/api/getRoom/:roomID", async (req, res) => {
 
 
 
-    if (req.params.roomID) {
+    if (!(isNaN(Number(req.params.roomID))) && req.params.roomID.length > 0) {
 
         try {
             let roomData = await getRoom(req.params.roomID);
-            if(roomData)
-            res.json(roomData);
+            if (roomData)
+                res.json(roomData);
             else
                 res.sendStatus(404);
 
@@ -166,7 +166,7 @@ app.get("/api/getRoom/:roomID", async (req, res) => {
             res.sendStatus(400);
 
         }
-    }else{
+    } else {
         res.sendStatus(400);
     }
 })
@@ -257,7 +257,7 @@ app.post("/api/startGameM", async (req, res) => { // multiplayer game
 
     if (token) {
         const userID = token.userID;
-        await startMultiplayerGame(userID,token.username);
+        await startMultiplayerGame(userID, token.username);
         res.sendStatus(201);
     } else {
 
