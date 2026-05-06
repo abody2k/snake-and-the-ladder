@@ -33,9 +33,7 @@
 
     onMount(async () => {
         let intervalID = setInterval(() => {
-            console.log("checking ...");
-            console.log(window);
-            console.log(window[0]);
+
 
             if (window[0]) {
                 listenToAllEvents(getSocket());
@@ -60,21 +58,16 @@
                 socket = getSocket();
 
                 socket.removeAllListeners();
-                console.log("Making a new room as the room owner");
-
                 roomDataMultiplayer = await startMultiplayerGame(socket);
                 initUserWithData(roomDataMultiplayer,page.params.userID);
-                console.log(roomDataMultiplayer);
             }
         } else {
             //joining somebody's else room
             socket = getSocket();
             window.play = playAgainstPlayer;
             socket.removeAllListeners();
-            console.log("Joining somebody's else room");
             roomDataMultiplayer = await joinRoom(socket, page.params.userID);
             initUserWithData(roomDataMultiplayer,page.params.userID);
-            console.log(roomDataMultiplayer);
 
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }
