@@ -7,6 +7,9 @@ services:
     image: abody2k/snake-and-the-ladder
     ports:
       - 80:3000
+    # un comment the next lines for debugging puorposes only
+    # volumes:
+    #   - ./frontend/snake-and-ladder/static:/game/
     environment:
       - SECRET="You smell like carrots!"
 

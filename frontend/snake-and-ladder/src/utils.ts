@@ -79,8 +79,12 @@ export async function makeRoom() {
 
 export async function playAgainstAI() {
 
-    return await (await postRequest("play", {}, localStorage.getItem("token") as string)).json()
-
+    let data= (await postRequest("play", {}, localStorage.getItem("token") as string))
+    let jsonData = (await data.json())
+    console.log(jsonData);
+    
+    window[0].played(JSON.stringify(jsonData));
+    
 }
 
 
@@ -90,7 +94,6 @@ export async function startMultiplayerGame(socket: Socket): Promise<MultiplayerR
     const token = localStorage.getItem("token");
     const roomID = localStorage.getItem("userID");
     let response;
-    console.log({ token, roomID });
 
     if (token && roomID)
         response = await socket.emitWithAck("joinRoom", { token, roomID })
@@ -106,7 +109,6 @@ export async function joinRoom(socket: Socket, roomID: any): Promise<Multiplayer
 
     const token = localStorage.getItem("token");
     let response;
-    console.log({ token, roomID });
 
     if (token && roomID)
         response = await socket.emitWithAck("joinRoom", { token, roomID })
@@ -120,8 +122,7 @@ export async function joinRoom(socket: Socket, roomID: any): Promise<Multiplayer
 
 
 export async function playAgainstPlayer(roomID : string) {
-    console.log("Playing invoked .......");
-    console.log(roomID);
+
     
     let socket = getSocket();
     const token = localStorage.getItem("token");
@@ -131,7 +132,6 @@ export async function playAgainstPlayer(roomID : string) {
     else
         throw new Error("You are not signed in or your token has expired");
 
-    console.log(response);
     
     return response == 200;
 }
@@ -139,11 +139,9 @@ export async function playAgainstPlayer(roomID : string) {
 
 export function listenToAllEvents(socket: Socket) {
 
-    console.log("listening");
 
     socket.on("played", (data) => {
-        console.log("PLAYED GOT FIRED");
-        console.log(JSON.parse(data));
+
 
         window[0].gameUpdated(data);
     });
@@ -151,8 +149,6 @@ export function listenToAllEvents(socket: Socket) {
     socket.on("someoneJoined", (data: any) => {
 
         //talk to godot and share the info
-        console.log(typeof data);
-        console.log("someone joined GOT FIRED");
         window[0].userJoined(JSON.stringify(data));
 
     });

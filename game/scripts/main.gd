@@ -4,9 +4,13 @@ var window_js : JavaScriptObject
 var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
 var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
 var init_game_ref = JavaScriptBridge.create_callback(init_data)
+var play_ref = JavaScriptBridge.create_callback(single_player_played)
+
+	
 var my_turn = false
-var my_ID = ""
-var room_id = ""
+var my_ID = "x"
+var room_id = "x"
+var playing_against_AI = true
 
 var names = {}
 var wins ={}
@@ -17,6 +21,7 @@ const ROW = preload("res://scenes/row.tscn")
 var my_piece
 
 func init_data(args):
+	piece_manager = $pieces
 	print("INITALIZED ALL DATA with this : ")
 	var real_data = JSON.parse_string(args[0])
 	print(real_data)
@@ -27,6 +32,10 @@ func init_data(args):
 	add_child(my_piece)
 	my_piece.set_pos(real_data.pos)
 	my_piece.id = my_ID
+	playing_against_AI = false
+	if my_ID == room_id:
+		my_turn = true
+		
 	
 	user_joining_game(args)
 	
@@ -43,15 +52,12 @@ func _ready():
 		window_js.userJoined = user_joining_game_ref
 		window_js.gameUpdated = game_updated_ref
 		window_js.init = init_game_ref
+		window_js.played = play_ref
 
 
-func _process(delta):
-	
-	if Input.is_action_just_pressed("playing"):
-		play()
 		
 
-var piece_manager 
+var piece_manager : Node2D
 
 	
 	
@@ -104,8 +110,13 @@ func game_updated(args):
 	user_joining_game([JSON.stringify(data.roomData)])
 	
 func play():
-	print("PLAYYYINGGGGG brrrrrr")
-	print(window_js.play(room_id))
+	$dice.play("moving")
+					#plyrPos: arr,
+				#pcPos: pcArr
+	window_js.play(room_id)
+	
+
+		
 
 
 func set_labels():
@@ -120,12 +131,35 @@ func set_labels():
 	pass
 
 func _on_dice_clicked(viewport, event, shape_idx):
-	if not my_turn:
+	if not my_turn and not playing_against_AI:
 		return
 	
 	if event is InputEventMouseButton:
 		print(event)
-		if (event as InputEventMouseButton).button_index == 1:
-			print("haaaaaaaa")
-			$dice.play("moving")
+		if (event as InputEventMouseButton).button_index == 1 and (event as InputEventMouseButton).pressed:
 			play()
+			
+			
+func single_player_played(args):
+	
+		var data = JSON.parse_string(args[0])
+
+		get_tree().call_group("pieces","queue_free")
+		var ai_piece = PIECE.instantiate()
+		var player_piece = PIECE.instantiate()
+		piece_manager = $pieces
+		piece_manager.add_child(ai_piece)
+		piece_manager.add_child(player_piece)
+		
+		
+		if (data.pcPos as Array).size() ==2:
+			ai_piece.set_pos(data.pcPos[1])
+		else:
+			ai_piece.set_pos(data.pcPos[0])
+		
+		if (data.plyrPos as Array).size() ==2:
+			player_piece.set_pos(data.plyrPos[1])
+		else:
+			player_piece.set_pos(data.plyrPos[0])		
+	
+	

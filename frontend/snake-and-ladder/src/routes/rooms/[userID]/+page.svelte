@@ -33,14 +33,17 @@
 
     onMount(async () => {
         let intervalID = setInterval(() => {
-            console.log("checking ...");
-            console.log(window);
-            console.log(window[0]);
+
 
             if (window[0]) {
                 listenToAllEvents(getSocket());
                 clearInterval(intervalID);
-                window[0].play = playAgainstPlayer;
+                if (itIsAI){
+                    window[0].play = playAgainstAI;
+                }else{
+                    window[0].play = playAgainstPlayer;
+                }
+                
             }
         }, 250);
 
@@ -55,26 +58,22 @@
 
             if (itIsAI) {
                 await makeRoom();
+                window.play = playAgainstAI;
             } else {
                 window.play = playAgainstPlayer;
                 socket = getSocket();
 
                 socket.removeAllListeners();
-                console.log("Making a new room as the room owner");
-
                 roomDataMultiplayer = await startMultiplayerGame(socket);
                 initUserWithData(roomDataMultiplayer,page.params.userID);
-                console.log(roomDataMultiplayer);
             }
         } else {
             //joining somebody's else room
             socket = getSocket();
             window.play = playAgainstPlayer;
             socket.removeAllListeners();
-            console.log("Joining somebody's else room");
             roomDataMultiplayer = await joinRoom(socket, page.params.userID);
             initUserWithData(roomDataMultiplayer,page.params.userID);
-            console.log(roomDataMultiplayer);
 
             myTurn = roomDataMultiplayer.playerTurn === myID;
         }
