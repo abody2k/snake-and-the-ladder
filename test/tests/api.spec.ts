@@ -43,7 +43,7 @@ test.describe("Api tests goes here", () => {
 
     test("returns token when valid credentials are provided", async ({ }) => {
         const username = "username : " + randomInt(100);
-        let registerResponse = await register(username, "some password");
+        await register(username, "some password");
         let response = await login(username, "some password");
         if (authSchema.safeParse(response.data).error) {
             console.log(authSchema.safeParse(response.data).error);
@@ -56,5 +56,18 @@ test.describe("Api tests goes here", () => {
     })
 
 
+
+
+    test("returns Bad Request when registering without a username", async ({ }) => {
+
+
+        const response = await register("", "some password");
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+    
 
 })
