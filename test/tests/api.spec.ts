@@ -77,4 +77,12 @@ test.describe("Api tests goes here", () => {
 
     })
 
+
+        test("returns Bad Request when no credentials are provided", async ({ }) => {
+        const response = await register("", "");
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
 })
