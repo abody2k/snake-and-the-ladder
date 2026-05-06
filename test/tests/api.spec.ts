@@ -98,7 +98,7 @@ test.describe("Api tests goes here", () => {
 
 
 
-        test("fails to return room data when an invalid roomID is provided ", async ({ }) => {
+    test("fails to return room data when an invalid roomID is provided ", async ({ }) => {
         const response = await getRoomData("Xsdcds");
         // all room IDs are made of numbers hence sending an ID with
         //a character means a room does not exist

@@ -21,14 +21,28 @@ export class ApiClient {
     }
 
 
-    async post(url: string, data: {}) {
+    async post(url: string, data: {}, token?: string) {
 
-        const response = await this.context.post(url, {
+        let response;
+        if (token) {
+            response = await this.context.post(url, {
 
-            data: data,
+                data: data,
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
 
 
-        });
+            });
+        } else {
+            response = await this.context.post(url, {
+
+                data: data,
+
+
+            });
+        }
+
 
         return {
             status: response.status(),
