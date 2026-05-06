@@ -8,6 +8,18 @@ export class ApiClient {
 
     }
 
+    isJson(text: string) {
+
+        try {
+            JSON.parse(text);
+        } catch (error) {
+
+            return false;
+
+        }
+        return true;
+    }
+
     static async createClient() {
         return new ApiClient(await request.newContext({
             baseURL: process.env.BASE_URL,
@@ -43,19 +55,11 @@ export class ApiClient {
             });
         }
 
-        if (response.status() >= 400) {
-            return {
-                status: response.status(),
-                data: {},
-                statusText: response.statusText()
-            };
-        } else {
-            return {
-                status: response.status(),
-                data: await response.json(),
-                statusText: response.statusText()
-            };
-        }
+        return {
+            status: response.status(),
+            data: this.isJson(await response.text()) ? await response.json() : (await response.text()),
+            statusText: response.statusText()
+        };
 
     }
 
@@ -79,19 +83,11 @@ export class ApiClient {
         }
 
 
-        if (response.status() >= 400) {
-            return {
-                status: response.status(),
-                data: {},
-                statusText: response.statusText()
-            };
-        } else {
-            return {
-                status: response.status(),
-                data: await response.json(),
-                statusText: response.statusText()
-            };
-        }
+        return {
+            status: response.status(),
+            data: this.isJson(await response.text()) ? await response.json() : (await response.text()),
+            statusText: response.statusText()
+        };
     }
 
 
