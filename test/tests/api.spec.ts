@@ -138,4 +138,15 @@ test.describe("Api tests goes here", () => {
     })
 
 
+    test("Creates a room when valid token is provided ", async ({ }) => {
+
+        const username = "username : " + randomInt(100000);
+        const authData = await register(username, "random password");
+        const token = authData.data.token;
+        const response = await createRoom(token);
+        expect(response.status).toBe(201)// http status
+        expect(response.statusText).toBe("Created");
+
+    })
+
 })
