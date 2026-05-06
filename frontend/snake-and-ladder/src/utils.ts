@@ -79,7 +79,7 @@ export async function makeRoom() {
 
 export async function playAgainstAI() {
 
-    return await (await postRequest("play", {}, localStorage.getItem("token") as string)).json()
+    return (await postRequest("play", {}, localStorage.getItem("token") as string))
 
 }
 
