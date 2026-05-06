@@ -104,7 +104,7 @@ test.describe("Api tests goes here", () => {
         //a character means a room does not exist
 
         expect(response.status).toBe(400)// http status
-        expect(response.statusText).toBe("Not Found");
+        expect(response.statusText).toBe("Bad Request");
 
     })
 

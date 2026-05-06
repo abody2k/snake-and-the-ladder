@@ -157,7 +157,7 @@ app.get("/api/getRoom/:roomID", async (req, res) => {
 
         try {
             let roomData = await getRoom(req.params.roomID);
-            if (roomData)
+            if (roomData && roomData != null)
                 res.json(roomData);
             else
                 res.sendStatus(404);
