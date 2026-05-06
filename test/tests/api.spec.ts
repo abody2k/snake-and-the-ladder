@@ -68,6 +68,13 @@ test.describe("Api tests goes here", () => {
     })
 
 
-    
+
+    test("returns Bad Request when registering without a password", async ({ }) => {
+        const username = "username : " + randomInt(100000);
+        const response = await register(username, "");
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
 
 })
