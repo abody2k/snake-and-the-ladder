@@ -163,6 +163,8 @@ app.get("/api/getRoom/:roomID", async (req, res) => {
             res.sendStatus(400);
 
         }
+    }else{
+        res.sendStatus(400);
     }
 })
 
