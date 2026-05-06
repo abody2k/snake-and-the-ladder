@@ -119,7 +119,7 @@ export async function pcPlay(playerID: string) {
 
     let roomData = await getRoom(playerID) as Data
     if (roomData) {
-        let dice = randomInt(1, 8); // throw dice
+        let dice = randomInt(1, 7); // throw dice
         let pcArr = [roomData.pcPos + dice] // add the new value to destination
         if (Object.hasOwn(TRAPS, pcArr[0] as number)) { // is it a trap?
             pcArr.push(TRAPS[pcArr[0] as number] as number) // if so take the player to a new destination   

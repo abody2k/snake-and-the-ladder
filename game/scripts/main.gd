@@ -110,7 +110,29 @@ func game_updated(args):
 	
 func play():
 	$dice.play("moving")
-	window_js.play(room_id)
+					#plyrPos: arr,
+				#pcPos: pcArr
+	var raw_data = window_js.play(room_id)
+	
+	if playing_against_AI:
+		var data = JSON.parse_string(raw_data)
+		get_tree().call_group("pieces","queue_free")
+		var ai_piece = PIECE.instantiate()
+		var player_piece = PIECE.instantiate()
+		piece_manager.add_child(ai_piece)
+		piece_manager.add_child(player_piece)
+		
+		
+		if (data.pcPos as Array).size() ==2:
+			ai_piece.set_pos(data.pcPos[1])
+		else:
+			ai_piece.set_pos(data.pcPos[0])
+		
+		if (data.plyrPos as Array).size() ==2:
+			player_piece.set_pos(data.plyrPos[1])
+		else:
+			player_piece.set_pos(data.plyrPos[0])		
+		
 
 
 func set_labels():
