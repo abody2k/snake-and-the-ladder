@@ -4,7 +4,7 @@ export async function getRoomData(roomID?: string) {
 
     const client = await ApiClient.createClient();
 
-    return await client.get(`/api/getRoom/${roomID}`);
+    return await client.get(roomID ? `/api/getRoom/${roomID}` : `/api/getRoom/`);
 }
 
 
