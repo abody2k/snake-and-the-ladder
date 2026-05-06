@@ -6,6 +6,7 @@ import { authSchema } from "../util/schemas";
 import dotenv from "dotenv"
 import path from "path"
 import { randomInt } from "crypto";
+import { getRoomData } from "../api/rooms.api";
 
 
 console.log('CONFIGURING EVERYTHING...');
@@ -85,4 +86,13 @@ test.describe("Api tests goes here", () => {
 
     })
 
+
+
+
+    test("fails to return room data when no roomID is provided ", async ({ }) => {
+        const response = await getRoomData();
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
 })
