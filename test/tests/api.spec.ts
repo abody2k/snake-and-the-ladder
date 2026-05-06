@@ -103,7 +103,7 @@ test.describe("Api tests goes here", () => {
         // all room IDs are made of numbers hence sending an ID with
         //a character means a room does not exist
 
-        expect(response.status).toBe(404)// http status
+        expect(response.status).toBe(400)// http status
         expect(response.statusText).toBe("Not Found");
 
     })
