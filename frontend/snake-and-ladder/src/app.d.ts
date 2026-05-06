@@ -16,6 +16,7 @@ declare global {
 		init: any,
 		godotReady: any,
 		ev: Event,
+		played: any
 	}
 }
 

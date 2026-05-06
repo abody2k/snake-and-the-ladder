@@ -33,7 +33,7 @@ jobs:
       run: docker compose -f compose.prod.yaml build
 
     - name: Building and running docker compose
-      run: ls && pwd && sleep 7 && docker compose -f compose.prod.yaml up -d
+      run: docker compose -f compose.prod.yaml up -d
 
     - name: Run Playwright tests
       run: cd test && sleep 10 && npx playwright test --project=firefox

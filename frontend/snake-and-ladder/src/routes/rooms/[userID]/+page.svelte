@@ -38,7 +38,12 @@
             if (window[0]) {
                 listenToAllEvents(getSocket());
                 clearInterval(intervalID);
-                window[0].play = playAgainstPlayer;
+                if (itIsAI){
+                    window[0].play = playAgainstAI;
+                }else{
+                    window[0].play = playAgainstPlayer;
+                }
+                
             }
         }, 250);
 
