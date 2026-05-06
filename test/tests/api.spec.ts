@@ -129,4 +129,13 @@ test.describe("Api tests goes here", () => {
     })
 
 
+    test("Fails to create a room when valid token is not provided ", async ({ }) => {
+
+        const response = await createRoom();
+        expect(response.status).toBe(403)// http status
+        expect(response.statusText).toBe("Forbidden");
+
+    })
+
+
 })

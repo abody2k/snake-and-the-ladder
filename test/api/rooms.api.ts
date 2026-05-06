@@ -10,7 +10,7 @@ export async function getRoomData(roomID?: string) {
 
 
 
-export async function createRoom(token: string) {
+export async function createRoom(token?: string) {
 
     const client = await ApiClient.createClient();
 

@@ -244,7 +244,7 @@ app.post("/api/startGame", async (req, res) => {
         res.sendStatus(201);
     } else {
 
-        res.sendStatus(400);
+        res.sendStatus(403);
     }
 })
 
