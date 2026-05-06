@@ -5,8 +5,9 @@ var user_joining_game_ref = JavaScriptBridge.create_callback(user_joining_game)
 var game_updated_ref = JavaScriptBridge.create_callback(game_updated)
 var init_game_ref = JavaScriptBridge.create_callback(init_data)
 var my_turn = false
-var my_ID = ""
-var room_id = ""
+var my_ID = "x"
+var room_id = "x"
+var playing_against_AI = true
 
 var names = {}
 var wins ={}
@@ -27,6 +28,10 @@ func init_data(args):
 	add_child(my_piece)
 	my_piece.set_pos(real_data.pos)
 	my_piece.id = my_ID
+	playing_against_AI = false
+	if my_ID == room_id:
+		my_turn = true
+		
 	
 	user_joining_game(args)
 	
@@ -104,8 +109,8 @@ func game_updated(args):
 	user_joining_game([JSON.stringify(data.roomData)])
 	
 func play():
-	print("PLAYYYINGGGGG brrrrrr")
-	print(window_js.play(room_id))
+	$dice.play("moving")
+	window_js.play(room_id)
 
 
 func set_labels():
@@ -126,6 +131,4 @@ func _on_dice_clicked(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		print(event)
 		if (event as InputEventMouseButton).button_index == 1:
-			print("haaaaaaaa")
-			$dice.play("moving")
 			play()

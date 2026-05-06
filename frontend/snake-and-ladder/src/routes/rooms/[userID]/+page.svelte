@@ -53,6 +53,7 @@
 
             if (itIsAI) {
                 await makeRoom();
+                window.play = playAgainstAI;
             } else {
                 window.play = playAgainstPlayer;
                 socket = getSocket();
