@@ -43,12 +43,20 @@ export class ApiClient {
             });
         }
 
+        if (response.status() >= 400) {
+            return {
+                status: response.status(),
+                data: {},
+                statusText: response.statusText()
+            };
+        } else {
+            return {
+                status: response.status(),
+                data: await response.json(),
+                statusText: response.statusText()
+            };
+        }
 
-        return {
-            status: response.status(),
-            data: await response.json(),
-            statusText: response.statusText()
-        };
     }
 
 
@@ -71,11 +79,19 @@ export class ApiClient {
         }
 
 
-        return {
-            status: response.status(),
-            data: await response.json(),
-            statusText: response.statusText()
-        };
+        if (response.status() >= 400) {
+            return {
+                status: response.status(),
+                data: {},
+                statusText: response.statusText()
+            };
+        } else {
+            return {
+                status: response.status(),
+                data: await response.json(),
+                statusText: response.statusText()
+            };
+        }
     }
 
 
