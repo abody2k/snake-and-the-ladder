@@ -6,6 +6,7 @@ import { authSchema } from "../util/schemas";
 import dotenv from "dotenv"
 import path from "path"
 import { randomInt } from "crypto";
+import { createRoom, getRoomData } from "../api/rooms.api";
 
 
 console.log('CONFIGURING EVERYTHING...');
@@ -43,7 +44,7 @@ test.describe("Api tests goes here", () => {
 
     test("returns token when valid credentials are provided", async ({ }) => {
         const username = "username : " + randomInt(100);
-        let registerResponse = await register(username, "some password");
+        await register(username, "some password");
         let response = await login(username, "some password");
         if (authSchema.safeParse(response.data).error) {
             console.log(authSchema.safeParse(response.data).error);
@@ -56,5 +57,96 @@ test.describe("Api tests goes here", () => {
     })
 
 
+
+
+    test("returns Bad Request when registering without a username", async ({ }) => {
+
+
+        const response = await register("", "some password");
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+
+    test("returns Bad Request when registering without a password", async ({ }) => {
+        const username = "username : " + randomInt(100000);
+        const response = await register(username, "");
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+    test("returns Bad Request when no credentials are provided", async ({ }) => {
+        const response = await register("", "");
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+
+
+    test("fails to return room data when no roomID is provided ", async ({ }) => {
+        const response = await getRoomData();
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+
+    test("fails to return room data when an invalid roomID is provided ", async ({ }) => {
+        const response = await getRoomData("Xsdcds");
+        // all room IDs are made of numbers hence sending an ID with
+        //a character means a room does not exist
+
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+
+
+
+
+
+    test("Returns room data when valid roomID is provided ", async ({ }) => {
+
+
+        const username = "username : " + randomInt(100000);
+        const authData = await register(username, "random password");
+        const token = authData.data.token;
+        const roomID = authData.data.userID;
+        await createRoom(token);
+        const response = await getRoomData(roomID);
+        expect(response.status).toBe(200)// http status
+        expect(response.statusText).toBe("OK");
+
+    })
+
+
+    test("Fails to create a room when valid token is not provided ", async ({ }) => {
+
+        const response = await createRoom();
+        expect(response.status).toBe(403)// http status
+        expect(response.statusText).toBe("Forbidden");
+
+    })
+
+
+    test("Creates a room when valid token is provided ", async ({ }) => {
+
+        const username = "username : " + randomInt(100000);
+        const authData = await register(username, "random password");
+        const token = authData.data.token;
+        const response = await createRoom(token);
+        expect(response.status).toBe(201)// http status
+        expect(response.statusText).toBe("Created");
+
+    })
 
 })

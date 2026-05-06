@@ -8,6 +8,18 @@ export class ApiClient {
 
     }
 
+    isJson(text: string) {
+
+        try {
+            JSON.parse(text);
+        } catch (error) {
+
+            return false;
+
+        }
+        return true;
+    }
+
     static async createClient() {
         return new ApiClient(await request.newContext({
             baseURL: process.env.BASE_URL,
@@ -21,20 +33,34 @@ export class ApiClient {
     }
 
 
-    async post(url: string, data: {}) {
+    async post(url: string, data: {}, token?: string) {
 
-        const response = await this.context.post(url, {
+        let response;
+        if (token) {
+            response = await this.context.post(url, {
 
-            data: data,
+                data: data,
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
 
 
-        });
+            });
+        } else {
+            response = await this.context.post(url, {
+
+                data: data,
+
+
+            });
+        }
 
         return {
             status: response.status(),
-            data: await response.json(),
+            data: this.isJson(await response.text()) ? await response.json() : (await response.text()),
             statusText: response.statusText()
         };
+
     }
 
 
@@ -59,7 +85,7 @@ export class ApiClient {
 
         return {
             status: response.status(),
-            data: await response.json(),
+            data: this.isJson(await response.text()) ? await response.json() : (await response.text()),
             statusText: response.statusText()
         };
     }
