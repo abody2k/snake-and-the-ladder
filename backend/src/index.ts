@@ -148,6 +148,11 @@ app.get("/api", async (req, res) => {
 
 
 
+app.get("/api/getRoom/", async (req, res) => {
+    res.sendStatus(400);
+
+})
+
 
 app.get("/api/getRoom/:roomID", async (req, res) => {
 
