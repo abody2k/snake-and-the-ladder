@@ -148,10 +148,20 @@ app.get("/api", async (req, res) => {
 
 
 
+app.get("/api/getRoom/", async (req, res) => {
+    res.sendStatus(400);
+
+})
+
 
 app.get("/api/getRoom/:roomID", async (req, res) => {
 
+    const roomID = req.params.roomID;
 
+    if (!/^\d+$/.test(roomID)) {
+        res.sendStatus(400);
+        return;
+    }
 
     if (!(isNaN(Number(req.params.roomID))) && req.params.roomID.length > 0) {
 
