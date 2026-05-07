@@ -152,10 +152,22 @@ test.describe("Api tests goes here", () => {
 
 
 
-    test("Fails to log in when invalid credentials are provided", async ({ }) => {
+    test("Fails to log in when username is not provided", async ({ }) => {
         const username = "username : " + randomInt(100);
         await register(username, "some password");
         let response = await login(username);
+        expect(authSchema.safeParse(response.data).success).toBeFalsy()// matches schema
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
+
+
+
+    test("Fails to log in when password is not provided", async ({ }) => {
+        const username = "username : " + randomInt(100);
+        await register(username, "some password");
+        let response = await login(undefined, "some password");
         expect(authSchema.safeParse(response.data).success).toBeFalsy()// matches schema
         expect(response.status).toBe(400)// http status
         expect(response.statusText).toBe("Bad Request");
