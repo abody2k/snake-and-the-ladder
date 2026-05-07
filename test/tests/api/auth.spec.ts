@@ -16,7 +16,7 @@ dotenv.config({
 
 
 
-test.describe("Api tests goes here", () => {
+test.describe("Api auth tests goes here", () => {
 
 
 

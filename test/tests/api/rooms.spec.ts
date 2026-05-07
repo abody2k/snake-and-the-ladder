@@ -15,7 +15,7 @@ dotenv.config({
 
 
 
-test.describe("Api tests goes here", () => {
+test.describe("Api rooms tests goes here", () => {
 
 
     test("fails to return room data when no roomID is provided ", async ({ }) => {
@@ -43,17 +43,38 @@ test.describe("Api tests goes here", () => {
 
 
 
-    test("Returns room data when valid roomID is provided ", async ({ }) => {
+    test("Returns room data when valid roomID is provided", async ({ }) => {
+
+        let username: string = "username : " + randomInt(100000);
+        let authData;
+        let token: string;
+        let roomID: string;
+        let response: {
+            status: number;
+            data: any;
+            statusText: string;
+        };
+        await test.step("Registeration", async () => {
+            authData = await register(username, "random password");
+            token = authData.data.token;
+            roomID = authData.data.userID;
+        });
+
+        await test.step("Room creation ", async () => {
+            await createRoom(token);
+
+        });
+
+        await test.step("Getting the room data", async () => {
+            response = await getRoomData(roomID);
+        });
 
 
-        const username = "username : " + randomInt(100000);
-        const authData = await register(username, "random password");
-        const token = authData.data.token;
-        const roomID = authData.data.userID;
-        await createRoom(token);
-        const response = await getRoomData(roomID);
-        expect(response.status).toBe(200)// http status
-        expect(response.statusText).toBe("OK");
+        await test.step("Final checks", async () => {
+            expect(response.status).toBe(200)// http status
+            expect(response.statusText).toBe("OK");
+        });
+
 
     })
 
