@@ -42,7 +42,7 @@ test.describe("Api tests goes here", () => {
 
     })
 
-    test("returns token when valid credentials are provided", async ({ }) => {
+    test("Logs in when valid credentials are provided", async ({ }) => {
         const username = "username : " + randomInt(100);
         await register(username, "some password");
         let response = await login(username, "some password");
@@ -149,4 +149,16 @@ test.describe("Api tests goes here", () => {
 
     })
 
+
+
+
+    test("Fails to log in when invalid credentials are provided", async ({ }) => {
+        const username = "username : " + randomInt(100);
+        await register(username, "some password");
+        let response = await login(username);
+        expect(authSchema.safeParse(response.data).success).toBeFalsy()// matches schema
+        expect(response.status).toBe(400)// http status
+        expect(response.statusText).toBe("Bad Request");
+
+    })
 })
