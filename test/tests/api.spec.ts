@@ -175,7 +175,7 @@ test.describe("Api tests goes here", () => {
     })
 
 
-        test("Fails to log in when no credentials are provided", async ({ }) => {
+    test("Fails to log in when no credentials are provided", async ({ }) => {
         const username = "username : " + randomInt(100000);
         await register(username, "some password");
         let response = await login();
