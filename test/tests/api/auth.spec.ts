@@ -16,9 +16,6 @@ dotenv.config({
 
 
 
-console.log([process.env.CLIENT, process.env.BASE_URL]);
-
-
 test.describe("Api tests goes here", () => {
 
 
